@@ -9,141 +9,141 @@
 
 <style>
 
-body {
+body{
     font-family: Arial, sans-serif;
-    background: #f6f1ff;
-    max-width: 1000px;
-    margin: auto;
-    padding: 20px;
+    background:#f6f1ff;
+    max-width:900px;
+    margin:auto;
+    padding:20px;
 }
 
-h1 {
-    color: #7c3aed;
+h1{
+    color:#7c3aed;
 }
 
-.kategori {
-    background: white;
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 20px;
+input[type="text"]{
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    border:1px solid #ddd;
+    margin-bottom:20px;
+    box-sizing:border-box;
 }
 
-label {
-    display: block;
-    margin: 8px 0;
+details{
+    background:white;
+    margin-bottom:15px;
+    border-radius:12px;
+    padding:15px;
+}
+
+summary{
+    font-weight:bold;
+    cursor:pointer;
+    font-size:18px;
+}
+
+.undergruppe{
+    margin-left:20px;
+    margin-top:10px;
+    background:#eef7f4;
+    border-radius:10px;
+    padding:10px;
+}
+
+label{
+    display:block;
+    margin:6px 0;
 }
 
 </style>
-
 </head>
 
 <body>
 
 <h1>🍹 Claras Cocktail App</h1>
 
-<div class="kategori">
-<h2>Spiritus</h2>
+<input type="text" id="søgning" placeholder="Søg i lager...">
 
-<label>
-<input type="checkbox">
-Gin
-</label>
+<details open>
+<summary>Spiritus</summary>
 
-<label>
-<input type="checkbox">
-Vodka
-</label>
+<div class="undergruppe">
+<strong>Gin</strong>
 
-<label>
-<input type="checkbox">
-Hvid Rom
-</label>
-
-<label>
-<input type="checkbox">
-Spiced Rom
-</label>
-
+<label><input type="checkbox"> June by G'Vine Peach Gin Liqueur</label>
+<label><input type="checkbox"> Gordon's Pink Gin</label>
+<label><input type="checkbox"> Gordon's London Dry</label>
+<label><input type="checkbox"> Hendrick's Gin</label>
 </div>
 
-<div class="kategori">
-<h2>Likører</h2>
+<div class="undergruppe">
+<strong>Vodka</strong>
 
-<label>
-<input type="checkbox">
-Aperol
-</label>
-
-<label>
-<input type="checkbox">
-Triple Sec
-</label>
-
+<label><input type="checkbox"> Absolut Vodka</label>
+<label><input type="checkbox"> Smirnoff Vodka</label>
 </div>
 
-<div class="kategori">
-<h2>Mixere</h2>
+<div class="undergruppe">
+<strong>Rom</strong>
 
-<label>
-<input type="checkbox">
-Sprite
-</label>
-
-<label>
-<input type="checkbox">
-Cola
-</label>
-
-<label>
-<input type="checkbox">
-Tonic
-</label>
-
+<label><input type="checkbox"> Captain Morgan Spiced Gold</label>
+<label><input type="checkbox"> Bacardi Carta Blanca</label>
 </div>
 
-<div class="kategori">
-<h2>Pantry</h2>
+<div class="undergruppe">
+<strong>Tequila</strong>
 
-<label>
-<input type="checkbox">
-Citronsaft
-</label>
-
-<label>
-<input type="checkbox">
-Limesaft
-</label>
-
-<label>
-<input type="checkbox">
-Ananasjuice
-</label>
-
+<label><input type="checkbox"> Tequila</label>
 </div>
 
-<script>
+<div class="undergruppe">
+<strong>Whisky</strong>
 
-const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+<label><input type="checkbox"> Whisky</label>
+</div>
 
-checkboxes.forEach((checkbox, index) => {
+</details>
 
-    const gemt = localStorage.getItem('lager_' + index);
+<details>
+<summary>Likører</summary>
 
-    if (gemt === 'true') {
-        checkbox.checked = true;
-    }
+<div class="undergruppe">
+<strong>Flødelikør</strong>
 
-    checkbox.addEventListener('change', () => {
-        localStorage.setItem(
-            'lager_' + index,
-            checkbox.checked
-        );
-    });
+<label><input type="checkbox"> Baileys Irish Cream</label>
+</div>
 
-});
+<div class="undergruppe">
+<strong>Kaffelikør</strong>
 
-</script>
+<label><input type="checkbox"> Sheridan's Coffee Liqueur</label>
+<label><input type="checkbox"> Kahlúa</label>
+</div>
 
-</body>
+<div class="undergruppe">
+<strong>Appelsinlikør</strong>
 
-</html>
+<label><input type="checkbox"> Triple Sec</label>
+<label><input type="checkbox"> Cointreau</label>
+</div>
+
+<div class="undergruppe">
+<strong>Ferskenlikør</strong>
+
+<label><input type="checkbox"> Peach Schnapps</label>
+</div>
+
+</details>
+
+<details>
+<summary>Aperitiffer</summary>
+
+<label><input type="checkbox"> Aperol</label>
+<label><input type="checkbox"> Campari</label>
+<label><input type="checkbox"> Limoncello</label>
+
+</details>
+
+<details>
+<summary>Vin & 
