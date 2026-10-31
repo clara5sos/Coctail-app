@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="da">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +11,7 @@
 body{
     font-family: Arial, sans-serif;
     background:#f6f1ff;
-    max-width:900px;
+    max-width:1000px;
     margin:auto;
     padding:20px;
 }
@@ -21,34 +20,33 @@ h1{
     color:#7c3aed;
 }
 
-input[type="text"]{
+#soegning{
     width:100%;
     padding:12px;
     border-radius:10px;
-    border:1px solid #ddd;
+    border:1px solid #ccc;
     margin-bottom:20px;
     box-sizing:border-box;
 }
 
 details{
     background:white;
-    margin-bottom:15px;
     border-radius:12px;
+    margin-bottom:15px;
     padding:15px;
 }
 
 summary{
-    font-weight:bold;
     cursor:pointer;
-    font-size:18px;
+    font-size:20px;
+    font-weight:bold;
 }
 
 .undergruppe{
-    margin-left:20px;
-    margin-top:10px;
-    background:#eef7f4;
+    background:#eef6f4;
     border-radius:10px;
-    padding:10px;
+    padding:12px;
+    margin-top:10px;
 }
 
 label{
@@ -57,13 +55,18 @@ label{
 }
 
 </style>
+
 </head>
 
 <body>
 
 <h1>🍹 Claras Cocktail App</h1>
 
-<input type="text" id="søgning" placeholder="Søg i lager...">
+<input
+id="soegning"
+type="text"
+placeholder="Søg i lager..."
+>
 
 <details open>
 <summary>Spiritus</summary>
@@ -105,6 +108,7 @@ label{
 
 </details>
 
+
 <details>
 <summary>Likører</summary>
 
@@ -136,6 +140,7 @@ label{
 
 </details>
 
+
 <details>
 <summary>Aperitiffer</summary>
 
@@ -145,5 +150,150 @@ label{
 
 </details>
 
+
 <details>
-<summary>Vin & 
+<summary>Vin & Bobler</summary>
+
+<label><input type="checkbox"> Prosecco</label>
+<label><input type="checkbox"> Mousserende vin</label>
+<label><input type="checkbox"> Hvidvin</label>
+<label><input type="checkbox"> Rosévin</label>
+<label><input type="checkbox"> Rødvin</label>
+
+</details>
+
+
+<details>
+<summary>Mixere</summary>
+
+<label><input type="checkbox"> Cola</label>
+<label><input type="checkbox"> Pepsi Max</label>
+<label><input type="checkbox"> Sprite</label>
+<label><input type="checkbox"> Lemon sodavand</label>
+<label><input type="checkbox"> Tonic</label>
+<label><input type="checkbox"> Ginger Beer</label>
+<label><input type="checkbox"> Ginger Ale</label>
+<label><input type="checkbox"> Danskvand</label>
+
+</details>
+
+
+<details>
+<summary>Juice</summary>
+
+<label><input type="checkbox"> Appelsinjuice</label>
+<label><input type="checkbox"> Ananasjuice</label>
+<label><input type="checkbox"> Tranebærjuice</label>
+<label><input type="checkbox"> Æblejuice</label>
+<label><input type="checkbox"> Mangojuice</label>
+
+</details>
+
+
+<details>
+<summary>Barlager</summary>
+
+<label><input type="checkbox"> Grenadine</label>
+<label><input type="checkbox"> Citronsaft</label>
+<label><input type="checkbox"> Limesaft</label>
+<label><input type="checkbox"> Sukkerlage</label>
+<label><input type="checkbox"> Jordbærsirup</label>
+<label><input type="checkbox"> Hindbærsirup</label>
+<label><input type="checkbox"> Mangosirup</label>
+<label><input type="checkbox"> Mynte</label>
+
+</details>
+
+
+<details>
+<summary>Øl & Cider</summary>
+
+<label><input type="checkbox"> Øl</label>
+<label><input type="checkbox"> Hvedeøl</label>
+<label><input type="checkbox"> Cider</label>
+<label><input type="checkbox"> Alkoholfri øl</label>
+
+</details>
+
+<script>
+
+// GEM CHECKBOXE
+
+const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+checkboxes.forEach((checkbox,index)=>{
+
+const key = "checkbox_"+index;
+
+if(localStorage.getItem(key)==="true"){
+checkbox.checked = true;
+}
+
+checkbox.addEventListener("change",function(){
+localStorage.setItem(key,this.checked);
+});
+
+});
+
+
+// GEM FOLD-UD KATEGORIER
+
+const detailsListe = document.querySelectorAll("details");
+
+detailsListe.forEach((item,index)=>{
+
+const key = "details_"+index;
+
+const gemt = localStorage.getItem(key);
+
+if(gemt==="lukket"){
+item.removeAttribute("open");
+}
+
+if(gemt==="aaben"){
+item.setAttribute("open","open");
+}
+
+item.addEventListener("toggle",()=>{
+
+if(item.open){
+localStorage.setItem(key,"aaben");
+}
+else{
+localStorage.setItem(key,"lukket");
+}
+
+});
+
+});
+
+
+// SØGNING
+
+document
+.getElementById("soegning")
+.addEventListener("input",function(){
+
+const tekst = this.value.toLowerCase();
+
+document.querySelectorAll("label").forEach(label=>{
+
+const navn = label.textContent.toLowerCase();
+
+if(
+navn.includes(tekst)
+){
+label.style.display="block";
+}
+else{
+label.style.display="none";
+}
+
+});
+
+});
+
+</script>
+
+</body>
+</html>
