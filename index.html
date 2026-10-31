@@ -20,6 +20,28 @@ h1{
     color:#7c3aed;
 }
 
+.menu{
+    background:white;
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:20px;
+}
+
+.menu a{
+    text-decoration:none;
+    font-weight:bold;
+    color:#7c3aed;
+    margin-right:20px;
+    font-size:18px;
+}
+
+.menu .aktiv{
+    background:#7c3aed;
+    color:white;
+    padding:8px 12px;
+    border-radius:8px;
+}
+
 #soegning{
     width:100%;
     padding:12px;
@@ -61,6 +83,11 @@ label{
 <body>
 
 <h1>🍹 Claras Cocktail App</h1>
+
+<div class="menu">
+<span class="aktiv">📦 Lager</span>
+<a href="cocktails.html">🍹 Cocktails</a>
+</div>
 
 <input
 id="soegning"
@@ -108,7 +135,6 @@ placeholder="Søg i lager..."
 
 </details>
 
-
 <details>
 <summary>Likører</summary>
 
@@ -140,7 +166,6 @@ placeholder="Søg i lager..."
 
 </details>
 
-
 <details>
 <summary>Aperitiffer</summary>
 
@@ -149,7 +174,6 @@ placeholder="Søg i lager..."
 <label><input type="checkbox"> Limoncello</label>
 
 </details>
-
 
 <details>
 <summary>Vin & Bobler</summary>
@@ -161,7 +185,6 @@ placeholder="Søg i lager..."
 <label><input type="checkbox"> Rødvin</label>
 
 </details>
-
 
 <details>
 <summary>Mixere</summary>
@@ -177,7 +200,6 @@ placeholder="Søg i lager..."
 
 </details>
 
-
 <details>
 <summary>Juice</summary>
 
@@ -188,7 +210,6 @@ placeholder="Søg i lager..."
 <label><input type="checkbox"> Mangojuice</label>
 
 </details>
-
 
 <details>
 <summary>Barlager</summary>
@@ -203,7 +224,6 @@ placeholder="Søg i lager..."
 <label><input type="checkbox"> Mynte</label>
 
 </details>
-
 
 <details>
 <summary>Øl & Cider</summary>
@@ -234,7 +254,6 @@ localStorage.setItem(key,this.checked);
 });
 
 });
-
 
 // GEM FOLD-UD KATEGORIER
 
@@ -267,7 +286,6 @@ localStorage.setItem(key,"lukket");
 
 });
 
-
 // SØGNING
 
 document
@@ -280,9 +298,7 @@ document.querySelectorAll("label").forEach(label=>{
 
 const navn = label.textContent.toLowerCase();
 
-if(
-navn.includes(tekst)
-){
+if(navn.includes(tekst)){
 label.style.display="block";
 }
 else{
