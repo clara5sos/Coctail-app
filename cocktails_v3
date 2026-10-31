@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Claras Cocktail App - V3</title>
+<title>Claras Cocktail App - Cocktails</title>
 
 <style>
 
@@ -48,42 +48,43 @@ h1{
     color:white;
 }
 
-.container{
+.indhold{
     padding:20px;
 }
 
-.filtre{
-    background:white;
-    padding:15px;
-    border-radius:12px;
-    margin-bottom:20px;
+#listeSide{
+    display:block;
+}
+
+#opskriftSide{
+    display:none;
 }
 
 #soegning{
     width:100%;
-    padding:10px;
-    border-radius:8px;
+    padding:12px;
+    border-radius:10px;
     border:1px solid #ccc;
+    margin-bottom:20px;
     box-sizing:border-box;
 }
 
 .kort{
     background:white;
-    padding:15px;
     border-radius:12px;
-    margin-bottom:12px;
+    padding:15px;
+    margin-bottom:15px;
     cursor:pointer;
 }
 
 .kort:hover{
-    background:#efe5ff;
+    background:#ece1ff;
 }
 
-.opskrift{
-    display:none;
+.opskriftKort{
     background:white;
-    padding:20px;
     border-radius:12px;
+    padding:20px;
 }
 
 .tilbage{
@@ -91,7 +92,7 @@ h1{
     border:none;
     border-radius:8px;
     cursor:pointer;
-    background:#ddd;
+    margin-bottom:20px;
 }
 
 .statusknapper{
@@ -106,9 +107,8 @@ h1{
     cursor:pointer;
 }
 
-.gemt{
-    background:#7c3aed;
-    color:white;
+h2{
+    margin-top:0;
 }
 
 </style>
@@ -128,9 +128,9 @@ h1{
 
 </header>
 
-<div class="container">
+<div class="indhold">
 
-<div class="filtre">
+<div id="listeSide">
 
 <input
 type="text"
@@ -138,17 +138,14 @@ id="soegning"
 placeholder="Søg cocktail..."
 >
 
-</div>
-
-<div id="liste">
-    <div class="kort" data-navn="aperol spritz" onclick="visOpskrift('aperol')">
+<div class="kort" data-navn="aperol spritz" onclick="visOpskrift('aperol')">
 <h3>🍹 Aperol Spritz</h3>
-<p>Frugtig cocktail med Aperol og Prosecco</p>
+<p>Frugtig cocktail med Aperol</p>
 </div>
 
 <div class="kort" data-navn="strawberry soda gin" onclick="visOpskrift('strawberry')">
 <h3>🍓 Strawberry Soda Gin</h3>
-<p>Sød og frugtig cocktail</p>
+<p>Sød jordbærcocktail</p>
 </div>
 
 <div class="kort" data-navn="espresso martini" onclick="visOpskrift('espresso')">
@@ -158,280 +155,265 @@ placeholder="Søg cocktail..."
 
 <div class="kort" data-navn="ananas cooler" onclick="visOpskrift('cooler')">
 <h3>🍍 Ananas Cooler</h3>
-<p>Frugtig mocktail</p>
+<p>Mocktail</p>
 </div>
 
 <div class="kort" data-navn="gin tonic" onclick="visOpskrift('gintonic')">
 <h3>🍸 Gin & Tonic</h3>
-<p>Klassisk gin cocktail</p>
+<p>Klassisk cocktail</p>
 </div>
 
 <div class="kort" data-navn="pineapple daiquiri" onclick="visOpskrift('daiquiri')">
 <h3>🍍 Pineapple Daiquiri</h3>
-<p>Sød cocktail med rom og ananas</p>
-</div>
-
-<div class="kort" data-navn="peach lemon cooler" onclick="visOpskrift('peach')">
-<h3>🍑 Peach Lemon Cooler</h3>
-<p>Sommerlig fersken cocktail</p>
-</div>
-
-<div class="kort" data-navn="jordbær fizz" onclick="visOpskrift('fizz')">
-<h3>🍓 Jordbær Fizz</h3>
-<p>Sød jordbærdrik</p>
+<p>Sød romcocktail</p>
 </div>
 
 </div>
 
-<div class="opskrift" id="opskrift">
+<div id="opskriftSide">
+
+<div class="opskriftKort" id="opskriftIndhold">
 
 </div>
 
 </div>
-
 <script>
 
-function gemStatus(cocktail,status){
+const opskrifter = {
 
-localStorage.setItem(
-"status_"+cocktail,
-status
-);
+aperol: {
+navn: "🍹 Aperol Spritz",
+ingredienser: [
+"Aperol",
+"Prosecco",
+"Danskvand"
+]
+},
 
-alert("Gemt: " + status);
+strawberry: {
+navn: "🍓 Strawberry Soda Gin",
+ingredienser: [
+"Gin",
+"Jordbærsodavand"
+]
+},
 
+espresso: {
+navn: "☕ Espresso Martini",
+ingredienser: [
+"Vodka",
+"Kaffelikør",
+"Espresso"
+]
+},
+
+cooler: {
+navn: "🍍 Ananas Cooler",
+ingredienser: [
+"Ananasjuice",
+"Sprite"
+]
+},
+
+gintonic: {
+navn: "🍸 Gin & Tonic",
+ingredienser: [
+"Gin",
+"Tonic"
+]
+},
+
+daiquiri: {
+navn: "🍍 Pineapple Daiquiri",
+ingredienser: [
+"Rom",
+"Ananasjuice",
+"Lime"
+]
 }
+
+};
 
 function statusKnapper(id){
 
 return `
+
 <div class="statusknapper">
 
-<button onclick="gemStatus('${id}','Vil prøve')">
+<button onclick="gemStatus('${id}','⭐ Vil prøve')">
 ⭐ Vil prøve
 </button>
 
-<button onclick="gemStatus('${id}','Smagt')">
+<button onclick="gemStatus('${id}','🍹 Smagt')">
 🍹 Smagt
 </button>
 
-<button onclick="gemStatus('${id}','Lavet selv')">
+<button onclick="gemStatus('${id}','✅ Lavet selv')">
 ✅ Lavet selv
 </button>
 
-<button onclick="gemStatus('${id}','Favorit')">
+<button onclick="gemStatus('${id}','❤️ Favorit')">
 ❤️ Favorit
 </button>
 
-<button onclick="gemStatus('${id}','Kan ikke lide')">
+<button onclick="gemStatus('${id}','🚫 Kan ikke lide')">
 🚫 Kan ikke lide
 </button>
 
 </div>
+
 `;
+
+}
+
+function gemStatus(id,status){
+
+localStorage.setItem(
+
+"cocktail_" + id,
+
+status
+
+);
+
+alert("Status gemt: " + status);
 
 }
 
 function visOpskrift(id){
 
-document.getElementById("liste").style.display="none";
+const data = opskrifter[id];
 
-const boks =
-document.getElementById("opskrift");
-if(id==="aperol"){
+document.getElementById("listeSide")
+.style.display = "none";
 
-boks.innerHTML = `
-<button class="tilbage" onclick="lukOpskrift()">
-← Tilbage til cocktails
+document.getElementById("opskriftSide")
+.style.display = "block";
+
+const ingredienser =
+data.ingredienser
+.map(item => `<li>${item}</li>`)
+.join("");
+
+document.getElementById("opskriftIndhold")
+.innerHTML = `
+<script>
+
+const opskrifter = {
+
+aperol: {
+navn: "🍹 Aperol Spritz",
+ingredienser: [
+"Aperol",
+"Prosecco",
+"Danskvand"
+]
+},
+
+strawberry: {
+navn: "🍓 Strawberry Soda Gin",
+ingredienser: [
+"Gin",
+"Jordbærsodavand"
+]
+},
+
+espresso: {
+navn: "☕ Espresso Martini",
+ingredienser: [
+"Vodka",
+"Kaffelikør",
+"Espresso"
+]
+},
+
+cooler: {
+navn: "🍍 Ananas Cooler",
+ingredienser: [
+"Ananasjuice",
+"Sprite"
+]
+},
+
+gintonic: {
+navn: "🍸 Gin & Tonic",
+ingredienser: [
+"Gin",
+"Tonic"
+]
+},
+
+daiquiri: {
+navn: "🍍 Pineapple Daiquiri",
+ingredienser: [
+"Rom",
+"Ananasjuice",
+"Lime"
+]
+}
+
+};
+
+function statusKnapper(id){
+
+return `
+
+<div class="statusknapper">
+
+<button onclick="gemStatus('${id}','⭐ Vil prøve')">
+⭐ Vil prøve
 </button>
 
-<h2>🍹 Aperol Spritz</h2>
+<button onclick="gemStatus('${id}','🍹 Smagt')">
+🍹 Smagt
+</button>
 
-<p><strong>Type:</strong> Cocktail</p>
+<button onclick="gemStatus('${id}','✅ Lavet selv')">
+✅ Lavet selv
+</button>
 
-<p><strong>Ingredienser:</strong></p>
+<button onclick="gemStatus('${id}','❤️ Favorit')">
+❤️ Favorit
+</button>
 
-<ul>
-<li>Aperol</li>
-<li>Prosecco</li>
-<li>Danskvand</li>
-</ul>
+<button onclick="gemStatus('${id}','🚫 Kan ikke lide')">
+🚫 Kan ikke lide
+</button>
 
-${statusKnapper(id)}
+</div>
+
 `;
 
 }
 
-if(id==="strawberry"){
+function gemStatus(id,status){
 
-boks.innerHTML = `
-<button class="tilbage" onclick="lukOpskrift()">
-← Tilbage til cocktails
-</button>
+localStorage.setItem(
 
-<h2>🍓 Strawberry Soda Gin</h2>
+"cocktail_" + id,
 
-<p><strong>Ingredienser:</strong></p>
+status
 
-<ul>
-<li>Gin</li>
-<li>Jordbærsodavand</li>
-</ul>
+);
 
-${statusKnapper(id)}
-`;
+alert("Status gemt: " + status);
 
 }
 
-if(id==="espresso"){
+function visOpskrift(id){
 
-boks.innerHTML = `
-<button class="tilbage" onclick="lukOpskrift()">
-← Tilbage til cocktails
-</button>
+const data = opskrifter[id];
 
-<h2>☕ Espresso Martini</h2>
+document.getElementById("listeSide")
+.style.display = "none";
 
-<p><strong>Ingredienser:</strong></p>
+document.getElementById("opskriftSide")
+.style.display = "block";
 
-<ul>
-<li>Vodka</li>
-<li>Kaffelikør</li>
-<li>Espresso</li>
-</ul>
+const ingredienser =
+data.ingredienser
+.map(item => `<li>${item}</li>`)
+.join("");
 
-${statusKnapper(id)}
-`;
-
-}
-
-if(id==="cooler"){
-
-boks.innerHTML = `
-<button class="tilbage" onclick="lukOpskrift()">
-← Tilbage til cocktails
-</button>
-
-<h2>🍍 Ananas Cooler</h2>
-
-<p><strong>Ingredienser:</strong></p>
-
-<ul>
-<li>Ananasjuice</li>
-<li>Sprite</li>
-</ul>
-
-${statusKnapper(id)}
-`;
-
-}
-
-if(id==="gintonic"){
-
-boks.innerHTML = `
-<button class="tilbage" onclick="lukOpskrift()">
-← Tilbage til cocktails
-</button>
-
-<h2>🍸 Gin & Tonic</h2>
-
-<p>Gin og tonicvand</p>
-
-${statusKnapper(id)}
-`;
-
-}
-
-if(id==="daiquiri"){
-
-boks.innerHTML = `
-<button class="tilbage" onclick="lukOpskrift()">
-← Tilbage til cocktails
-</button>
-
-<h2>🍍 Pineapple Daiquiri</h2>
-
-<p>Rom, ananasjuice og lime</p>
-
-${statusKnapper(id)}
-`;
-
-}
-
-if(id==="peach"){
-
-boks.innerHTML = `
-<button class="tilbage" onclick="lukOpskrift()">
-← Tilbage til cocktails
-</button>
-
-<h2>🍑 Peach Lemon Cooler</h2>
-
-<p>Fersken og citrus</p>
-
-${statusKnapper(id)}
-`;
-
-}
-
-if(id==="fizz"){
-
-boks.innerHTML = `
-<button class="tilbage" onclick="lukOpskrift()">
-← Tilbage til cocktails
-</button>
-
-<h2>🍓 Jordbær Fizz</h2>
-
-<p>Jordbær og danskvand</p>
-
-${statusKnapper(id)}
-`;
-
-}
-
-boks.style.display="block";
-
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
-
-}
-
-function lukOpskrift(){
-
-document.getElementById("liste").style.display="block";
-
-document.getElementById("opskrift").style.display="none";
-
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
-
-}
-
-document
-.getElementById("soegning")
-.addEventListener("input",function(){
-
-const tekst = this.value.toLowerCase();
-
-document
-.querySelectorAll(".kort")
-.forEach(kort=>{
-
-kort.style.display =
-kort.dataset.navn.includes(tekst)
-? "block"
-: "none";
-
-});
-
-});
-
-</script>
-
-</body>
-</html>
+document.getElementById("opskriftIndhold")
+.innerHTML = `
