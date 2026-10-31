@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cocktails - Claras Cocktail App</title>
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    background:#f6f1ff;
+    margin:0;
+}
+
+header{
+    background:#7c3aed;
+    color:white;
+    padding:20px;
+}
+
+header a{
+    color:white;
+    text-decoration:none;
+    margin-right:15px;
+    font-weight:bold;
+}
+
+.container{
+    display:flex;
+    gap:20px;
+    padding:20px;
+}
+
+.filtre{
+    width:280px;
+    background:white;
+    padding:15px;
+    border-radius:12px;
+    height:fit-content;
+}
+
+.resultater{
+    flex:1;
+}
+
+.kort{
+    background:white;
+    border-radius:12px;
+    padding:15px;
+    margin-bottom:15px;
+    cursor:pointer;
+}
+
+.kort:hover{
+    background:#f0e7ff;
+}
+
+.opskrift{
+    background:white;
+    border-radius:12px;
+    padding:20px;
+    display:none;
+}
+
+input[type="text"]{
+    width:100%;
+    padding:10px;
+    margin-bottom:15px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    box-sizing:border-box;
+}
+
+.filtergruppe{
+    margin-bottom:20px;
+}
+
+label{
+    display:block;
+    margin:5px 0;
+}
+
+.statusknapper button{
+    margin:5px;
+    padding:8px;
+    border-radius:8px;
+    border:none;
+    cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>🍹 Cocktails</h1>
+
+<a href="index.html">📦 Lager</a>
+
+</header>
+
+<div class="container">
+
+<div class="filtre">
+
+<input
+type="text"
+placeholder="Søg cocktail..."
+id="soegning"
+>
+
+<div class="filtergruppe">
+<strong>Type</strong>
+
+<label><input type="checkbox"> Cocktail</label>
+<label><input type="checkbox"> Mocktail</label>
+<label><input type="checkbox"> Frozen</label>
+</div>
+
+<div class="filtergruppe">
+<strong>Status</strong>
+
+<label><input type="checkbox"> ⭐ Vil prøve</label>
+<label><input type="checkbox"> 🍹 Smagt</label>
+<label><input type="checkbox"> ✅ Lavet selv</label>
+<label><input type="checkbox"> ❤️ Favorit</label>
+<label><input type="checkbox"> 🚫 Kan ikke lide</label>
+</div>
+
+<div class="filtergruppe">
+<strong>Smag</strong>
+
+<label><input type="checkbox"> Sød</label>
+<label><input type="checkbox"> Frugtig</label>
+<label><input type="checkbox"> Kaffe</label>
+<label><input type="checkbox"> Cremet</label>
+<label><input type="checkbox"> Frisk</label>
+</div>
+
+</div>
+
+<div class="resultater">
+
+<div id="liste">
+
+<div class="kort" onclick="visOpskrift('aperol')">
+<h3>🍹 Aperol Spritz</h3>
+
+Type: Cocktail<br>
+Smag: Frugtig<br>
+Status: ❤️ Favorit
+</div>
+
+<div class="kort" onclick="visOpskrift('strawberry')">
+<h3>🍓 Strawberry Soda Gin</h3>
+
+Type: Cocktail<br>
+Smag: Sød, frugtig<br>
+Status: ⭐ Vil prøve
+</div>
+
+<div class="kort" onclick="visOpskrift('espresso')">
+<h3>☕ Espresso Martini</h3>
+
+Type: Cocktail<br>
+Smag: Kaffe
+</div>
+
+<div class="kort" onclick="visOpskrift('cooler')">
+<h3>🍍 Ananas Cooler</h3>
+
+Type: Mocktail<br>
+Smag: Sød, frugtig
+</div>
+
+</div>
+
+<div class="opskrift" id="opskrift">
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function visOpskrift(id){
+
+const boks = document.getElementById("opskrift");
+
+if(id==="aperol"){
+
+boks.innerHTML = `
+<h2>🍹 Aperol Spritz</h2>
+
+<p><strong>Type:</strong> Cocktail</p>
+
+<p><strong>Smag:</strong> Frugtig</p>
+
+<h3>Ingredienser</h3>
+
+<ul>
+<li>Aperol</li>
+<li>Prosecco</li>
+<li>Danskvand</li>
+</ul>
+
+<h3>Fremgangsmåde</h3>
+
+<ol>
+<li>Fyld glas med is.</li>
+<li>Hæld Aperol i.</li>
+<li>Tilsæt Prosecco.</li>
+<li>Top med danskvand.</li>
+</ol>
+
+<div class="statusknapper">
+
+<button>⭐ Vil prøve</button>
+<button>🍹 Smagt</button>
+<button>✅ Lavet selv</button>
+<button>❤️ Favorit</button>
+<button>🚫 Kan ikke lide</button>
+
+</div>
+`;
+
+}
+
+if(id==="strawberry"){
+
+boks.innerHTML = `
+<h2>🍓 Strawberry Soda Gin</h2>
+
+<p><strong>Type:</strong> Cocktail</p>
+
+<p><strong>Smag:</strong> Sød og frugtig</p>
+
+<h3>Ingredienser</h3>
+
+<ul>
+<li>Gin</li>
+<li>Jordbærsodavand</li>
+</ul>
+
+<h3>Fremgangsmåde</h3>
+
+<ol>
+<li>Fyld glas med is.</li>
+<li>Tilsæt gin.</li>
+<li>Top med jordbærsodavand.</li>
+</ol>
+
+<div class="statusknapper">
+
+<button>⭐ Vil prøve</button>
+<button>🍹 Smagt</button>
+<button>✅ Lavet selv</button>
+<button>❤️ Favorit</button>
+<button>🚫 Kan ikke lide</button>
+
+</div>
+`;
+
+}
+
+if(id==="espresso"){
+
+boks.innerHTML = `
+<h2>☕ Espresso Martini</h2>
+
+<p><strong>Type:</strong> Cocktail</p>
+
+<p><strong>Smag:</strong> Kaffe</p>
+
+<h3>Ingredienser</h3>
+
+<ul>
+<li>Vodka</li>
+<li>Kaffelikør</li>
+<li>Espresso</li>
+</ul>
+
+<h3>Fremgangsmåde</h3>
+
+<ol>
+<li>Ryst alle ingredienser med is.</li>
+<li>Si i glas.</li>
+</ol>
+
+<div class="statusknapper">
+
+<button>⭐ Vil prøve</button>
+<button>🍹 Smagt</button>
+<button>✅ Lavet selv</button>
+<button>❤️ Favorit</button>
+<button>🚫 Kan ikke lide</button>
+
+</div>
+`;
+
+}
+
+if(id==="cooler"){
+
+boks.innerHTML = `
+<h2>🍍 Ananas Cooler</h2>
+
+<p><strong>Type:</strong> Mocktail</p>
+
+<p><strong>Smag:</strong> Sød og frugtig</p>
+
+<h3>Ingredienser</h3>
+
+<ul>
+<li>Ananasjuice</li>
+<li>Sprite</li>
+</ul>
+
+<h3>Fremgangsmåde</h3>
+
+<ol>
+<li>Fyld glas med is.</li>
+<li>Tilsæt ananasjuice.</li>
+<li>Top med Sprite.</li>
+</ol>
+
+<div class="statusknapper">
+
+<button>⭐ Vil prøve</button>
+<button>🍹 Smagt</button>
+<button>✅ Lavet selv</button>
+<button>❤️ Favorit</button>
+<button>🚫 Kan ikke lide</button>
+
+</div>
+`;
+
+}
+
+boks.style.display = "block";
+
+window.scrollTo({
+top: document.body.scrollHeight,
+behavior: "smooth"
+});
+
+}
+
+</script>
+
+</body>
+</html>
