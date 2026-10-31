@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="da">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Cocktails - Claras Cocktail App</title>
+<title>Claras Cocktail App - Cocktails</title>
 
 <style>
 
-body{<h1>TEST FRA CLARAS FIL</h1>
+body{
     font-family: Arial, sans-serif;
     background:#f6f1ff;
     margin:0;
@@ -21,11 +20,32 @@ header{
     padding:20px;
 }
 
-header a{
-    color:white;
+h1{
+    margin:0;
+}
+
+.menu{
+    margin-top:15px;
+}
+
+.menu a,
+.menu span{
+    display:inline-block;
     text-decoration:none;
-    margin-right:15px;
+    margin-right:10px;
+    padding:10px 14px;
+    border-radius:10px;
     font-weight:bold;
+}
+
+.menu a{
+    background:white;
+    color:#7c3aed;
+}
+
+.menu .aktiv{
+    background:#5b21b6;
+    color:white;
 }
 
 .container{
@@ -55,53 +75,59 @@ header a{
 }
 
 .kort:hover{
-    background:#f0e7ff;
+    background:#efe5ff;
 }
 
 .opskrift{
-    background:white;
-    border-radius:12px;
-    padding:20px;
     display:none;
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    margin-top:20px;
 }
 
 input[type="text"]{
     width:100%;
     padding:10px;
-    margin-bottom:15px;
     border-radius:8px;
     border:1px solid #ccc;
     box-sizing:border-box;
-}
-
-.filtergruppe{
-    margin-bottom:20px;
-}
-
-label{
-    display:block;
-    margin:5px 0;
+    margin-bottom:15px;
 }
 
 .statusknapper button{
     margin:5px;
-    padding:8px;
-    border-radius:8px;
+    padding:10px;
     border:none;
+    border-radius:8px;
     cursor:pointer;
 }
 
+.gemt{
+    background:#7c3aed;
+    color:white;
+}
+
+.tilbage{
+    padding:10px;
+    background:#ddd;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    margin-bottom:15px;
+}
+
 </style>
-
-</head>
-
 <body>
 
 <header>
 
-<h1>🍹 Cocktails</h1>
+<h1>🍹 Claras Cocktail App</h1>
 
+<div class="menu">
 <a href="index.html">📦 Lager</a>
+<span class="aktiv">🍹 Cocktails</span>
+</div>
 
 </header>
 
@@ -111,37 +137,9 @@ label{
 
 <input
 type="text"
-placeholder="Søg cocktail..."
 id="soegning"
+placeholder="Søg cocktail..."
 >
-
-<div class="filtergruppe">
-<strong>Type</strong>
-
-<label><input type="checkbox"> Cocktail</label>
-<label><input type="checkbox"> Mocktail</label>
-<label><input type="checkbox"> Frozen</label>
-</div>
-
-<div class="filtergruppe">
-<strong>Status</strong>
-
-<label><input type="checkbox"> ⭐ Vil prøve</label>
-<label><input type="checkbox"> 🍹 Smagt</label>
-<label><input type="checkbox"> ✅ Lavet selv</label>
-<label><input type="checkbox"> ❤️ Favorit</label>
-<label><input type="checkbox"> 🚫 Kan ikke lide</label>
-</div>
-
-<div class="filtergruppe">
-<strong>Smag</strong>
-
-<label><input type="checkbox"> Sød</label>
-<label><input type="checkbox"> Frugtig</label>
-<label><input type="checkbox"> Kaffe</label>
-<label><input type="checkbox"> Cremet</label>
-<label><input type="checkbox"> Frisk</label>
-</div>
 
 </div>
 
@@ -149,87 +147,90 @@ id="soegning"
 
 <div id="liste">
 
-<div class="kort" onclick="visOpskrift('aperol')">
+<div class="kort" data-navn="aperol spritz" onclick="visOpskrift('aperol')">
 <h3>🍹 Aperol Spritz</h3>
-
-Type: Cocktail<br>
-Smag: Frugtig<br>
-Status: ❤️ Favorit
+Frugtig cocktail
 </div>
 
-<div class="kort" onclick="visOpskrift('strawberry')">
+<div class="kort" data-navn="strawberry soda gin" onclick="visOpskrift('strawberry')">
 <h3>🍓 Strawberry Soda Gin</h3>
-
-Type: Cocktail<br>
-Smag: Sød, frugtig<br>
-Status: ⭐ Vil prøve
+Sød og frugtig cocktail
 </div>
 
-<div class="kort" onclick="visOpskrift('espresso')">
+<div class="kort" data-navn="espresso martini" onclick="visOpskrift('espresso')">
 <h3>☕ Espresso Martini</h3>
-
-Type: Cocktail<br>
-Smag: Kaffe
+Kaffecocktail
 </div>
 
-<div class="kort" onclick="visOpskrift('cooler')">
+<div class="kort" data-navn="ananas cooler" onclick="visOpskrift('cooler')">
 <h3>🍍 Ananas Cooler</h3>
+Mocktail
+</div>
 
-Type: Mocktail<br>
-Smag: Sød, frugtig
+<div class="kort" data-navn="gin tonic" onclick="visOpskrift('gintonic')">
+<h3>🍸 Gin & Tonic</h3>
+Klassisk cocktail
+</div>
+
+<div class="kort" data-navn="pineapple daiquiri" onclick="visOpskrift('daiquiri')">
+<h3>🍍 Pineapple Daiquiri</h3>
+Sød romcocktail
 </div>
 
 </div>
 
-<div class="opskrift" id="opskrift">
+<div class="opskrift" id="opskrift"></div>
 
 </div>
 
 </div>
-
-</div>
-
 <script>
+
+function gemStatus(cocktail,status){
+
+localStorage.setItem(
+"status_"+cocktail,
+status
+);
+
+alert("Gemt: " + status);
+
+}
+
+function statusKnapper(id){
+
+return `
+<div class="statusknapper">
+
+<button onclick="gemStatus('${id}','Vil prøve')">⭐ Vil prøve</button>
+
+<button onclick="gemStatus('${id}','Smagt')">🍹 Smagt</button>
+
+<button onclick="gemStatus('${id}','Lavet selv')">✅ Lavet selv</button>
+
+<button onclick="gemStatus('${id}','Favorit')">❤️ Favorit</button>
+
+<button onclick="gemStatus('${id}','Kan ikke lide')">🚫 Kan ikke lide</button>
+
+</div>
+`;
+
+}
 
 function visOpskrift(id){
 
-const boks = document.getElementById("opskrift");
+const boks = document.getElementById('opskrift');
 
 if(id==="aperol"){
 
 boks.innerHTML = `
+<button class="tilbage" onclick="lukOpskrift()">← Tilbage</button>
+
 <h2>🍹 Aperol Spritz</h2>
 
-<p><strong>Type:</strong> Cocktail</p>
+<p>Aperol, Prosecco, Danskvand</p>
 
-<p><strong>Smag:</strong> Frugtig</p>
-
-<h3>Ingredienser</h3>
-
-<ul>
-<li>Aperol</li>
-<li>Prosecco</li>
-<li>Danskvand</li>
-</ul>
-
-<h3>Fremgangsmåde</h3>
-
-<ol>
-<li>Fyld glas med is.</li>
-<li>Hæld Aperol i.</li>
-<li>Tilsæt Prosecco.</li>
-<li>Top med danskvand.</li>
-</ol>
-
-<div class="statusknapper">
-
-<button>⭐ Vil prøve</button>
-<button>🍹 Smagt</button>
-<button>✅ Lavet selv</button>
-<button>❤️ Favorit</button>
-<button>🚫 Kan ikke lide</button>
-
-</div>
+${statusKnapper(id)}
 `;
 
 }
@@ -237,36 +238,13 @@ boks.innerHTML = `
 if(id==="strawberry"){
 
 boks.innerHTML = `
+<button class="tilbage" onclick="lukOpskrift()">← Tilbage</button>
+
 <h2>🍓 Strawberry Soda Gin</h2>
 
-<p><strong>Type:</strong> Cocktail</p>
+<p>Gin, Jordbærsodavand</p>
 
-<p><strong>Smag:</strong> Sød og frugtig</p>
-
-<h3>Ingredienser</h3>
-
-<ul>
-<li>Gin</li>
-<li>Jordbærsodavand</li>
-</ul>
-
-<h3>Fremgangsmåde</h3>
-
-<ol>
-<li>Fyld glas med is.</li>
-<li>Tilsæt gin.</li>
-<li>Top med jordbærsodavand.</li>
-</ol>
-
-<div class="statusknapper">
-
-<button>⭐ Vil prøve</button>
-<button>🍹 Smagt</button>
-<button>✅ Lavet selv</button>
-<button>❤️ Favorit</button>
-<button>🚫 Kan ikke lide</button>
-
-</div>
+${statusKnapper(id)}
 `;
 
 }
@@ -274,36 +252,13 @@ boks.innerHTML = `
 if(id==="espresso"){
 
 boks.innerHTML = `
+<button class="tilbage" onclick="lukOpskrift()">← Tilbage</button>
+
 <h2>☕ Espresso Martini</h2>
 
-<p><strong>Type:</strong> Cocktail</p>
+<p>Vodka, Kaffelikør, Espresso</p>
 
-<p><strong>Smag:</strong> Kaffe</p>
-
-<h3>Ingredienser</h3>
-
-<ul>
-<li>Vodka</li>
-<li>Kaffelikør</li>
-<li>Espresso</li>
-</ul>
-
-<h3>Fremgangsmåde</h3>
-
-<ol>
-<li>Ryst alle ingredienser med is.</li>
-<li>Si i glas.</li>
-</ol>
-
-<div class="statusknapper">
-
-<button>⭐ Vil prøve</button>
-<button>🍹 Smagt</button>
-<button>✅ Lavet selv</button>
-<button>❤️ Favorit</button>
-<button>🚫 Kan ikke lide</button>
-
-</div>
+${statusKnapper(id)}
 `;
 
 }
@@ -311,47 +266,76 @@ boks.innerHTML = `
 if(id==="cooler"){
 
 boks.innerHTML = `
+<button class="tilbage" onclick="lukOpskrift()">← Tilbage</button>
+
 <h2>🍍 Ananas Cooler</h2>
 
-<p><strong>Type:</strong> Mocktail</p>
+<p>Ananasjuice, Sprite</p>
 
-<p><strong>Smag:</strong> Sød og frugtig</p>
-
-<h3>Ingredienser</h3>
-
-<ul>
-<li>Ananasjuice</li>
-<li>Sprite</li>
-</ul>
-
-<h3>Fremgangsmåde</h3>
-
-<ol>
-<li>Fyld glas med is.</li>
-<li>Tilsæt ananasjuice.</li>
-<li>Top med Sprite.</li>
-</ol>
-
-<div class="statusknapper">
-
-<button>⭐ Vil prøve</button>
-<button>🍹 Smagt</button>
-<button>✅ Lavet selv</button>
-<button>❤️ Favorit</button>
-<button>🚫 Kan ikke lide</button>
-
-</div>
+${statusKnapper(id)}
 `;
 
 }
 
-boks.style.display = "block";
+if(id==="gintonic"){
 
-window.scrollTo({
-top: document.body.scrollHeight,
-behavior: "smooth"
-});
+boks.innerHTML = `
+<button class="tilbage" onclick="lukOpskrift()">← Tilbage</button>
+
+<h2>🍸 Gin & Tonic</h2>
+
+<p>Gin, Tonic</p>
+
+${statusKnapper(id)}
+`;
+
 }
+
+if(id==="daiquiri"){
+
+boks.innerHTML = `
+<button class="tilbage" onclick="lukOpskrift()">← Tilbage</button>
+
+<h2>🍍 Pineapple Daiquiri</h2>
+
+<p>Rom, ananasjuice, lime</p>
+
+${statusKnapper(id)}
+`;
+
+}
+
+boks.style.display="block";
+
+}
+
+function lukOpskrift(){
+
+document.getElementById("opskrift").style.display="none";
+
+}
+
+document
+.getElementById("soegning")
+.addEventListener("input",function(){
+
+const tekst = this.value.toLowerCase();
+
+document
+.querySelectorAll(".kort")
+.forEach(kort=>{
+
+const navn =
+kort.dataset.navn.toLowerCase();
+
+kort.style.display =
+navn.includes(tekst)
+? "block"
+: "none";
+
+});
+
+});
 
 </script>
 
