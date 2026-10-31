@@ -6,6 +6,30 @@
 <title>Claras Cocktail App</title>
 
 <style>
+    <script>
+
+// Find alle checkboxe
+const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+// Indlæs gemte flueben
+checkboxes.forEach((checkbox, index) => {
+    const saved = localStorage.getItem('checkbox_' + index);
+
+    if(saved === 'true'){
+        checkbox.checked = true;
+    }
+
+    // Gem når man klikker
+    checkbox.addEventListener('change', () => {
+        localStorage.setItem(
+            'checkbox_' + index,
+            checkbox.checked
+        );
+    });
+});
+
+</script>
+
 body{
     font-family: Arial, sans-serif;
     max-width: 900px;
