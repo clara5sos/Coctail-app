@@ -1,57 +1,38 @@
 <!DOCTYPE html>
 <html lang="da">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Claras Cocktail App</title>
 
 <style>
-    <script>
 
-// Find alle checkboxe
-const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-
-// Indlæs gemte flueben
-checkboxes.forEach((checkbox, index) => {
-    const saved = localStorage.getItem('checkbox_' + index);
-
-    if(saved === 'true'){
-        checkbox.checked = true;
-    }
-
-    // Gem når man klikker
-    checkbox.addEventListener('change', () => {
-        localStorage.setItem(
-            'checkbox_' + index,
-            checkbox.checked
-        );
-    });
-});
-
-</script>
-
-body{
+body {
     font-family: Arial, sans-serif;
-    max-width: 900px;
+    background: #f6f1ff;
+    max-width: 1000px;
     margin: auto;
     padding: 20px;
-    background: #f8f4ff;
 }
 
-h1{
-    color:#7c3aed;
+h1 {
+    color: #7c3aed;
 }
 
-.kategori{
-    background:white;
-    padding:15px;
-    margin-bottom:15px;
-    border-radius:10px;
+.kategori {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
 }
 
-h2{
-    margin-top:0;
+label {
+    display: block;
+    margin: 8px 0;
 }
+
 </style>
 
 </head>
@@ -63,34 +44,106 @@ h2{
 <div class="kategori">
 <h2>Spiritus</h2>
 
-<label><input type="checkbox"> Gin</label><br>
-<label><input type="checkbox"> Vodka</label><br>
-<label><input type="checkbox"> Hvid Rom</label><br>
-<label><input type="checkbox"> Spiced Rom</label>
+<label>
+<input type="checkbox">
+Gin
+</label>
+
+<label>
+<input type="checkbox">
+Vodka
+</label>
+
+<label>
+<input type="checkbox">
+Hvid Rom
+</label>
+
+<label>
+<input type="checkbox">
+Spiced Rom
+</label>
+
 </div>
 
 <div class="kategori">
 <h2>Likører</h2>
 
-<label><input type="checkbox"> Aperol</label><br>
-<label><input type="checkbox"> Triple Sec</label>
+<label>
+<input type="checkbox">
+Aperol
+</label>
+
+<label>
+<input type="checkbox">
+Triple Sec
+</label>
+
 </div>
 
 <div class="kategori">
 <h2>Mixere</h2>
 
-<label><input type="checkbox"> Sprite</label><br>
-<label><input type="checkbox"> Cola</label><br>
-<label><input type="checkbox"> Tonic</label>
+<label>
+<input type="checkbox">
+Sprite
+</label>
+
+<label>
+<input type="checkbox">
+Cola
+</label>
+
+<label>
+<input type="checkbox">
+Tonic
+</label>
+
 </div>
 
 <div class="kategori">
 <h2>Pantry</h2>
 
-<label><input type="checkbox"> Citronsaft</label><br>
-<label><input type="checkbox"> Limesaft</label><br>
-<label><input type="checkbox"> Ananasjuice</label>
+<label>
+<input type="checkbox">
+Citronsaft
+</label>
+
+<label>
+<input type="checkbox">
+Limesaft
+</label>
+
+<label>
+<input type="checkbox">
+Ananasjuice
+</label>
+
 </div>
 
+<script>
+
+const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+checkboxes.forEach((checkbox, index) => {
+
+    const gemt = localStorage.getItem('lager_' + index);
+
+    if (gemt === 'true') {
+        checkbox.checked = true;
+    }
+
+    checkbox.addEventListener('change', () => {
+        localStorage.setItem(
+            'lager_' + index,
+            checkbox.checked
+        );
+    });
+
+});
+
+</script>
+
 </body>
+
 </html>
