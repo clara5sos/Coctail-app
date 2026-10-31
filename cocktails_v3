@@ -156,3 +156,181 @@ placeholder="Søg cocktail..."
 </div>
 
 </div>
+<script>
+
+const opskrifter = {
+
+aperol: {
+navn: "🍹 Aperol Spritz",
+ingredienser: [
+"Aperol",
+"Prosecco",
+"Danskvand"
+]
+},
+
+strawberry: {
+navn: "🍓 Strawberry Soda Gin",
+ingredienser: [
+"Gin",
+"Jordbærsodavand"
+]
+},
+
+espresso: {
+navn: "☕ Espresso Martini",
+ingredienser: [
+"Vodka",
+"Kaffelikør",
+"Espresso"
+]
+},
+
+cooler: {
+navn: "🍍 Ananas Cooler",
+ingredienser: [
+"Ananasjuice",
+"Sprite"
+]
+},
+
+daiquiri: {
+navn: "🍍 Pineapple Daiquiri",
+ingredienser: [
+"Rom",
+"Ananasjuice",
+"Lime"
+]
+}
+
+};
+
+function gemStatus(id,status){
+
+localStorage.setItem(
+"cocktail_"+id,
+status
+);
+
+alert("Status gemt: " + status);
+
+}
+
+function statusKnapper(id){
+
+return `
+<div class="statusknapper">
+
+<button onclick="gemStatus('${id}','⭐ Vil prøve')">
+⭐ Vil prøve
+</button>
+
+<button onclick="gemStatus('${id}','🍹 Smagt')">
+🍹 Smagt
+</button>
+
+<button onclick="gemStatus('${id}','✅ Lavet selv')">
+✅ Lavet selv
+</button>
+
+<button onclick="gemStatus('${id}','❤️ Favorit')">
+❤️ Favorit
+</button>
+
+<button onclick="gemStatus('${id}','🚫 Kan ikke lide')">
+🚫 Kan ikke lide
+</button>
+
+</div>
+`;
+
+}
+
+function visOpskrift(id){
+
+const data = opskrifter[id];
+
+document.getElementById("listeSide")
+.style.display = "none";
+
+document.getElementById("opskriftSide")
+.style.display = "block";
+
+const ingrediensListe =
+data.ingredienser
+.map(item => "<li>" + item + "</li>")
+.join("");
+
+document.getElementById("opskriftIndhold")
+.innerHTML =
+`
+
+<button class="tilbage" onclick="lukOpskrift()">
+← Tilbage til cocktails
+</button>
+
+<h2>${data.navn}</h2>
+
+<h3>Ingredienser</h3>
+
+<ul>
+${ingrediensListe}
+</ul>
+
+<h3>Status</h3>
+
+${statusKnapper(id)}
+
+`;
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+function lukOpskrift(){
+
+document.getElementById("opskriftSide")
+.style.display = "none";
+
+document.getElementById("listeSide")
+.style.display = "block";
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+document
+.getElementById("soegning")
+.addEventListener("input",function(){
+
+const tekst =
+this.value.toLowerCase();
+
+document
+.querySelectorAll(".kort")
+.forEach(kort=>{
+
+if(
+kort.dataset.navn
+.includes(tekst)
+){
+kort.style.display = "block";
+}
+else{
+kort.style.display = "none";
+}
+
+});
+
+});
+
+</script>
+
+</body>
+</html>
