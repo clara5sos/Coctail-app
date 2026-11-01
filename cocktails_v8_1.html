@@ -166,10 +166,7 @@ header{
 </header>
 
 <div id="opskriftSide">
-    <div
-        class="opskriftKort"
-        id="opskriftIndhold">
-    </div>
+<div class="opskriftKort" id="opskriftIndhold"></div>
 </div>
 
 <div class="layout" id="mainLayout">
@@ -184,23 +181,28 @@ placeholder="Søg cocktail..."
 
 <div class="statusMenu">
 
-<strong>📊 Mine cocktails</strong>
+<strong>📚 Mine cocktails</strong>
+
 <div onclick="filterStatus('vilProeve')">
 ⭐ Vil prøve
 (<span id="countVilProeve">0</span>)
 </div>
+
 <div onclick="filterStatus('smagt')">
 🍹 Smagt
 (<span id="countSmagt">0</span>)
 </div>
+
 <div onclick="filterStatus('lavetSelv')">
 ✅ Lavet selv
 (<span id="countLavetSelv">0</span>)
 </div>
+
 <div onclick="filterStatus('favorit')">
 ❤️ Favoritter
 (<span id="countFavorit">0</span>)
 </div>
+
 <div onclick="filterStatus('kanIkkeLide')">
 🚫 Kan ikke lide
 (<span id="countKanIkkeLide">0</span>)
@@ -217,14 +219,16 @@ placeholder="Søg cocktail..."
 <strong>Type</strong>
 
 <label>
-<input type="checkbox"
+<input
+type="checkbox"
 class="typeFilter"
 value="Cocktail">
 Cocktail
 </label>
 
 <label>
-<input type="checkbox"
+<input
+type="checkbox"
 class="typeFilter"
 value="Mocktail">
 Mocktail
