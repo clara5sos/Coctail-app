@@ -771,6 +771,32 @@ if(data.lavetSelv) tekst += "✅ ";
 if(data.favorit) tekst += "❤️ ";
 if(data.kanIkkeLide) tekst += "🚫 ";
 
+const mangler =
+tjekCocktailLager(
+opskrifter[id].ingredienser
+);
+
+if(mangler === 0){
+
+tekst += " ✅";
+
+}
+else if(mangler === 1){
+
+tekst += " 🟡1";
+
+}
+else if(mangler === 2){
+
+tekst += " 🟠2";
+
+}
+else{
+
+tekst += " 🔴3+";
+
+}
+
 kort.querySelector(".statusVisning").innerHTML = tekst;
 
 });
