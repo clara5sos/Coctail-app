@@ -5,10 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Claras Cocktail App</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-
 <style>
-
 body{
     margin:0;
     font-family:Arial,sans-serif;
@@ -43,6 +40,17 @@ header{
 .aktiv{
     background:#5b21b6;
     color:white;
+}
+
+#opskriftSide{
+    display:none;
+    padding:20px;
+}
+
+.opskriftKort{
+    background:white;
+    border-radius:12px;
+    padding:20px;
 }
 
 .layout{
@@ -98,20 +106,6 @@ header{
     background:#ece1ff;
 }
 
-#listeSide{
-    display:block;
-}
-
-#opskriftSide{
-    display:none;
-}
-
-.opskriftKort{
-    background:white;
-    border-radius:12px;
-    padding:20px;
-}
-
 .tilbage{
     padding:10px 16px;
     border:none;
@@ -127,25 +121,25 @@ header{
     border-radius:8px;
     cursor:pointer;
 }
-
 </style>
-
 </head>
 
 <body>
 
 <header>
-
 <h1>🍹 Claras Cocktail App</h1>
 
 <div class="menu">
 <a href="index.html">📦 Lager</a>
 <span class="aktiv">🍹 Cocktails</span>
 </div>
-
 </header>
 
-<div class="layout">
+<div id="opskriftSide">
+<div class="opskriftKort" id="opskriftIndhold"></div>
+</div>
+
+<div class="layout" id="mainLayout">
 
 <div class="sidebar">
 
@@ -188,177 +182,192 @@ placeholder="Søg cocktail..."
 <div class="content">
 
 <div id="listeSide">
-
-<div class="kort" data-navn="aperol spritz" onclick="visOpskrift('aperol')">
-<h3>🍹 Aperol Spritz</h3>
-<p>Frugtig cocktail</p>
+    <div class="kort" data-navn="aperol spritz" onclick="visOpskrift('aperol')">
+    <h3>🍹 Aperol Spritz</h3>
+    <p>Frugtig cocktail</p>
 </div>
 
 <div class="kort" data-navn="strawberry soda gin" onclick="visOpskrift('strawberry')">
-<h3>🍓 Strawberry Soda Gin</h3>
-<p>Sød cocktail</p>
+    <h3>🍓 Strawberry Soda Gin</h3>
+    <p>Sød cocktail</p>
 </div>
 
 <div class="kort" data-navn="espresso martini" onclick="visOpskrift('espresso')">
-<h3>☕ Espresso Martini</h3>
-<p>Kaffecocktail</p>
+    <h3>☕ Espresso Martini</h3>
+    <p>Kaffecocktail</p>
 </div>
 
 <div class="kort" data-navn="ananas cooler" onclick="visOpskrift('cooler')">
-<h3>🍍 Ananas Cooler</h3>
-<p>Mocktail</p>
+    <h3>🍍 Ananas Cooler</h3>
+    <p>Mocktail</p>
 </div>
 
 </div>
-
-<div id="opskriftSide">
-
-<div
-class="opskriftKort"
-id="opskriftIndhold">
-
+</div>
 </div>
 
-</div>
-
-</div>
-
-</div>
 <script>
 
 const opskrifter = {
 
-aperol: {
-navn: "🍹 Aperol Spritz",
-ingredienser: ["Aperol","Prosecco","Danskvand"]
+aperol:{
+    navn:"🍹 Aperol Spritz",
+    ingredienser:[
+        "Aperol",
+        "Prosecco",
+        "Danskvand"
+    ]
 },
 
-strawberry: {
-navn: "🍓 Strawberry Soda Gin",
-ingredienser: ["Gin","Jordbærsodavand"]
+strawberry:{
+    navn:"🍓 Strawberry Soda Gin",
+    ingredienser:[
+        "Gin",
+        "Jordbærsodavand"
+    ]
 },
 
-espresso: {
-navn: "☕ Espresso Martini",
-ingredienser: ["Vodka","Kaffelikør","Espresso"]
+espresso:{
+    navn:"☕ Espresso Martini",
+    ingredienser:[
+        "Vodka",
+        "Kaffelikør",
+        "Espresso"
+    ]
 },
 
-cooler: {
-navn: "🍍 Ananas Cooler",
-ingredienser: ["Ananasjuice","Sprite"]
+cooler:{
+    navn:"🍍 Ananas Cooler",
+    ingredienser:[
+        "Ananasjuice",
+        "Sprite"
+    ]
 }
 
 };
 
 function gemStatus(id,status){
 
-localStorage.setItem(
-"cocktail_" + id,
-status
-);
+    localStorage.setItem(
+        "cocktail_" + id,
+        status
+    );
 
-alert("Status gemt: " + status);
-
+    alert("Status gemt: " + status);
 }
 
 function statusKnapper(id){
 
-return `
-<div class="statusknapper">
+    return `
 
-<button onclick="gemStatus('${id}','Vil prøve')">
-⭐ Vil prøve
-</button>
+    <div class="statusknapper">
 
-<button onclick="gemStatus('${id}','Smagt')">
-🍹 Smagt
-</button>
+        <button onclick="gemStatus('${id}','Vil prøve')">
+            ⭐ Vil prøve
+        </button>
 
-<button onclick="gemStatus('${id}','Lavet selv')">
-✅ Lavet selv
-</button>
+        <button onclick="gemStatus('${id}','Smagt')">
+            🍹 Smagt
+        </button>
 
-<button onclick="gemStatus('${id}','Favorit')">
-❤️ Favorit
-</button>
+        <button onclick="gemStatus('${id}','Lavet selv')">
+            ✅ Lavet selv
+        </button>
 
-<button onclick="gemStatus('${id}','Kan ikke lide')">
-🚫 Kan ikke lide
-</button>
+        <button onclick="gemStatus('${id}','Favorit')">
+            ❤️ Favorit
+        </button>
 
-</div>
-`;
+        <button onclick="gemStatus('${id}','Kan ikke lide')">
+            🚫 Kan ikke lide
+        </button>
 
+    </div>
+
+    `;
 }
 
 function visOpskrift(id){
 
-const data = opskrifter[id];
+    const data = opskrifter[id];
 
-document.getElementById("listeSide").style.display = "none";
+    document.getElementById("mainLayout").style.display =
+    "none";
 
-document.getElementById("opskriftSide").style.display = "block";
+    document.getElementById("opskriftSide").style.display =
+    "block";
 
-let ingrediensListe = "";
+    let ingrediensListe = "";
 
-data.ingredienser.forEach(function(item){
+    data.ingredienser.forEach(function(item){
 
-ingrediensListe += "<li>" + item + "</li>";
+        ingrediensListe +=
+        "<li>" +
+        item +
+        "</li>";
 
-});
+    });
 
-document.getElementById("opskriftIndhold").innerHTML =
+    document.getElementById("opskriftIndhold").innerHTML =
 
-'<button class="tilbage" onclick="lukOpskrift()">← Tilbage</button>' +
+        '<button class="tilbage" onclick="lukOpskrift()">← Tilbage</button>' +
 
-'<h2>' + data.navn + '</h2>' +
+        '<h2>' +
+        data.navn +
+        '</h2>' +
 
-'<h3>Ingredienser</h3>' +
+        '<h3>Ingredienser</h3>' +
 
-'<ul>' + ingrediensListe + '</ul>' +
+        '<ul>' +
+        ingrediensListe +
+        '</ul>' +
 
-statusKnapper(id);
+        statusKnapper(id);
 
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
+    window.scrollTo(0,0);
 
+    document.documentElement.scrollTop = 0;
+
+    document.body.scrollTop = 0;
 }
 
 function lukOpskrift(){
 
-document.getElementById("opskriftSide").style.display = "none";
+    document.getElementById("opskriftSide").style.display =
+    "none";
 
-document.getElementById("listeSide").style.display = "block";
+    document.getElementById("mainLayout").style.display =
+    "flex";
 
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
+    window.scrollTo(0,0);
 
+    document.documentElement.scrollTop = 0;
+
+    document.body.scrollTop = 0;
 }
 
-document.getElementById("soegning").addEventListener("input",function(){
+document
+.getElementById("soegning")
+.addEventListener("input",function(){
 
-const tekst = this.value.toLowerCase();
+    const tekst =
+    this.value.toLowerCase();
 
-document.querySelectorAll(".kort").forEach(function(kort){
+    document
+    .querySelectorAll(".kort")
+    .forEach(function(kort){
 
-if(kort.dataset.navn.includes(tekst)){
+        if(
+            kort.dataset.navn.includes(tekst)
+        ){
+            kort.style.display = "block";
+        }else{
+            kort.style.display = "none";
+        }
 
-kort.style.display = "block";
-
-}else{
-
-kort.style.display = "none";
-
-}
+    });
 
 });
-
-});
-
 </script>
 
 </body>
