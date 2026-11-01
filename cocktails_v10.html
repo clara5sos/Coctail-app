@@ -945,6 +945,58 @@ vis
 });
 
 }
+function filterLager(antal){
+
+document
+.querySelectorAll(".kort")
+.forEach(function(kort){
+
+const id =
+kort.dataset.id;
+
+const mangler =
+tjekCocktailLager(
+opskrifter[id].ingredienser
+);
+
+let vis = false;
+
+if(
+antal === 0 &&
+mangler === 0
+){
+vis = true;
+}
+
+if(
+antal === 1 &&
+mangler === 1
+){
+vis = true;
+}
+
+if(
+antal === 2 &&
+mangler === 2
+){
+vis = true;
+}
+
+if(
+antal === 3 &&
+mangler >= 3
+){
+vis = true;
+}
+
+kort.style.display =
+vis
+? "block"
+: "none";
+
+});
+
+}
 function visAlleCocktails(){
 
 document.querySelectorAll(".kort")
