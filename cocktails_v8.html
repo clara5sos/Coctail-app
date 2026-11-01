@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Claras Cocktail App V8</title>
 
 <style>
@@ -44,6 +43,17 @@ header{
     color:white;
 }
 
+#opskriftSide{
+    display:none;
+    padding:20px;
+}
+
+.opskriftKort{
+    background:white;
+    border-radius:12px;
+    padding:20px;
+}
+
 .layout{
     display:flex;
     gap:20px;
@@ -65,10 +75,24 @@ header{
 #soegning{
     width:100%;
     padding:12px;
+    box-sizing:border-box;
     border-radius:10px;
     border:1px solid #ccc;
-    box-sizing:border-box;
     margin-bottom:20px;
+}
+
+.filtergruppe{
+    margin-bottom:25px;
+}
+
+.filtergruppe strong{
+    display:block;
+    margin-bottom:8px;
+}
+
+.filtergruppe label{
+    display:block;
+    margin:8px 0;
 }
 
 .statusMenu{
@@ -83,26 +107,13 @@ header{
     cursor:pointer;
 }
 
-.filtergruppe{
-    margin-bottom:25px;
-}
-
-.filtergruppe strong{
-    display:block;
-    margin-bottom:10px;
-}
-
-.filtergruppe label{
-    display:block;
-    margin:8px 0;
-}
-
 .kort{
     background:white;
-    padding:20px;
+    padding:15px;
     border-radius:12px;
-    margin-bottom:15px;
+    margin-bottom:12px;
     cursor:pointer;
+    border:2px solid transparent;
 }
 
 .kort:hover{
@@ -110,26 +121,9 @@ header{
 }
 
 .statusVisning{
-    margin-top:12px;
-    color:#7c3aed;
+    margin-top:10px;
     font-weight:bold;
-}
-
-.statusBadges span{
-    display:inline-block;
-    margin-right:8px;
-    margin-top:6px;
-}
-
-#opskriftSide{
-    display:none;
-    padding:20px;
-}
-
-.opskriftKort{
-    background:white;
-    border-radius:12px;
-    padding:20px;
+    color:#7c3aed;
 }
 
 .tilbage{
@@ -141,13 +135,13 @@ header{
 }
 
 .statusknapper button{
-    display:block;
-    width:100%;
-    margin:8px 0;
-    padding:12px;
+    margin:5px;
+    padding:10px;
     border:none;
     border-radius:8px;
     cursor:pointer;
+    display:block;
+    width:100%;
 }
 
 </style>
@@ -238,50 +232,11 @@ Mocktail
 
 <strong>Smag</strong>
 
-<label>
-<input
-type="checkbox"
-class="smagFilter"
-value="Sød"
->
-Sød
-</label>
-
-<label>
-<input
-type="checkbox"
-class="smagFilter"
-value="Frugtig"
->
-Frugtig
-</label>
-
-<label>
-<input
-type="checkbox"
-class="smagFilter"
-value="Kaffe"
->
-Kaffe
-</label>
-
-<label>
-<input
-type="checkbox"
-class="smagFilter"
-value="Frisk"
->
-Frisk
-</label>
-
-<label>
-<input
-type="checkbox"
-class="smagFilter"
-value="Cremet"
->
-Cremet
-</label>
+<label><input type="checkbox" class="smagFilter" value="Sød"> Sød</label>
+<label><input type="checkbox" class="smagFilter" value="Frugtig"> Frugtig</label>
+<label><input type="checkbox" class="smagFilter" value="Kaffe"> Kaffe</label>
+<label><input type="checkbox" class="smagFilter" value="Frisk"> Frisk</label>
+<label><input type="checkbox" class="smagFilter" value="Cremet"> Cremet</label>
 
 </div>
 
@@ -362,6 +317,102 @@ data-smag="Sød">
 
 </div>
 
+<div class="kort"
+data-id="mojito"
+data-type="Cocktail"
+data-smag="Frisk">
+
+<h3>🌿 Mojito</h3>
+<p>Frisk cocktail</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="virgin"
+data-type="Mocktail"
+data-smag="Frisk">
+
+<h3>🍋 Virgin Mojito</h3>
+<p>Frisk mocktail</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="pina"
+data-type="Cocktail"
+data-smag="Cremet">
+
+<h3>🥥 Piña Colada</h3>
+<p>Cremet cocktail</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="beach"
+data-type="Cocktail"
+data-smag="Frugtig">
+
+<h3>🏖️ Sex on the Beach</h3>
+<p>Frugtig cocktail</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="sunrise"
+data-type="Cocktail"
+data-smag="Frugtig">
+
+<h3>🌅 Tequila Sunrise</h3>
+<p>Frugtig cocktail</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="cosmo"
+data-type="Cocktail"
+data-smag="Frugtig">
+
+<h3>🍸 Cosmopolitan</h3>
+<p>Frugtig cocktail</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="shirley"
+data-type="Mocktail"
+data-smag="Sød">
+
+<h3>🍒 Shirley Temple</h3>
+<p>Sød mocktail</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="lemonade"
+data-type="Mocktail"
+data-smag="Sød">
+
+<h3>🍓 Strawberry Lemonade</h3>
+<p>Sød mocktail</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
 </div>
 </div>
 </div>
@@ -372,54 +423,72 @@ const opskrifter = {
 
 aperol:{
 navn:"🍹 Aperol Spritz",
-ingredienser:[
-"Aperol",
-"Prosecco",
-"Danskvand"
-]
+ingredienser:["Aperol","Prosecco","Danskvand"]
 },
 
 strawberry:{
 navn:"🍓 Strawberry Soda Gin",
-ingredienser:[
-"Gin",
-"Jordbærsodavand"
-]
+ingredienser:["Gin","Jordbærsodavand"]
 },
 
 espresso:{
 navn:"☕ Espresso Martini",
-ingredienser:[
-"Vodka",
-"Kaffelikør",
-"Espresso"
-]
+ingredienser:["Vodka","Kaffelikør","Espresso"]
 },
 
 cooler:{
 navn:"🍍 Ananas Cooler",
-ingredienser:[
-"Ananasjuice",
-"Sprite"
-]
+ingredienser:["Ananasjuice","Sprite"]
 },
 
 peach:{
 navn:"🍑 Peach Lemon Cooler",
-ingredienser:[
-"Vodka",
-"Citron",
-"Peach Soda"
-]
+ingredienser:["Vodka","Citron","Peach Soda"]
 },
 
 daiquiri:{
 navn:"🍍 Pineapple Daiquiri",
-ingredienser:[
-"Rom",
-"Ananasjuice",
-"Lime"
-]
+ingredienser:["Rom","Ananasjuice","Lime"]
+},
+
+mojito:{
+navn:"🌿 Mojito",
+ingredienser:["Rom","Lime","Mynte"]
+},
+
+virgin:{
+navn:"🍋 Virgin Mojito",
+ingredienser:["Lime","Mynte","Sprite"]
+},
+
+pina:{
+navn:"🥥 Piña Colada",
+ingredienser:["Rom","Kokos","Ananasjuice"]
+},
+
+beach:{
+navn:"🏖️ Sex on the Beach",
+ingredienser:["Vodka","Tranebærjuice","Appelsinjuice"]
+},
+
+sunrise:{
+navn:"🌅 Tequila Sunrise",
+ingredienser:["Tequila","Appelsinjuice","Grenadine"]
+},
+
+cosmo:{
+navn:"🍸 Cosmopolitan",
+ingredienser:["Vodka","Triple Sec","Tranebærjuice"]
+},
+
+shirley:{
+navn:"🍒 Shirley Temple",
+ingredienser:["Grenadine","Sprite"]
+},
+
+lemonade:{
+navn:"🍓 Strawberry Lemonade",
+ingredienser:["Jordbærsirup","Lemonade"]
 }
 
 };
@@ -435,7 +504,7 @@ if(gemt){
 return JSON.parse(gemt);
 }
 
-return{
+return {
 vilProeve:false,
 smagt:false,
 lavetSelv:false,
@@ -471,31 +540,26 @@ visOpskrift(id);
 }
 function statusKnapper(id){
 
-const data =
-hentData(id);
+const data = hentData(id);
 
 return `
 
 <div class="statusknapper">
 
 <button onclick="toggleStatus('${id}','vilProeve')">
-${data.vilProeve ? '✅' : '⬜'}
-Vil prøve
+${data.vilProeve ? '✅' : '⬜'} Vil prøve
 </button>
 
 <button onclick="toggleStatus('${id}','smagt')">
-${data.smagt ? '✅' : '⬜'}
-Smagt
+${data.smagt ? '✅' : '⬜'} Smagt
 </button>
 
 <button onclick="toggleStatus('${id}','lavetSelv')">
-${data.lavetSelv ? '✅' : '⬜'}
-Lavet selv
+${data.lavetSelv ? '✅' : '⬜'} Lavet selv
 </button>
 
 <button onclick="toggleStatus('${id}','favorit')">
-${data.favorit ? '❤️' : '🤍'}
-Favorit
+${data.favorit ? '❤️' : '🤍'} Favorit
 </button>
 
 </div>
@@ -506,56 +570,33 @@ Favorit
 
 function visOpskrift(id){
 
-const data =
-opskrifter[id];
+const data = opskrifter[id];
+const statusData = hentData(id);
 
-const statusData =
-hentData(id);
+document.getElementById("mainLayout").style.display = "none";
+document.getElementById("opskriftSide").style.display = "block";
 
-document.getElementById(
-"mainLayout"
-).style.display =
-"none";
+let ingrediensListe = "";
 
-document.getElementById(
-"opskriftSide"
-).style.display =
-"block";
+data.ingredienser.forEach(function(item){
+    ingrediensListe += "<li>" + item + "</li>";
+});
 
-let ingrediensListe =
-"";
+let statusTekst = "";
 
-data.ingredienser.forEach(
-function(item){
+if(statusData.vilProeve) statusTekst += "⭐ ";
+if(statusData.smagt) statusTekst += "🍹 ";
+if(statusData.lavetSelv) statusTekst += "✅ ";
+if(statusData.favorit) statusTekst += "❤️ ";
 
-ingrediensListe +=
-"<li>" +
-item +
-"</li>";
-
-}
-);
-
-document.getElementById(
-"opskriftIndhold"
-).innerHTML =
+document.getElementById("opskriftIndhold").innerHTML =
 
 '<button class="tilbage" onclick="lukOpskrift()">← Tilbage</button>' +
 
-'<h2>' +
-data.navn +
-'</h2>' +
+'<h2>' + data.navn + '</h2>' +
 
-'<p>' +
-
-(statusData.vilProeve ? '⭐ ' : '') +
-
-(statusData.smagt ? '🍹 ' : '') +
-
-(statusData.lavetSelv ? '✅ ' : '') +
-
-(statusData.favorit ? '❤️ ' : '') +
-
+'<p><strong>Status:</strong> ' +
+(statusTekst || "Ingen") +
 '</p>' +
 
 '<h3>Ingredienser</h3>' +
@@ -572,15 +613,8 @@ window.scrollTo(0,0);
 
 function lukOpskrift(){
 
-document.getElementById(
-"opskriftSide"
-).style.display =
-"none";
-
-document.getElementById(
-"mainLayout"
-).style.display =
-"flex";
+document.getElementById("opskriftSide").style.display = "none";
+document.getElementById("mainLayout").style.display = "flex";
 
 window.scrollTo(0,0);
 
@@ -592,30 +626,17 @@ document
 .querySelectorAll(".kort")
 .forEach(function(kort){
 
-const id =
-kort.dataset.id;
-
-const data =
-hentData(id);
+const id = kort.dataset.id;
+const data = hentData(id);
 
 let tekst = "";
 
-if(data.vilProeve)
-tekst += "⭐ ";
+if(data.vilProeve) tekst += "⭐ ";
+if(data.smagt) tekst += "🍹 ";
+if(data.lavetSelv) tekst += "✅ ";
+if(data.favorit) tekst += "❤️ ";
 
-if(data.smagt)
-tekst += "🍹 ";
-
-if(data.lavetSelv)
-tekst += "✅ ";
-
-if(data.favorit)
-tekst += "❤️ ";
-
-kort.querySelector(
-".statusVisning"
-).innerHTML =
-tekst;
+kort.querySelector(".statusVisning").innerHTML = tekst;
 
 });
 
@@ -628,66 +649,35 @@ let smagt = 0;
 let lavetSelv = 0;
 let favorit = 0;
 
-document
-.querySelectorAll(".kort")
-.forEach(function(kort){
+Object.keys(opskrifter)
+.forEach(function(id){
 
-const data =
-hentData(
-kort.dataset.id
-);
+const data = hentData(id);
 
-if(data.vilProeve)
-vilProeve++;
-
-if(data.smagt)
-smagt++;
-
-if(data.lavetSelv)
-lavetSelv++;
-
-if(data.favorit)
-favorit++;
+if(data.vilProeve) vilProeve++;
+if(data.smagt) smagt++;
+if(data.lavetSelv) lavetSelv++;
+if(data.favorit) favorit++;
 
 });
 
-document.getElementById(
-"countVilProeve"
-).innerText =
-vilProeve;
-
-document.getElementById(
-"countSmagt"
-).innerText =
-smagt;
-
-document.getElementById(
-"countLavetSelv"
-).innerText =
-lavetSelv;
-
-document.getElementById(
-"countFavorit"
-).innerText =
-favorit;
+document.getElementById("countVilProeve").innerText = vilProeve;
+document.getElementById("countSmagt").innerText = smagt;
+document.getElementById("countLavetSelv").innerText = lavetSelv;
+document.getElementById("countFavorit").innerText = favorit;
 
 }
 
 function filterStatus(type){
 
-document
-.querySelectorAll(".kort")
+document.querySelectorAll(".kort")
 .forEach(function(kort){
 
 const data =
-hentData(
-kort.dataset.id
-);
+hentData(kort.dataset.id);
 
 kort.style.display =
-data[type]
-? "block"
-: "none";
+data[type] ? "block" : "none";
 
 });
 
@@ -695,16 +685,115 @@ data[type]
 
 function visAlleCocktails(){
 
-document
-.querySelectorAll(".kort")
+document.querySelectorAll(".kort")
 .forEach(function(kort){
 
-kort.style.display =
-"block";
+kort.style.display = "block";
 
 });
 
 }
+
+function anvendFiltre(){
+
+const soegning =
+document.getElementById("soegning")
+.value
+.toLowerCase();
+
+const aktiveTyper =
+Array.from(
+document.querySelectorAll(".typeFilter:checked")
+).map(cb => cb.value);
+
+const aktiveSmage =
+Array.from(
+document.querySelectorAll(".smagFilter:checked")
+).map(cb => cb.value);
+
+document.querySelectorAll(".kort")
+.forEach(function(kort){
+
+let vis = true;
+
+const navn =
+kort.innerText.toLowerCase();
+
+const type =
+kort.dataset.type;
+
+const smag =
+kort.dataset.smag;
+
+if(!navn.includes(soegning)){
+vis = false;
+}
+
+if(
+aktiveTyper.length > 0 &&
+!aktiveTyper.includes(type)
+){
+vis = false;
+}
+
+if(
+aktiveSmage.length > 0 &&
+!aktiveSmage.includes(smag)
+){
+vis = false;
+}
+
+kort.style.display =
+vis ? "block" : "none";
+
+});
+
+}
+
+document.querySelectorAll(".kort")
+.forEach(function(kort){
+
+kort.addEventListener(
+"click",
+function(){
+
+visOpskrift(
+this.dataset.id
+);
+
+}
+);
+
+});
+
+document
+.getElementById("soegning")
+.addEventListener(
+"input",
+anvendFiltre
+);
+
+document
+.querySelectorAll(".typeFilter")
+.forEach(function(cb){
+
+cb.addEventListener(
+"change",
+anvendFiltre
+);
+
+});
+
+document
+.querySelectorAll(".smagFilter")
+.forEach(function(cb){
+
+cb.addEventListener(
+"change",
+anvendFiltre
+);
+
+});
 
 opdaterStatusVisning();
 opdaterTaellere();
