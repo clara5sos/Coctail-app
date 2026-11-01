@@ -207,7 +207,23 @@ placeholder="Søg cocktail..."
 🚫 Kan ikke lide
 (<span id="countKanIkkeLide">0</span>)
 </div>
+<hr>
 
+<div onclick="filterLager(0)">
+✅ Kan laves nu
+</div>
+
+<div onclick="filterLager(1)">
+🟡 Mangler 1
+</div>
+
+<div onclick="filterLager(2)">
+🟠 Mangler 2
+</div>
+
+<div onclick="filterLager(3)">
+🔴 Mangler 3+
+</div>
 <div onclick="visAlleCocktails()">
 🔄 Vis alle
 </div>
@@ -906,7 +922,58 @@ data[type]
 });
 
 }
+function filterLager(antal){
 
+document
+.querySelectorAll(".kort")
+.forEach(function(kort){
+
+const id =
+kort.dataset.id;
+
+const mangler =
+tjekCocktailLager(
+opskrifter[id].ingredienser
+);
+
+let vis = false;
+
+if(
+antal === 0 &&
+mangler === 0
+){
+vis = true;
+}
+
+if(
+antal === 1 &&
+mangler === 1
+){
+vis = true;
+}
+
+if(
+antal === 2 &&
+mangler === 2
+){
+vis = true;
+}
+
+if(
+antal === 3 &&
+mangler >= 3
+){
+vis = true;
+}
+
+kort.style.display =
+vis
+? "block"
+: "none";
+
+});
+
+}
 function visAlleCocktails(){
 
 document.querySelectorAll(".kort")
