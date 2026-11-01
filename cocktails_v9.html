@@ -485,6 +485,23 @@ Grenadine:[
 ]
 
 };
+function tjekCocktailLager(ingredienser){
+
+let mangler = 0;
+
+ingredienser.forEach(function(ingrediens){
+
+if(
+!harIngrediens(ingrediens)
+){
+mangler++;
+}
+
+});
+
+return mangler;
+
+}
 const opskrifter = {
 
 aperol:{
