@@ -506,9 +506,7 @@ localStorage.getItem(
 "cocktail_" + id
 );
 
-if(gemt){
-return JSON.parse(gemt);
-}
+if(!gemt){
 
 return {
 vilProeve:false,
@@ -516,6 +514,29 @@ smagt:false,
 lavetSelv:false,
 favorit:false
 };
+
+}
+
+try{
+
+return JSON.parse(gemt);
+
+}
+
+catch(error){
+
+localStorage.removeItem(
+"cocktail_" + id
+);
+
+return {
+vilProeve:false,
+smagt:false,
+lavetSelv:false,
+favorit:false
+};
+
+}
 
 }
 
