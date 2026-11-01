@@ -624,7 +624,9 @@ const flaske =
 varianter[i];
 
 if(
-localStorage.getItem(flaske)
+localStorage.getItem(
+"lager_" + flaske
+)
 === "true"
 ){
 return true;
