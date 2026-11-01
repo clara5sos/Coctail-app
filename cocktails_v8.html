@@ -550,28 +550,31 @@ const data = hentData(id);
 
 return `
 
-<div class="statusknapper">
+ <div class="statusknapper">
 
-<button onclick="toggleStatus('${id}','vilProeve')">
-${data.vilProeve ? '✅' : '⬜'} Vil prøve
-</button>
+        <button onclick="gemStatus('${id}','Vil prøve')">
+            ⭐ Vil prøve
+        </button>
 
-<button onclick="toggleStatus('${id}','smagt')">
-${data.smagt ? '✅' : '⬜'} Smagt
-</button>
+        <button onclick="gemStatus('${id}','Smagt')">
+            🍹 Smagt
+        </button>
 
-<button onclick="toggleStatus('${id}','lavetSelv')">
-${data.lavetSelv ? '✅' : '⬜'} Lavet selv
-</button>
+        <button onclick="gemStatus('${id}','Lavet selv')">
+            ✅ Lavet selv
+        </button>
 
-<button onclick="toggleStatus('${id}','favorit')">
-${data.favorit ? '❤️' : '🤍'} Favorit
-</button>
+        <button onclick="gemStatus('${id}','Favorit')">
+            ❤️ Favorit
+        </button>
 
-</div>
+        <button onclick="gemStatus('${id}','Kan ikke lide')">
+            🚫 Kan ikke lide
+        </button>
 
-`;
+    </div>
 
+    `;
 }
 
 function visOpskrift(id){
