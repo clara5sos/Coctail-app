@@ -239,19 +239,39 @@ placeholder="Søg i lager..."
 
 // GEM CHECKBOXE
 
-const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+const checkboxes =
+document.querySelectorAll(
+'input[type="checkbox"]'
+);
 
 checkboxes.forEach((checkbox,index)=>{
 
-const key = "checkbox_"+index;
+const label =
+checkbox.parentElement
+.textContent
+.trim();
 
-if(localStorage.getItem(key)==="true"){
+const key =
+"lager_" + label;
+
+if(
+localStorage.getItem(key)
+=== "true"
+){
 checkbox.checked = true;
 }
 
-checkbox.addEventListener("change",function(){
-localStorage.setItem(key,this.checked);
-});
+checkbox.addEventListener(
+"change",
+function(){
+
+localStorage.setItem(
+key,
+this.checked
+);
+
+}
+);
 
 });
 
