@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Claras Cocktail App V8</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f4eefc;
+}
+
+header{
+    background:#7c3aed;
+    color:white;
+    padding:20px;
+}
+
+.menu{
+    margin-top:15px;
+}
+
+.menu a,
+.menu span{
+    display:inline-block;
+    padding:10px 14px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:bold;
+    margin-right:10px;
+}
+
+.menu a{
+    background:white;
+    color:#7c3aed;
+}
+
+.aktiv{
+    background:#5b21b6;
+    color:white;
+}
+
+.layout{
+    display:flex;
+    gap:20px;
+    padding:20px;
+}
+
+.sidebar{
+    width:300px;
+    background:white;
+    border-radius:12px;
+    padding:15px;
+    height:fit-content;
+}
+
+.content{
+    flex:1;
+}
+
+#soegning{
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    border:1px solid #ccc;
+    box-sizing:border-box;
+    margin-bottom:20px;
+}
+
+.statusMenu{
+    background:#f4eefc;
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:20px;
+}
+
+.statusMenu div{
+    margin:8px 0;
+    cursor:pointer;
+}
+
+.filtergruppe{
+    margin-bottom:25px;
+}
+
+.filtergruppe strong{
+    display:block;
+    margin-bottom:10px;
+}
+
+.filtergruppe label{
+    display:block;
+    margin:8px 0;
+}
+
+.kort{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:15px;
+    cursor:pointer;
+}
+
+.kort:hover{
+    background:#ece1ff;
+}
+
+.statusVisning{
+    margin-top:12px;
+    color:#7c3aed;
+    font-weight:bold;
+}
+
+.statusBadges span{
+    display:inline-block;
+    margin-right:8px;
+    margin-top:6px;
+}
+
+#opskriftSide{
+    display:none;
+    padding:20px;
+}
+
+.opskriftKort{
+    background:white;
+    border-radius:12px;
+    padding:20px;
+}
+
+.tilbage{
+    padding:10px 16px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    margin-bottom:20px;
+}
+
+.statusknapper button{
+    display:block;
+    width:100%;
+    margin:8px 0;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<h1>🍹 Claras Cocktail App V8</h1>
+
+<div class="menu">
+<a href="index.html">📦 Lager</a>
+<span class="aktiv">🍹 Cocktails</span>
+</div>
+
+</header>
+
+<div id="opskriftSide">
+<div class="opskriftKort" id="opskriftIndhold"></div>
+</div>
+
+<div class="layout" id="mainLayout">
+
+<div class="sidebar">
+
+<input
+id="soegning"
+type="text"
+placeholder="Søg cocktail..."
+>
+
+<div class="statusMenu">
+
+<strong>📊 Mine cocktails</strong>
+
+<div onclick="filterStatus('vilProeve')">
+⭐ Vil prøve
+(<span id="countVilProeve">0</span>)
+</div>
+
+<div onclick="filterStatus('smagt')">
+🍹 Smagt
+(<span id="countSmagt">0</span>)
+</div>
+
+<div onclick="filterStatus('lavetSelv')">
+✅ Lavet selv
+(<span id="countLavetSelv">0</span>)
+</div>
+
+<div onclick="filterStatus('favorit')">
+❤️ Favoritter
+(<span id="countFavorit">0</span>)
+</div>
+
+<div onclick="visAlleCocktails()">
+🔄 Vis alle
+</div>
+
+</div>
+
+<div class="filtergruppe">
+
+<strong>Type</strong>
+
+<label>
+<input
+type="checkbox"
+class="typeFilter"
+value="Cocktail"
+>
+Cocktail
+</label>
+
+<label>
+<input
+type="checkbox"
+class="typeFilter"
+value="Mocktail"
+>
+Mocktail
+</label>
+
+</div>
+
+<div class="filtergruppe">
+
+<strong>Smag</strong>
+
+<label>
+<input
+type="checkbox"
+class="smagFilter"
+value="Sød"
+>
+Sød
+</label>
+
+<label>
+<input
+type="checkbox"
+class="smagFilter"
+value="Frugtig"
+>
+Frugtig
+</label>
+
+<label>
+<input
+type="checkbox"
+class="smagFilter"
+value="Kaffe"
+>
+Kaffe
+</label>
+
+<label>
+<input
+type="checkbox"
+class="smagFilter"
+value="Frisk"
+>
+Frisk
+</label>
+
+<label>
+<input
+type="checkbox"
+class="smagFilter"
+value="Cremet"
+>
+Cremet
+</label>
+
+</div>
+
+</div>
+
+<div class="content">
+
+<div id="listeSide">
+    <div class="kort"
+data-id="aperol"
+data-type="Cocktail"
+data-smag="Frugtig">
+
+<h3>🍹 Aperol Spritz</h3>
+<p>Frugtig cocktail</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="strawberry"
+data-type="Cocktail"
+data-smag="Sød">
+
+<h3>🍓 Strawberry Soda Gin</h3>
+<p>Sød cocktail</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="espresso"
+data-type="Cocktail"
+data-smag="Kaffe">
+
+<h3>☕ Espresso Martini</h3>
+<p>Kaffecocktail</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="cooler"
+data-type="Mocktail"
+data-smag="Frisk">
+
+<h3>🍍 Ananas Cooler</h3>
+<p>Mocktail</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="peach"
+data-type="Cocktail"
+data-smag="Frugtig">
+
+<h3>🍑 Peach Lemon Cooler</h3>
+<p>Frugtig cocktail</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="daiquiri"
+data-type="Cocktail"
+data-smag="Sød">
+
+<h3>🍍 Pineapple Daiquiri</h3>
+<p>Sød cocktail</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+</div>
+</div>
+</div>
+
+<script>
+
+const opskrifter = {
+
+aperol:{
+navn:"🍹 Aperol Spritz",
+ingredienser:[
+"Aperol",
+"Prosecco",
+"Danskvand"
+]
+},
+
+strawberry:{
+navn:"🍓 Strawberry Soda Gin",
+ingredienser:[
+"Gin",
+"Jordbærsodavand"
+]
+},
+
+espresso:{
+navn:"☕ Espresso Martini",
+ingredienser:[
+"Vodka",
+"Kaffelikør",
+"Espresso"
+]
+},
+
+cooler:{
+navn:"🍍 Ananas Cooler",
+ingredienser:[
+"Ananasjuice",
+"Sprite"
+]
+},
+
+peach:{
+navn:"🍑 Peach Lemon Cooler",
+ingredienser:[
+"Vodka",
+"Citron",
+"Peach Soda"
+]
+},
+
+daiquiri:{
+navn:"🍍 Pineapple Daiquiri",
+ingredienser:[
+"Rom",
+"Ananasjuice",
+"Lime"
+]
+}
+
+};
+
+function hentData(id){
+
+const gemt =
+localStorage.getItem(
+"cocktail_" + id
+);
+
+if(gemt){
+return JSON.parse(gemt);
+}
+
+return{
+vilProeve:false,
+smagt:false,
+lavetSelv:false,
+favorit:false
+};
+
+}
+
+function gemData(id,data){
+
+localStorage.setItem(
+"cocktail_" + id,
+JSON.stringify(data)
+);
+
+}
+
+function toggleStatus(id,type){
+
+const data =
+hentData(id);
+
+data[type] =
+!data[type];
+
+gemData(id,data);
+
+opdaterStatusVisning();
+opdaterTaellere();
+
+visOpskrift(id);
+
+}
+function statusKnapper(id){
+
+const data =
+hentData(id);
+
+return `
+
+<div class="statusknapper">
+
+<button onclick="toggleStatus('${id}','vilProeve')">
+${data.vilProeve ? '✅' : '⬜'}
+Vil prøve
+</button>
+
+<button onclick="toggleStatus('${id}','smagt')">
+${data.smagt ? '✅' : '⬜'}
+Smagt
+</button>
+
+<button onclick="toggleStatus('${id}','lavetSelv')">
+${data.lavetSelv ? '✅' : '⬜'}
+Lavet selv
+</button>
+
+<button onclick="toggleStatus('${id}','favorit')">
+${data.favorit ? '❤️' : '🤍'}
+Favorit
+</button>
+
+</div>
+
+`;
+
+}
+
+function visOpskrift(id){
+
+const data =
+opskrifter[id];
+
+const statusData =
+hentData(id);
+
+document.getElementById(
+"mainLayout"
+).style.display =
+"none";
+
+document.getElementById(
+"opskriftSide"
+).style.display =
+"block";
+
+let ingrediensListe =
+"";
+
+data.ingredienser.forEach(
+function(item){
+
+ingrediensListe +=
+"<li>" +
+item +
+"</li>";
+
+}
+);
+
+document.getElementById(
+"opskriftIndhold"
+).innerHTML =
+
+'<button class="tilbage" onclick="lukOpskrift()">← Tilbage</button>' +
+
+'<h2>' +
+data.navn +
+'</h2>' +
+
+'<p>' +
+
+(statusData.vilProeve ? '⭐ ' : '') +
+
+(statusData.smagt ? '🍹 ' : '') +
+
+(statusData.lavetSelv ? '✅ ' : '') +
+
+(statusData.favorit ? '❤️ ' : '') +
+
+'</p>' +
+
+'<h3>Ingredienser</h3>' +
+
+'<ul>' +
+ingrediensListe +
+'</ul>' +
+
+statusKnapper(id);
+
+window.scrollTo(0,0);
+
+}
+
+function lukOpskrift(){
+
+document.getElementById(
+"opskriftSide"
+).style.display =
+"none";
+
+document.getElementById(
+"mainLayout"
+).style.display =
+"flex";
+
+window.scrollTo(0,0);
+
+}
+
+function opdaterStatusVisning(){
+
+document
+.querySelectorAll(".kort")
+.forEach(function(kort){
+
+const id =
+kort.dataset.id;
+
+const data =
+hentData(id);
+
+let tekst = "";
+
+if(data.vilProeve)
+tekst += "⭐ ";
+
+if(data.smagt)
+tekst += "🍹 ";
+
+if(data.lavetSelv)
+tekst += "✅ ";
+
+if(data.favorit)
+tekst += "❤️ ";
+
+kort.querySelector(
+".statusVisning"
+).innerHTML =
+tekst;
+
+});
+
+}
+
+function opdaterTaellere(){
+
+let vilProeve = 0;
+let smagt = 0;
+let lavetSelv = 0;
+let favorit = 0;
+
+document
+.querySelectorAll(".kort")
+.forEach(function(kort){
+
+const data =
+hentData(
+kort.dataset.id
+);
+
+if(data.vilProeve)
+vilProeve++;
+
+if(data.smagt)
+smagt++;
+
+if(data.lavetSelv)
+lavetSelv++;
+
+if(data.favorit)
+favorit++;
+
+});
+
+document.getElementById(
+"countVilProeve"
+).innerText =
+vilProeve;
+
+document.getElementById(
+"countSmagt"
+).innerText =
+smagt;
+
+document.getElementById(
+"countLavetSelv"
+).innerText =
+lavetSelv;
+
+document.getElementById(
+"countFavorit"
+).innerText =
+favorit;
+
+}
+
+function filterStatus(type){
+
+document
+.querySelectorAll(".kort")
+.forEach(function(kort){
+
+const data =
+hentData(
+kort.dataset.id
+);
+
+kort.style.display =
+data[type]
+? "block"
+: "none";
+
+});
+
+}
+
+function visAlleCocktails(){
+
+document
+.querySelectorAll(".kort")
+.forEach(function(kort){
+
+kort.style.display =
+"block";
+
+});
+
+}
+
+opdaterStatusVisning();
+opdaterTaellere();
+
+</script>
+
+</body>
+</html>
