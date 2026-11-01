@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Claras Cocktail App V8.1</title>
+<title>Claras Cocktail App V9</title>
 
 <style>
 
@@ -156,7 +156,7 @@ header{
 
 <header>
 
-<h1>🍹 Claras Cocktail App V9</h1>
+<h1>🍹 Claras Cocktail App V8.1</h1>
 
 <div class="menu">
 <a href="index.html">📦 Lager</a>
@@ -207,23 +207,7 @@ placeholder="Søg cocktail..."
 🚫 Kan ikke lide
 (<span id="countKanIkkeLide">0</span>)
 </div>
-<hr>
 
-<div onclick="filterLager(0)">
-✅ Kan laves nu
-</div>
-
-<div onclick="filterLager(1)">
-🟡 Mangler 1
-</div>
-
-<div onclick="filterLager(2)">
-🟠 Mangler 2
-</div>
-
-<div onclick="filterLager(3)">
-🔴 Mangler 3+
-</div>
 <div onclick="visAlleCocktails()">
 🔄 Vis alle
 </div>
@@ -442,8 +426,7 @@ data-smag="Sød">
 </div>
 
 <script>
-
-    const ingrediensMatch = {
+const ingrediensMatch = {
 
 Vodka:[
 "Absolut Vodka",
@@ -461,14 +444,12 @@ Rom:[
 "Bacardi Carta Blanca"
 ],
 
-Kaffelikør:[
-"Kahlúa",
-"Sheridan's Coffee Liqueur"
+Tequila:[
+"Tequila"
 ],
 
-Appelsinlikør:[
-"Triple Sec",
-"Cointreau"
+Whisky:[
+"Whisky"
 ],
 
 Aperol:[
@@ -487,10 +468,6 @@ Sprite:[
 "Sprite"
 ],
 
-Grenadine:[
-"Grenadine"
-],
-
 Ananasjuice:[
 "Ananasjuice"
 ],
@@ -503,114 +480,16 @@ Appelsinjuice:[
 "Appelsinjuice"
 ],
 
-Limesaft:[
-"Limesaft"
-],
-
-Citronsaft:[
-"Citronsaft"
+Grenadine:[
+"Grenadine"
 ]
 
 };
-
 const opskrifter = {
-
-    function harIngrediens(navn){
-        function tjekCocktailLager(ingredienser){
-function lavLagerListe(ingredienser){
-
-let html = "";
-let mangler = 0;
-
-ingredienser.forEach(function(ingrediens){
-
-if(harIngrediens(ingrediens)){
-
-html +=
-"<div>✅ " +
-ingrediens +
-"</div>";
-
-}
-else{
-
-html +=
-"<div>❌ " +
-ingrediens +
-"</div>";
-
-mangler++;
-
-}
-
-});
-
-let status = "";
-
-if(mangler === 0){
-status = "✅ Kan laves nu";
-}
-else if(mangler === 1){
-status = "🟡 Mangler 1 ingrediens";
-}
-else if(mangler === 2){
-status = "🟠 Mangler 2 ingredienser";
-}
-else{
-status = "🔴 Mangler " + mangler + " ingredienser";
-}
-
-return {
-html: html,
-status: status
-};
-
-}
-let mangler = 0;
-
-ingredienser.forEach(function(ingrediens){
-
-if(
-!harIngrediens(ingrediens)
-){
-mangler++;
-}
-
-});
-
-return mangler;
-
-}
-
-const regler =
-ingrediensMatch[navn];
-
-if(!regler){
-return false;
-}
-
-for(const flaske of regler){
-
-if(
-localStorage.getItem(flaske)
-=== "true"
-){
-return true;
-}
-
-}
-
-return false;
-
-}
 
 aperol:{
 navn:"🍹 Aperol Spritz",
-ingredienser:[
-"Aperol",
-"Prosecco",
-"Danskvand"
-]
+ingredienser:["Aperol","Prosecco","Danskvand"]
 },
 
 strawberry:{
@@ -738,11 +617,6 @@ gemData(id,data);
 opdaterStatusVisning();
 opdaterTaellere();
 
-setInterval(
-opdaterStatusVisning,
-2000
-);
-
 visOpskrift(id);
 
 }
@@ -790,10 +664,9 @@ document.getElementById("opskriftSide").style.display = "block";
 
 let ingrediensListe = "";
 
-const lagerInfo =
-lavLagerListe(
-data.ingredienser
-);
+data.ingredienser.forEach(function(item){
+ingrediensListe += "<li>" + item + "</li>";
+});
 
 let statusTekst = "";
 
@@ -815,11 +688,9 @@ document.getElementById("opskriftIndhold").innerHTML =
 
 '<h3>Ingredienser</h3>' +
 
-lagerInfo.html +
-
-'<p style="margin-top:15px;font-weight:bold;">' +
-lagerInfo.status +
-'</p>' +
+'<ul>' +
+ingrediensListe +
+'</ul>' +
 
 statusKnapper(id);
 
@@ -852,24 +723,6 @@ if(data.smagt) tekst += "🍹 ";
 if(data.lavetSelv) tekst += "✅ ";
 if(data.favorit) tekst += "❤️ ";
 if(data.kanIkkeLide) tekst += "🚫 ";
-
-const mangler =
-tjekCocktailLager(
-opskrifter[id].ingredienser
-);
-
-if(mangler === 0){
-tekst += " ✅";
-}
-else if(mangler === 1){
-tekst += " 🟡1";
-}
-else if(mangler === 2){
-tekst += " 🟠2";
-}
-else{
-tekst += " 🔴3+";
-}
 
 kort.querySelector(".statusVisning").innerHTML = tekst;
 
@@ -922,58 +775,7 @@ data[type]
 });
 
 }
-function filterLager(antal){
 
-document
-.querySelectorAll(".kort")
-.forEach(function(kort){
-
-const id =
-kort.dataset.id;
-
-const mangler =
-tjekCocktailLager(
-opskrifter[id].ingredienser
-);
-
-let vis = false;
-
-if(
-antal === 0 &&
-mangler === 0
-){
-vis = true;
-}
-
-if(
-antal === 1 &&
-mangler === 1
-){
-vis = true;
-}
-
-if(
-antal === 2 &&
-mangler === 2
-){
-vis = true;
-}
-
-if(
-antal === 3 &&
-mangler >= 3
-){
-vis = true;
-}
-
-kort.style.display =
-vis
-? "block"
-: "none";
-
-});
-
-}
 function visAlleCocktails(){
 
 document.querySelectorAll(".kort")
@@ -1088,11 +890,6 @@ anvendFiltre
 
 opdaterStatusVisning();
 opdaterTaellere();
-
-setInterval(
-opdaterStatusVisning,
-2000
-);
 
 </script>
 
