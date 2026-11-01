@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Claras Cocktail App</title>
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    background:#f6f1ff;
+    max-width:1000px;
+    margin:auto;
+    padding:20px;
+}
+
+h1{
+    color:#7c3aed;
+}
+
+.menu{
+    background:white;
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:20px;
+}
+
+.menu a{
+    text-decoration:none;
+    font-weight:bold;
+    color:#7c3aed;
+    margin-right:20px;
+    font-size:18px;
+}
+
+.menu .aktiv{
+    background:#7c3aed;
+    color:white;
+    padding:8px 12px;
+    border-radius:8px;
+}
+
+#soegning{
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    border:1px solid #ccc;
+    margin-bottom:20px;
+    box-sizing:border-box;
+}
+
+details{
+    background:white;
+    border-radius:12px;
+    margin-bottom:15px;
+    padding:15px;
+}
+
+summary{
+    cursor:pointer;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.undergruppe{
+    background:#eef6f4;
+    border-radius:10px;
+    padding:12px;
+    margin-top:10px;
+}
+
+label{
+    display:block;
+    margin:6px 0;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>🍹 Claras Cocktail App</h1>
+
+<div class="menu">
+<span class="aktiv">📦 Lager</span>
+<a href="cocktails_v9.html">🍹 Cocktails</a>
+</div>
+
+<input
+id="soegning"
+type="text"
+placeholder="Søg i lager..."
+>
+
+<details open>
+<summary>Spiritus</summary>
+
+<div class="undergruppe">
+<strong>Gin</strong>
+
+<label><input type="checkbox"> June by G'Vine Peach Gin Liqueur</label>
+<label><input type="checkbox"> Gordon's Pink Gin</label>
+<label><input type="checkbox"> Gordon's London Dry</label>
+<label><input type="checkbox"> Hendrick's Gin</label>
+</div>
+
+<div class="undergruppe">
+<strong>Vodka</strong>
+
+<label><input type="checkbox"> Absolut Vodka</label>
+<label><input type="checkbox"> Smirnoff Vodka</label>
+</div>
+
+<div class="undergruppe">
+<strong>Rom</strong>
+
+<label><input type="checkbox"> Captain Morgan Spiced Gold</label>
+<label><input type="checkbox"> Bacardi Carta Blanca</label>
+</div>
+
+<div class="undergruppe">
+<strong>Tequila</strong>
+
+<label><input type="checkbox"> Tequila</label>
+</div>
+
+<div class="undergruppe">
+<strong>Whisky</strong>
+
+<label><input type="checkbox"> Whisky</label>
+</div>
+
+</details>
+
+<details>
+<summary>Likører</summary>
+
+<div class="undergruppe">
+<strong>Flødelikør</strong>
+
+<label><input type="checkbox"> Baileys Irish Cream</label>
+</div>
+
+<div class="undergruppe">
+<strong>Kaffelikør</strong>
+
+<label><input type="checkbox"> Sheridan's Coffee Liqueur</label>
+<label><input type="checkbox"> Kahlúa</label>
+</div>
+
+<div class="undergruppe">
+<strong>Appelsinlikør</strong>
+
+<label><input type="checkbox"> Triple Sec</label>
+<label><input type="checkbox"> Cointreau</label>
+</div>
+
+<div class="undergruppe">
+<strong>Ferskenlikør</strong>
+
+<label><input type="checkbox"> Peach Schnapps</label>
+</div>
+
+</details>
+
+<details>
+<summary>Aperitiffer</summary>
+
+<label><input type="checkbox"> Aperol</label>
+<label><input type="checkbox"> Campari</label>
+<label><input type="checkbox"> Limoncello</label>
+
+</details>
+
+<details>
+<summary>Vin & Bobler</summary>
+
+<label><input type="checkbox"> Prosecco</label>
+<label><input type="checkbox"> Mousserende vin</label>
+<label><input type="checkbox"> Hvidvin</label>
+<label><input type="checkbox"> Rosévin</label>
+<label><input type="checkbox"> Rødvin</label>
+
+</details>
+
+<details>
+<summary>Mixere</summary>
+
+<label><input type="checkbox"> Cola</label>
+<label><input type="checkbox"> Pepsi Max</label>
+<label><input type="checkbox"> Sprite</label>
+<label><input type="checkbox"> Lemon sodavand</label>
+<label><input type="checkbox"> Tonic</label>
+<label><input type="checkbox"> Ginger Beer</label>
+<label><input type="checkbox"> Ginger Ale</label>
+<label><input type="checkbox"> Danskvand</label>
+
+</details>
+
+<details>
+<summary>Juice</summary>
+
+<label><input type="checkbox"> Appelsinjuice</label>
+<label><input type="checkbox"> Ananasjuice</label>
+<label><input type="checkbox"> Tranebærjuice</label>
+<label><input type="checkbox"> Æblejuice</label>
+<label><input type="checkbox"> Mangojuice</label>
+
+</details>
+
+<details>
+<summary>Barlager</summary>
+
+<label><input type="checkbox"> Grenadine</label>
+<label><input type="checkbox"> Citronsaft</label>
+<label><input type="checkbox"> Limesaft</label>
+<label><input type="checkbox"> Sukkerlage</label>
+<label><input type="checkbox"> Jordbærsirup</label>
+<label><input type="checkbox"> Hindbærsirup</label>
+<label><input type="checkbox"> Mangosirup</label>
+<label><input type="checkbox"> Mynte</label>
+
+</details>
+
+<details>
+<summary>Øl & Cider</summary>
+
+<label><input type="checkbox"> Øl</label>
+<label><input type="checkbox"> Hvedeøl</label>
+<label><input type="checkbox"> Cider</label>
+<label><input type="checkbox"> Alkoholfri øl</label>
+
+</details>
+
+<script>
+
+// GEM CHECKBOXE
+
+const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+checkboxes.forEach((checkbox,index)=>{
+
+const key = "checkbox_"+index;
+
+if(localStorage.getItem(key)==="true"){
+checkbox.checked = true;
+}
+
+checkbox.addEventListener("change",function(){
+localStorage.setItem(key,this.checked);
+});
+
+});
+
+// GEM FOLD-UD KATEGORIER
+
+const detailsListe = document.querySelectorAll("details");
+
+detailsListe.forEach((item,index)=>{
+
+const key = "details_"+index;
+
+const gemt = localStorage.getItem(key);
+
+if(gemt==="lukket"){
+item.removeAttribute("open");
+}
+
+if(gemt==="aaben"){
+item.setAttribute("open","open");
+}
+
+item.addEventListener("toggle",()=>{
+
+if(item.open){
+localStorage.setItem(key,"aaben");
+}
+else{
+localStorage.setItem(key,"lukket");
+}
+
+});
+
+});
+
+// SØGNING
+
+document
+.getElementById("soegning")
+.addEventListener("input",function(){
+
+const tekst = this.value.toLowerCase();
+
+document.querySelectorAll("label").forEach(label=>{
+
+const navn = label.textContent.toLowerCase();
+
+if(navn.includes(tekst)){
+label.style.display="block";
+}
+else{
+label.style.display="none";
+}
+
+});
+
+});
+
+</script>
+
+</body>
+</html>
