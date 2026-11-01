@@ -156,7 +156,7 @@ header{
 
 <header>
 
-<h1>🍹 Claras Cocktail App V8.1</h1>
+<h1>🍹 Claras Cocktail App V9</h1>
 
 <div class="menu">
 <a href="index.html">📦 Lager</a>
@@ -560,10 +560,29 @@ ingredienser:["Jordbærsirup","Lemonade"]
 };
 function harIngrediens(navn){
 
-if(
-!ingrediensMatch[navn]
-){
+const varianter =
+ingrediensMatch[navn];
+
+if(!varianter){
 return false;
+}
+
+for(
+let i = 0;
+i < varianter.length;
+i++
+){
+
+const flaske =
+varianter[i];
+
+if(
+localStorage.getItem(flaske)
+=== "true"
+){
+return true;
+}
+
 }
 
 return false;
