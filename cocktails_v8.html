@@ -550,59 +550,50 @@ JSON.stringify(data)
 }
 
 function toggleStatus(id,type){
-alert("toggle virker");
+
 const data =
 hentData(id);
 
 data[type] =
 !data[type];
-alert(JSON.stringify(data));
-gemData(id,data);
 
-alert("gemt");
+gemData(id,data);
 
 opdaterStatusVisning();
 
-alert("visning opdateret");
-
 opdaterTaellere();
 
-alert("tæller opdateret");
 
 visOpskrift(id);
 
-alert("opskrift opdateret");
 
 }
 function statusKnapper(id){
 
 const data = hentData(id);
-alert(JSON.stringify(data));
+
 
 return `
 
  <div class="statusknapper">
 
-    <button onclick="toggleStatus('${id}','vilProeve')">    
-    ⭐ Vil prøve
-        </button>
+   <button onclick="toggleStatus('${id}','vilProeve')">
+⭐ Vil prøve
+</button>
 
-        <button onclick="gemStatus('${id}','Smagt')">
-            🍹 Smagt
-        </button>
+<button onclick="toggleStatus('${id}','smagt')">
+🍹 Smagt
+</button>
 
-        <button onclick="gemStatus('${id}','Lavet selv')">
-            ✅ Lavet selv
-        </button>
+<button onclick="toggleStatus('${id}','lavetSelv')">
+✅ Lavet selv
+</button>
 
-        <button onclick="gemStatus('${id}','Favorit')">
-            ❤️ Favorit
-        </button>
+<button onclick="toggleStatus('${id}','favorit')">
+❤️ Favorit
+</button>
 
-        <button onclick="gemStatus('${id}','Kan ikke lide')">
-            🚫 Kan ikke lide
-        </button>
-
+      
     </div>
 
     `;
