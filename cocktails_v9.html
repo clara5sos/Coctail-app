@@ -502,6 +502,36 @@ mangler++;
 return mangler;
 
 }
+function lavLagerListe(ingredienser){
+
+let html = "";
+
+ingredienser.forEach(function(ingrediens){
+
+if(
+harIngrediens(ingrediens)
+){
+
+html +=
+"<div>✅ " +
+ingrediens +
+"</div>";
+
+}
+else{
+
+html +=
+"<div>❌ " +
+ingrediens +
+"</div>";
+
+}
+
+});
+
+return html;
+
+}
 const opskrifter = {
 
 aperol:{
@@ -709,11 +739,10 @@ const statusData = hentData(id);
 document.getElementById("mainLayout").style.display = "none";
 document.getElementById("opskriftSide").style.display = "block";
 
-let ingrediensListe = "";
-
-data.ingredienser.forEach(function(item){
-ingrediensListe += "<li>" + item + "</li>";
-});
+let ingrediensListe =
+lavLagerListe(
+data.ingredienser
+);
 
 let statusTekst = "";
 
@@ -735,9 +764,7 @@ document.getElementById("opskriftIndhold").innerHTML =
 
 '<h3>Ingredienser</h3>' +
 
-'<ul>' +
 ingrediensListe +
-'</ul>' +
 
 statusKnapper(id);
 
