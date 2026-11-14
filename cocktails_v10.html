@@ -228,6 +228,9 @@ placeholder="Søg cocktail..."
 🔴 Mangler 3+
 (<span id="countMangler3">0</span>)
 </div>
+<div onclick="sorterEfterLager()">
+📦 Sortér efter lagerstatus
+</div>
 <div onclick="visAlleCocktails()">
 🔄 Vis alle
 </div>
@@ -1089,6 +1092,39 @@ kort.style.display =
 vis
 ? "block"
 : "none";
+
+});
+
+}
+function sorterEfterLager(){
+
+const container =
+document.getElementById("listeSide");
+
+const kort =
+Array.from(
+container.querySelectorAll(".kort")
+);
+
+kort.sort(function(a,b){
+
+const manglerA =
+tjekCocktailLager(
+opskrifter[a.dataset.id].ingredienser
+);
+
+const manglerB =
+tjekCocktailLager(
+opskrifter[b.dataset.id].ingredienser
+);
+
+return manglerA - manglerB;
+
+});
+
+kort.forEach(function(kort){
+
+container.appendChild(kort);
 
 });
 
