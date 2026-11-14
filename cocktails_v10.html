@@ -211,18 +211,22 @@ placeholder="Søg cocktail..."
 
 <div onclick="filterLager(0)">
 ✔️ Kan laves nu
+(<span id="countKanLaves">0</span>)
 </div>
 
 <div onclick="filterLager(1)">
 🟡 Mangler 1
+(<span id="countMangler1">0</span>)
 </div>
 
 <div onclick="filterLager(2)">
 🟠 Mangler 2
+(<span id="countMangler2">0</span>)
 </div>
 
 <div onclick="filterLager(3)">
 🔴 Mangler 3+
+(<span id="countMangler3">0</span>)
 </div>
 <div onclick="visAlleCocktails()">
 🔄 Vis alle
@@ -893,6 +897,61 @@ data[type]
 });
 
 }
+function opdaterLagerTaellere(){
+
+let kanLaves = 0;
+let mangler1 = 0;
+let mangler2 = 0;
+let mangler3 = 0;
+
+Object.keys(opskrifter)
+.forEach(function(id){
+
+const mangler =
+tjekCocktailLager(
+opskrifter[id].ingredienser
+);
+
+if(mangler === 0){
+
+kanLaves++;
+
+}
+else if(mangler === 1){
+
+mangler1++;
+
+}
+else if(mangler === 2){
+
+mangler2++;
+
+}
+else{
+
+mangler3++;
+
+}
+
+});
+
+document.getElementById(
+"countKanLaves"
+).innerText = kanLaves;
+
+document.getElementById(
+"countMangler1"
+).innerText = mangler1;
+
+document.getElementById(
+"countMangler2"
+).innerText = mangler2;
+
+document.getElementById(
+"countMangler3"
+).innerText = mangler3;
+
+}
 function filterLager(antal){
 
 document
@@ -1111,6 +1170,7 @@ anvendFiltre
 
 opdaterStatusVisning();
 opdaterTaellere();
+opdaterLagerTaellere();
 
 </script>
 
