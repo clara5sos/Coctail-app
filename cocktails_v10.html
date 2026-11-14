@@ -758,6 +758,40 @@ function visOpskrift(id){
 const data = opskrifter[id];
 const statusData = hentData(id);
 
+const mangler =
+tjekCocktailLager(
+data.ingredienser
+);
+
+let lagerStatus = "";
+
+if(mangler === 0){
+
+lagerStatus =
+"✔️ Kan laves nu";
+
+}
+else if(mangler === 1){
+
+lagerStatus =
+"🟡 Mangler 1 ingrediens";
+
+}
+else if(mangler === 2){
+
+lagerStatus =
+"🟠 Mangler 2 ingredienser";
+
+}
+else{
+
+lagerStatus =
+"🔴 Mangler " +
+mangler +
+" ingredienser";
+
+}
+
 document.getElementById("mainLayout").style.display = "none";
 document.getElementById("opskriftSide").style.display = "block";
 
@@ -779,6 +813,10 @@ document.getElementById("opskriftIndhold").innerHTML =
 '<button class="tilbage" onclick="lukOpskrift()">← Tilbage</button>' +
 
 '<h2>' + data.navn + '</h2>' +
+
+'<p><strong>' +
+lagerStatus +
+'</strong></p>' +
 
 '<p><strong>Status:</strong> ' +
 (statusTekst || "Ingen") +
