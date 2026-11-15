@@ -1119,7 +1119,11 @@ data.smag.join(", ");
 
 const mangler =
 tjekCocktailLager(
-data.ingredienser
+
+data.lagerIngredienser
+? data.lagerIngredienser
+: data.ingredienser
+
 );
 
 let lagerStatus = "";
