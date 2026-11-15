@@ -543,6 +543,12 @@ let mangler = 0;
 ingredienser.forEach(function(ingrediens){
 
 if(
+ingrediens === "Isterninger"
+){
+return;
+}
+
+if(
 !harIngrediens(ingrediens)
 ){
 mangler++;
