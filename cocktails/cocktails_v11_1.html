@@ -1,0 +1,3064 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Claras Cocktail App V11_1</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f4eefc;
+}
+
+header{
+    background:#7c3aed;
+    color:white;
+    padding:20px;
+}
+
+.menu{
+    margin-top:15px;
+}
+
+.menu a,
+.menu span{
+    display:inline-block;
+    padding:10px 14px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:bold;
+    margin-right:10px;
+}
+
+.menu a{
+    background:white;
+    color:#7c3aed;
+}
+
+.aktiv{
+    background:#5b21b6;
+    color:white;
+}
+
+#opskriftSide{
+    display:none;
+    padding:20px;
+}
+
+.opskriftKort{
+    background:white;
+    border-radius:12px;
+    padding:20px;
+}
+
+.layout{
+    display:flex;
+    gap:20px;
+    padding:20px;
+}
+
+.sidebar{
+    width:300px;
+    background:white;
+    border-radius:12px;
+    padding:15px;
+    height:fit-content;
+}
+
+.content{
+    flex:1;
+}
+
+#soegning{
+    width:100%;
+    padding:12px;
+    box-sizing:border-box;
+    border-radius:10px;
+    border:1px solid #ccc;
+    margin-bottom:20px;
+}
+
+.filtergruppe{
+    margin-bottom:25px;
+}
+
+.filtergruppe strong{
+    display:block;
+    margin-bottom:8px;
+}
+
+.filtergruppe label{
+    display:block;
+    margin:8px 0;
+}
+
+.statusMenu{
+    background:#f4eefc;
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:20px;
+}
+
+.statusMenu div{
+    margin:8px 0;
+    cursor:pointer;
+}
+
+.kort{
+    background:white;
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:12px;
+    cursor:pointer;
+    border:2px solid transparent;
+}
+
+.kort:hover{
+    background:#ece1ff;
+}
+
+.statusVisning{
+    margin-top:10px;
+    font-size:20px;
+}
+
+.statusknapper{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:15px;
+}
+
+.statusknapper button{
+    padding:10px 14px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    background:#ece1ff;
+}
+
+.tilbage{
+    padding:10px 16px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    margin-bottom:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<h1>🍹 Claras Cocktail App V11_1</h1>
+
+<div class="menu">
+<a href="lager_v9.html">📦 Lager</a>
+<span class="aktiv">🍹 Cocktails</span>
+</div>
+
+</header>
+
+<div id="opskriftSide">
+<div class="opskriftKort" id="opskriftIndhold"></div>
+</div>
+
+<div class="layout" id="mainLayout">
+
+<div class="sidebar">
+
+<input
+id="soegning"
+type="text"
+placeholder="Søg cocktail..."
+>
+
+<div class="statusMenu">
+
+<strong>📚 Mine cocktails</strong>
+
+<div onclick="filterStatus('vilProeve')">
+⭐ Vil prøve
+(<span id="countVilProeve">0</span>)
+</div>
+
+<div onclick="filterStatus('smagt')">
+🍹 Smagt
+(<span id="countSmagt">0</span>)
+</div>
+
+<div onclick="filterStatus('lavetSelv')">
+✅ Lavet selv
+(<span id="countLavetSelv">0</span>)
+</div>
+
+<div onclick="filterStatus('favorit')">
+❤️ Favoritter
+(<span id="countFavorit">0</span>)
+</div>
+
+<div onclick="filterStatus('kanIkkeLide')">
+🚫 Kan ikke lide
+(<span id="countKanIkkeLide">0</span>)
+</div>
+<hr>
+
+<div onclick="filterLager(0)">
+✔️ Kan laves nu
+(<span id="countKanLaves">0</span>)
+</div>
+
+<div onclick="filterLager(1)">
+🟡 Mangler 1
+(<span id="countMangler1">0</span>)
+</div>
+
+<div onclick="filterLager(2)">
+🟠 Mangler 2
+(<span id="countMangler2">0</span>)
+</div>
+
+<div onclick="filterLager(3)">
+🔴 Mangler 3+
+(<span id="countMangler3">0</span>)
+</div>
+<div onclick="sorterEfterLager()">
+📦 Sortér efter lagerstatus
+</div>
+<div onclick="visAlleCocktails()">
+🔄 Vis alle
+</div>
+
+</div>
+
+<div class="filtergruppe">
+
+<strong>Type</strong>
+
+<label>
+<input
+type="checkbox"
+class="typeFilter"
+value="Cocktail">
+Cocktail
+</label>
+
+<label>
+<input
+type="checkbox"
+class="typeFilter"
+value="Mocktail">
+Mocktail
+</label>
+
+</div>
+
+<div class="filtergruppe">
+
+<strong>Smag</strong>
+
+<label><input type="checkbox" class="smagFilter" value="Sød"> Sød</label>
+<label><input type="checkbox" class="smagFilter" value="Frugtig"> Frugtig</label>
+<label><input type="checkbox" class="smagFilter" value="Kaffe"> Kaffe</label>
+<label><input type="checkbox" class="smagFilter" value="Frisk"> Frisk</label>
+<label><input type="checkbox" class="smagFilter" value="Cremet"> Cremet</label>
+
+</div>
+
+</div>
+
+<div class="content">
+
+<div id="listeSide">
+
+</div>
+<div class="kort"
+data-id="frozenCoconutPinaMargarita"
+data-type="Cocktail"
+data-smag="Frisk">
+
+<h3>🥥 Frozen Coconut Piña Margarita</h3>
+<p>Frisk • Syrlig</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+
+<div class="kort"
+data-id="mexicanMule"
+data-type="Cocktail"
+data-smag="Krydret">
+
+<h3>🌵 Mexican Mule</h3>
+<p>Krydret • Syrlig • Frisk</p>
+
+<div class="statusVisning"></div>
+
+</div>
+<div class="kort"
+data-id="margarita"
+data-type="Cocktail"
+data-smag="Syrlig">
+
+<h3>🍸 Margarita</h3>
+<p>Syrlig • Stærk • Frisk</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="paloma"
+data-type="Cocktail"
+data-smag="Frisk">
+
+<h3>🍊 Paloma</h3>
+<p>Bitter • Frisk</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="rabarberMargarita"
+data-type="Cocktail"
+data-smag="Frisk">
+
+<h3>🌸 Rabarber Margarita</h3>
+<p>Frisk • Stærk</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="sparklingMargarita"
+data-type="Cocktail"
+data-smag="Frisk">
+
+<h3>✨ Sparkling Margarita</h3>
+<p>Frisk • Syrlig</p>
+
+<div class="statusVisning"></div>
+
+</div>
+<div class="kort"
+data-id="moscowMule"
+data-type="Cocktail"
+data-smag="Frisk">
+
+<h3>🍸 Moscow Mule</h3>
+<p>Frisk • Syrlig</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="dirtyShirley"
+data-type="Cocktail"
+data-smag="Sød">
+
+<h3>🍒 Dirty Shirley</h3>
+<p>Sød • Frugtig</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="blueLagoon"
+data-type="Cocktail"
+data-smag="Sød">
+
+<h3>💙 Blue Lagoon</h3>
+<p>Sød</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="ginHass"
+data-type="Cocktail"
+data-smag="Sød">
+
+<h3>🥭 Gin Hass</h3>
+<p>Sød • Frugtig</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="ginMango"
+data-type="Cocktail"
+data-smag="Frugtig">
+
+<h3>🥭 Gin Mango</h3>
+<p>Sød • Frisk • Frugtig</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="beesKnees"
+data-type="Cocktail"
+data-smag="Syrlig">
+
+<h3>🍯 The Bee's Knees</h3>
+<p>Sød • Syrlig • Stærk</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="astronaut"
+data-type="Cocktail"
+data-smag="Sød">
+
+<h3>🚀 Astronaut</h3>
+<p>Sød • Frisk</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="ginBasilSmash"
+data-type="Cocktail"
+data-smag="Frisk">
+
+<h3>🌿 Gin Basil Smash</h3>
+<p>Frisk • Bitter • Syrlig</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="ginRhubarbTonic"
+data-type="Cocktail"
+data-smag="Bitter">
+
+<h3>🍓 Gin & Rhubarb Tonic</h3>
+<p>Frisk • Bitter</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="french75"
+data-type="Cocktail"
+data-smag="Syrlig">
+
+<h3>🥂 French 75</h3>
+<p>Syrlig • Bitter</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="ginFizz"
+data-type="Cocktail"
+data-smag="Bitter">
+
+<h3>🍋 Gin Fizz</h3>
+<p>Bitter</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="oasiumSpritz"
+data-type="Cocktail"
+data-smag="Frugtig">
+
+<h3>🌞 Hendrick's Oasium Spritz</h3>
+<p>Sød • Bitter • Frugtig</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="floraAdoraSpritz"
+data-type="Cocktail"
+data-smag="Frugtig">
+
+<h3>🌸 Hendrick's Flora Adora Spritz</h3>
+<p>Sød • Frugtig</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="daiquiri"
+data-type="Cocktail"
+data-smag="Frisk">
+
+<h3>🍋 Daiquiri</h3>
+<p>Syrlig • Frisk</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="pineappleDaiquiri"
+data-type="Cocktail"
+data-smag="Sød">
+
+<h3>🍍 Pineapple Daiquiri</h3>
+<p>Sød</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="strawberryDaiquiri"
+data-type="Cocktail"
+data-smag="Sød">
+
+<h3>🍓 Strawberry Daiquiri</h3>
+<p>Sød • Frugtig</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="orangeDaiquiri"
+data-type="Cocktail"
+data-smag="Sød">
+
+<h3>🍊 Orange Daiquiri</h3>
+<p>Sød • Stærk</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="bellaDonnaDaiquiri"
+data-type="Cocktail"
+data-smag="Sød">
+
+<h3>✨ Bella Donna Daiquiri</h3>
+<p>Sød • Krydret</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="daiquiriTimian"
+data-type="Cocktail"
+data-smag="Sød">
+
+<h3>🌿 Daiquiri Timian</h3>
+<p>Sød • Stærk</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="darkAndStormy"
+data-type="Cocktail"
+data-smag="Krydret">
+
+<h3>⛈️ Dark & Stormy</h3>
+<p>Syrlig • Krydret</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="pineappleDarkAndStormy"
+data-type="Cocktail"
+data-smag="Sød">
+
+<h3>🍍 Pineapple Dark & Stormy</h3>
+<p>Sød</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="passionFruitMojito"
+data-type="Cocktail"
+data-smag="Sød">
+
+<h3>🌴 Passion Fruit Mojito</h3>
+<p>Sød • Frugtig</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="strawberryMojito"
+data-type="Cocktail"
+data-smag="Sød">
+
+<h3>🍓 Strawberry Mojito</h3>
+<p>Sød • Frugtig</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="pinaColada"
+data-type="Cocktail"
+data-smag="Sød">
+
+<h3>🥥 Piña Colada</h3>
+<p>Sød</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="blueHawaiian"
+data-type="Cocktail"
+data-smag="Sød">
+
+<h3>🌊 Blue Hawaiian</h3>
+<p>Sød</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="coconutMartini"
+data-type="Cocktail"
+data-smag="Sød">
+
+<h3>🥥 Coconut Martini</h3>
+<p>Sød • Frisk</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="limoncelloSpritz"
+data-type="Cocktail"
+data-smag="Frisk, Syrlig">
+
+<h3>🍋 Limoncello Spritz</h3>
+<p>Frisk • Syrlig</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="cloudyLemon"
+data-type="Cocktail"
+data-smag="Sød, Syrlig">
+
+<h3>☁️🍋 Cloudy Lemon</h3>
+<p>Sød • Syrlig</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="koebenhavnerstang"
+data-type="Cocktail"
+data-smag="Sød">
+
+<h3>🍍 Københavnerstang</h3>
+<p>Sød</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="balon43"
+data-type="Cocktail"
+data-smag="Sød, Syrlig">
+
+<h3>🍊 Balon 43</h3>
+<p>Sød • Syrlig</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="mangoMimosa"
+data-type="Cocktail"
+data-smag="Sød">
+
+<h3>🥭🥂 Mango Mimosa</h3>
+<p>Sød</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="bellini"
+data-type="Cocktail"
+data-smag="Sød, Frisk">
+
+<h3>🍑🥂 Bellini</h3>
+<p>Sød • Frisk</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<div class="kort"
+data-id="mangoHolidayMocktail"
+data-type="Cocktail"
+data-smag="Sød">
+
+<h3>🥭✨ Mango Holiday Mocktail</h3>
+<p>Sød</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+</div>
+</div>
+</div>
+
+<script>
+const ingrediensMatch = {
+
+
+Vodka:[
+"Absolut Vodka",
+"Smirnoff Vodka"
+],
+
+Gin:[
+"Gordon's London Dry",
+"Gordon's Pink Gin",
+"Hendrick's Gin"
+],
+
+Rom:[
+"Captain Morgan Spiced Gold",
+"Bacardi Carta Blanca"
+],
+
+Tequila:[
+"Tequila"
+],
+
+Whisky:[
+"Whisky"
+],
+
+Aperol:[
+"Aperol"
+],
+
+Prosecco:[
+"Prosecco"
+],
+
+Danskvand:[
+"Danskvand"
+],
+
+Sprite:[
+"Sprite"
+],
+
+Ananasjuice:[
+"Ananasjuice"
+],
+
+Tranebærjuice:[
+"Tranebærjuice"
+],
+
+Appelsinjuice:[
+"Appelsinjuice"
+],
+
+Grenadine:[
+"Grenadine"
+]
+
+};
+function tjekCocktailLager(ingredienser){
+
+let mangler = 0;
+
+ingredienser.forEach(function(ingrediens){
+
+if(
+ingrediens === "Isterninger"
+){
+return;
+}
+
+if(
+!harIngrediens(ingrediens)
+){
+mangler++;
+}
+
+});
+
+return mangler;
+
+}
+function lavLagerListe(ingredienser){
+
+let html = "";
+
+ingredienser.forEach(function(ingrediens){
+
+if(
+harIngrediens(ingrediens)
+){
+
+html +=
+"<div>✅ " +
+ingrediens +
+"</div>";
+
+}
+else{
+
+html +=
+"<div>❌ " +
+ingrediens +
+"</div>";
+
+}
+
+});
+
+return html;
+
+}
+
+const opskrifter = {
+
+mexicanMule:{
+
+navn:"🌵 Mexican Mule",
+
+type:"Cocktail",
+
+smag:[
+"Krydret",
+"Syrlig",
+"Frisk"
+],
+
+ingredienser:[
+"6 cl Tequila",
+"1 cl Sugar Cane Mixer",
+"1,5 cl Friskpresset Limesaft",
+"9 cl Ginger Beer",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Tequila",
+"Sugar Cane Mixer",
+"Friskpresset Limesaft",
+"Ginger Beer"
+],
+
+fremgangsmaade:[
+"Stil et glas på køl.",
+"Fyld glasset med isterninger.",
+"Tilsæt tequila.",
+"Tilsæt Sugar Cane Mixer.",
+"Tilsæt friskpresset limesaft.",
+"Top med Ginger Beer.",
+"Rør forsigtigt rundt."
+]
+
+},
+
+margarita:{
+
+navn:"🍸 Margarita",
+
+type:"Cocktail",
+
+smag:[
+"Syrlig",
+"Stærk",
+"Frisk"
+],
+
+ingredienser:[
+"4 cl Tequila",
+"2 cl Cointreau",
+"1 cl Sugar Cane Mixer",
+"1,5 cl Friskpresset Limesaft",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Tequila",
+"Cointreau",
+"Sugar Cane Mixer",
+"Friskpresset Limesaft"
+],
+
+fremgangsmaade:[
+"Fyld en shaker med isterninger.",
+"Tilsæt tequila.",
+"Tilsæt Cointreau.",
+"Tilsæt Sugar Cane Mixer.",
+"Tilsæt friskpresset limesaft.",
+"Ryst i 10 sekunder.",
+"Si over i et cocktailglas."
+]
+
+},
+
+paloma:{
+
+navn:"🍊 Paloma",
+
+type:"Cocktail",
+
+smag:[
+"Bitter",
+"Frisk"
+],
+
+ingredienser:[
+"4 cl Tequila",
+"2 cl Friskpresset Limesaft",
+"12 cl Pink Grapefrugt Sodavand",
+"1 cl Sugar Cane Mixer",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Tequila",
+"Friskpresset Limesaft",
+"Pink Grapefrugt Sodavand",
+"Sugar Cane Mixer"
+],
+
+fremgangsmaade:[
+"Fyld et højt glas med isterninger.",
+"Tilsæt tequila.",
+"Tilsæt limesaft.",
+"Top med pink grapefrugt sodavand.",
+"Tilsæt Sugar Cane Mixer.",
+"Rør forsigtigt rundt."
+]
+
+},
+
+rabarberMargarita:{
+
+navn:"🌸 Rabarber Margarita",
+
+type:"Cocktail",
+
+smag:[
+"Frisk",
+"Stærk"
+],
+
+ingredienser:[
+"2 cl Cointreau",
+"4 cl Tequila",
+"2 cl Rhubarb Mixer",
+"2 cl Friskpresset Limesaft",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Cointreau",
+"Tequila",
+"Rhubarb Mixer",
+"Friskpresset Limesaft"
+],
+
+fremgangsmaade:[
+"Fyld en shaker med isterninger.",
+"Tilsæt Cointreau.",
+"Tilsæt tequila.",
+"Tilsæt Rhubarb Mixer.",
+"Tilsæt friskpresset limesaft.",
+"Ryst i 10 sekunder.",
+"Si over i et glas med is."
+]
+
+},
+
+sparklingMargarita:{
+
+navn:"✨ Sparkling Margarita",
+
+type:"Cocktail",
+
+smag:[
+"Frisk",
+"Syrlig"
+],
+
+ingredienser:[
+"2 cl Cointreau",
+"4 cl Tequila",
+"1 cl Sugar Cane Mixer",
+"4 cl Prosecco",
+"1,5 cl Friskpresset Limesaft",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Cointreau",
+"Tequila",
+"Sugar Cane Mixer",
+"Prosecco",
+"Friskpresset Limesaft"
+],
+
+fremgangsmaade:[
+"Fyld en shaker med isterninger.",
+"Tilsæt Cointreau.",
+"Tilsæt tequila.",
+"Tilsæt Sugar Cane Mixer.",
+"Tilsæt friskpresset limesaft.",
+"Ryst i 15 sekunder.",
+"Si over i et glas.",
+"Top med prosecco."
+]
+
+},
+
+frozenCoconutPinaMargarita:{
+
+navn:"🥥 Frozen Coconut Piña Margarita",
+
+type:"Cocktail",
+
+smag:[
+"Frisk",
+"Syrlig"
+],
+
+ingredienser:[
+"2 cl Cointreau",
+"3 cl Tequila",
+"1 cl Sugar Cane Mixer",
+"3 cl Kokosmælk",
+"1,5 cl Friskpresset Limesaft",
+"100 g Frossen Ananas",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Cointreau",
+"Tequila",
+"Sugar Cane Mixer",
+"Kokosmælk",
+"Friskpresset Limesaft",
+"Frossen Ananas"
+],
+
+fremgangsmaade:[
+"Kom alle ingredienser i en blender.",
+"Blend til en slush ice-lignende konsistens.",
+"Hæld i et afkølet glas."
+]
+
+},
+
+moscowMule:{
+
+navn:"🍸 Moscow Mule",
+
+type:"Cocktail",
+
+smag:[
+"Frisk",
+"Syrlig"
+],
+
+ingredienser:[
+"4 cl SKYY Vodka",
+"2 cl Shake-It Mixer Lime",
+"10 cl Ginger Beer",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"SKYY Vodka",
+"Shake-It Mixer Lime",
+"Ginger Beer"
+],
+
+fremgangsmaade:[
+"Fyld isterninger i glasset.",
+"Tilsæt SKYY Vodka.",
+"Tilsæt Shake-It Mixer Lime.",
+"Top med Ginger Beer.",
+"Rør forsigtigt rundt."
+]
+
+},
+
+dirtyShirley:{
+
+navn:"🍒 Dirty Shirley",
+
+type:"Cocktail",
+
+smag:[
+"Sød",
+"Frugtig"
+],
+
+ingredienser:[
+"3 cl Shake-It Mixer Grenadine",
+"5 cl SKYY Vodka",
+"12 cl Lemon Sodavand",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Shake-It Mixer Grenadine",
+"SKYY Vodka",
+"Lemon Sodavand"
+],
+
+fremgangsmaade:[
+"Fyld isterninger i glasset.",
+"Tilsæt Shake-It Mixer Grenadine.",
+"Tilsæt SKYY Vodka.",
+"Top op med Lemon Sodavand."
+]
+
+},
+
+blueLagoon:{
+
+navn:"💙 Blue Lagoon",
+
+type:"Cocktail",
+
+smag:[
+"Sød"
+],
+
+ingredienser:[
+"4 cl SKYY Vodka",
+"3 cl Shake-It Mixer Blue Curacao",
+"7 cl Lemon Sodavand",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"SKYY Vodka",
+"Shake-It Mixer Blue Curacao",
+"Lemon Sodavand"
+],
+
+fremgangsmaade:[
+"Fyld isterninger i glasset.",
+"Tilsæt SKYY Vodka.",
+"Tilsæt Shake-It Mixer Blue Curacao.",
+"Top op med Lemon Sodavand.",
+"Rør let rundt."
+]
+
+},
+
+ginHass:{
+
+navn:"🥭 Gin Hass",
+
+type:"Cocktail",
+
+smag:[
+"Sød",
+"Frugtig"
+],
+
+ingredienser:[
+"4 cl Hendrick's Gin",
+"2 cl Shake-It Mixer Mango",
+"1 cl Friskpresset Limesaft",
+"10 cl Lemon Sodavand",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Hendrick's Gin",
+"Shake-It Mixer Mango",
+"Friskpresset Limesaft",
+"Lemon Sodavand"
+],
+
+fremgangsmaade:[
+"Fyld glasset med isterninger.",
+"Tilsæt Hendrick's Gin.",
+"Tilsæt lemon sodavand.",
+"Tilsæt friskpresset limesaft.",
+"Top op med Shake-It Mixer Mango."
+]
+
+},
+
+ginMango:{
+
+navn:"🥭 Gin Mango",
+
+type:"Cocktail",
+
+smag:[
+"Sød",
+"Frisk",
+"Frugtig"
+],
+
+ingredienser:[
+"4 cl Finsbury London Dry Gin",
+"2 cl Shake-It Mixer Mango",
+"0,5 cl Shake-It Mixer Lime",
+"10 cl Lemon Sodavand",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Finsbury London Dry Gin",
+"Shake-It Mixer Mango",
+"Shake-It Mixer Lime",
+"Lemon Sodavand"
+],
+
+fremgangsmaade:[
+"Fyld glasset med isterninger.",
+"Tilsæt Finsbury London Dry Gin.",
+"Tilsæt Shake-It Mixer Mango.",
+"Tilsæt Shake-It Mixer Lime.",
+"Top op med lemon sodavand.",
+"Rør let rundt."
+]
+
+},
+
+theBeesKnees:{
+
+navn:"🐝 The Bee's Knees",
+
+type:"Cocktail",
+
+smag:[
+"Sød",
+"Syrlig",
+"Stærk"
+],
+
+ingredienser:[
+"5 cl Silent Pool Gin",
+"2,5 cl Friskpresset Citronsaft",
+"2 cl Honningvand",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Silent Pool Gin",
+"Friskpresset Citronsaft",
+"Honningvand"
+],
+
+fremgangsmaade:[
+"Fyld isterninger i shakeren.",
+"Tilsæt Silent Pool Gin.",
+"Tilsæt friskpresset citronsaft.",
+"Tilsæt honningvand.",
+"Ryst kraftigt i 10 sekunder.",
+"Si over i et glas."
+]
+
+},
+
+astronaut:{
+
+navn:"🚀 Astronaut",
+
+type:"Cocktail",
+
+smag:[
+"Sød",
+"Frisk"
+],
+
+ingredienser:[
+"4 cl Finsbury London Dry Gin",
+"3 cl Shake-It Mixer Grenadine",
+"10 cl Sprite",
+"1 cl Friskpresset Citronsaft",
+"3 stk Vingummibamser",
+"Knust Is"
+],
+
+lagerIngredienser:[
+"Finsbury London Dry Gin",
+"Shake-It Mixer Grenadine",
+"Sprite",
+"Friskpresset Citronsaft",
+"Vingummibamser"
+],
+
+fremgangsmaade:[
+"Fyld glasset med knust is.",
+"Tilsæt Finsbury London Dry Gin.",
+"Tilsæt friskpresset citronsaft.",
+"Tilsæt Sprite.",
+"Hæld Shake-It Mixer Grenadine forsigtigt i."
+]
+
+},
+
+ginBasilSmash:{
+
+navn:"🌿 Gin Basil Smash",
+
+type:"Cocktail",
+
+smag:[
+"Frisk",
+"Bitter",
+"Syrlig"
+],
+
+ingredienser:[
+"6 cl Hendrick's Gin",
+"4 cl Shake-It Mixer Sugar Cane",
+"3 cl Friskpresset Citronsaft",
+"20 stk Basilikumblade",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Hendrick's Gin",
+"Shake-It Mixer Sugar Cane",
+"Friskpresset Citronsaft",
+"Basilikumblade"
+],
+
+fremgangsmaade:[
+"Kom basilikumblade og citronsaft i shakeren.",
+"Mos det sammen.",
+"Fyld isterninger i shakeren.",
+"Tilsæt Hendrick's Gin.",
+"Tilsæt Shake-It Mixer Sugar Cane.",
+"Ryst i 15 sekunder.",
+"Si over i et glas med is."
+]
+
+},
+
+ginRhubarbTonic:{
+
+navn:"🌸 Gin & Rhubarb Tonic",
+
+type:"Cocktail",
+
+smag:[
+"Frisk",
+"Bitter"
+],
+
+ingredienser:[
+"5 cl Hendrick's Gin",
+"20 cl Birdcage Rhubarb Tonic Zero Sugar",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Hendrick's Gin",
+"Birdcage Rhubarb Tonic Zero Sugar"
+],
+
+fremgangsmaade:[
+"Fyld et vinglas halvt med is.",
+"Tilsæt Hendrick's Gin.",
+"Tilsæt Birdcage Rhubarb Tonic.",
+"Rør forsigtigt rundt."
+]
+
+},
+
+french75:{
+
+navn:"🥂 French 75",
+
+type:"Cocktail",
+
+smag:[
+"Syrlig",
+"Bitter"
+],
+
+ingredienser:[
+"10 cl Laurent-Perrier Champagne",
+"4 cl Hendrick's Gin",
+"0,5 cl Shake-It Mixer Sugar Cane",
+"1,5 cl Friskpresset Citronsaft",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Laurent-Perrier Champagne",
+"Hendrick's Gin",
+"Shake-It Mixer Sugar Cane",
+"Friskpresset Citronsaft"
+],
+
+fremgangsmaade:[
+"Fyld isterninger i shakeren.",
+"Tilsæt Hendrick's Gin.",
+"Tilsæt Shake-It Mixer Sugar Cane.",
+"Tilsæt friskpresset citronsaft.",
+"Ryst i 10 sekunder.",
+"Si over i et champagneglas.",
+"Top op med champagne."
+]
+
+},
+
+ginFizz:{
+
+navn:"🍋 Gin Fizz",
+
+type:"Cocktail",
+
+smag:[
+"Bitter"
+],
+
+ingredienser:[
+"4 cl Finsbury London Dry Gin",
+"1,5 cl Shake-It Mixer Sugar Cane",
+"3 cl Friskpresset Citronsaft",
+"1 cl Æggehvide",
+"4 cl Danskvand",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Finsbury London Dry Gin",
+"Shake-It Mixer Sugar Cane",
+"Friskpresset Citronsaft",
+"Æggehvide",
+"Danskvand"
+],
+
+fremgangsmaade:[
+"Fyld isterninger i shakeren.",
+"Tilsæt gin.",
+"Tilsæt Shake-It Mixer Sugar Cane.",
+"Tilsæt friskpresset citronsaft.",
+"Tilsæt æggehvide.",
+"Ryst i 15 sekunder.",
+"Si over i et glas.",
+"Top med danskvand."
+]
+
+},
+
+oasiumSpritz:{
+
+navn:"🌞 Hendrick's Oasium Spritz",
+
+type:"Cocktail",
+
+smag:[
+"Sød",
+"Bitter",
+"Frugtig"
+],
+
+ingredienser:[
+"3 cl Hendrick's Oasium Gin",
+"2 cl Shake-It Mixer Passion Fruit",
+"12 cl Cinzano Prosecco",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Hendrick's Oasium Gin",
+"Shake-It Mixer Passion Fruit",
+"Cinzano Prosecco"
+],
+
+fremgangsmaade:[
+"Fyld isterninger i et vinglas.",
+"Tilsæt Hendrick's Oasium Gin.",
+"Tilsæt Shake-It Mixer Passion Fruit.",
+"Top op med Cinzano Prosecco."
+]
+
+},
+
+floraAdoraSpritz:{
+
+navn:"🌸 Hendrick's Flora Adora Spritz",
+
+type:"Cocktail",
+
+smag:[
+"Sød",
+"Frugtig"
+],
+
+ingredienser:[
+"3 cl Hendrick's Flora Adora Gin",
+"2 cl Koncentreret Hindbærsaft",
+"12 cl Cinzano Prosecco",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Hendrick's Flora Adora Gin",
+"Koncentreret Hindbærsaft",
+"Cinzano Prosecco"
+],
+
+fremgangsmaade:[
+"Fyld isterninger i et vinglas.",
+"Tilsæt Hendrick's Flora Adora Gin.",
+"Tilsæt koncentreret hindbærsaft.",
+"Top op med Cinzano Prosecco."
+]
+
+},
+
+daiquiri:{
+
+navn:"🍋 Daiquiri",
+
+type:"Cocktail",
+
+smag:[
+"Syrlig",
+"Frisk"
+],
+
+ingredienser:[
+"5 cl Cucullo Platino Hvid Rom",
+"2 cl Shake-It Mixer Sugar Cane",
+"3 cl Friskpresset Limesaft",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Cucullo Platino Hvid Rom",
+"Shake-It Mixer Sugar Cane",
+"Friskpresset Limesaft"
+],
+
+fremgangsmaade:[
+"Fyld isterninger i en shaker.",
+"Tilsæt rom.",
+"Tilsæt limesaft.",
+"Tilsæt Shake-It Mixer Sugar Cane.",
+"Ryst i 10 sekunder.",
+"Si over i et glas."
+]
+
+},
+
+pineappleDaiquiri:{
+
+navn:"🍍 Pineapple Daiquiri",
+
+type:"Cocktail",
+
+smag:[
+"Sød"
+],
+
+ingredienser:[
+"4 cl Cucullo Platino Hvid Rom",
+"4 cl Shake-It Mixer Pineapple",
+"2 cl Friskpresset Limesaft",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Cucullo Platino Hvid Rom",
+"Shake-It Mixer Pineapple",
+"Friskpresset Limesaft"
+],
+
+fremgangsmaade:[
+"Fyld isterninger i en shaker.",
+"Tilsæt rom.",
+"Tilsæt Shake-It Mixer Pineapple.",
+"Tilsæt friskpresset limesaft.",
+"Ryst drinken.",
+"Si over i et glas."
+]
+
+},
+
+strawberryDaiquiri:{
+
+navn:"🍓 Strawberry Daiquiri",
+
+type:"Cocktail",
+
+smag:[
+"Sød",
+"Frugtig"
+],
+
+ingredienser:[
+"4 cl Hvid Rom",
+"4 cl Shake-It Mixer Strawberry",
+"2 cl Shake-It Mixer Lime",
+"5 stk Jordbær",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Hvid Rom",
+"Shake-It Mixer Strawberry",
+"Shake-It Mixer Lime",
+"Jordbær"
+],
+
+fremgangsmaade:[
+"Fyld isterninger i blenderen.",
+"Tilsæt rom.",
+"Tilsæt Shake-It Mixer Strawberry.",
+"Tilsæt Shake-It Mixer Lime.",
+"Tilsæt jordbær.",
+"Blend til en cremet konsistens.",
+"Hæld over i et glas."
+]
+
+},
+
+orangeDaiquiri:{
+
+navn:"🍊 Orange Daiquiri",
+
+type:"Cocktail",
+
+smag:[
+"Sød",
+"Stærk"
+],
+
+ingredienser:[
+"2 cl Mount Gay Eclipse Rom",
+"2 cl Cointreau Triple Sec Likør",
+"1 cl Shake-It Mixer Sugar Cane",
+"1 cl Friskpresset Limesaft",
+"1 cl Friskpresset Appelsinsaft",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Mount Gay Eclipse Rom",
+"Cointreau Triple Sec Likør",
+"Shake-It Mixer Sugar Cane",
+"Friskpresset Limesaft",
+"Friskpresset Appelsinsaft"
+],
+
+fremgangsmaade:[
+"Fyld isterninger i shakeren.",
+"Tilsæt rom.",
+"Tilsæt Cointreau.",
+"Tilsæt Shake-It Mixer Sugar Cane.",
+"Tilsæt friskpresset limesaft.",
+"Tilsæt friskpresset appelsinsaft.",
+"Ryst i 10 sekunder.",
+"Si over i et glas."
+]
+
+},
+
+bellaDonnaDaiquiri:{
+
+navn:"✨ Bella Donna Daiquiri",
+
+type:"Cocktail",
+
+smag:[
+"Sød",
+"Krydret"
+],
+
+ingredienser:[
+"3,5 cl Cucullo Reserva 12 Rom",
+"4,5 cl Villa Massa Amaretto",
+"0,5 cl Shake-It Mixer Sugar Cane",
+"1,5 cl Friskpresset Citronsaft",
+"Sukker",
+"Kanel",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Cucullo Reserva 12 Rom",
+"Villa Massa Amaretto",
+"Shake-It Mixer Sugar Cane",
+"Friskpresset Citronsaft",
+"Sukker",
+"Kanel"
+],
+
+fremgangsmaade:[
+"Bland sukker og kanel.",
+"Lav en sukker-kanel kant på glasset.",
+"Fyld isterninger i shakeren.",
+"Tilsæt rom.",
+"Tilsæt amaretto.",
+"Tilsæt Shake-It Mixer Sugar Cane.",
+"Tilsæt friskpresset citronsaft.",
+"Ryst i 10 sekunder.",
+"Si over i glasset."
+]
+
+},
+
+daiquiriTimian:{
+
+navn:"🌿 Daiquiri Timian",
+
+type:"Cocktail",
+
+smag:[
+"Sød",
+"Stærk"
+],
+
+ingredienser:[
+"4 cl Ron Matusalem Gran Reserva Solera 15 Rom",
+"1,5 cl Shake-It Mixer Sugar Cane",
+"2 cl Friskpresset Limesaft",
+"2 Kviste Timian",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Ron Matusalem Gran Reserva Solera 15 Rom",
+"Shake-It Mixer Sugar Cane",
+"Friskpresset Limesaft",
+"Timian"
+],
+
+fremgangsmaade:[
+"Fyld isterninger i shakeren.",
+"Tilsæt rom.",
+"Tilsæt Shake-It Mixer Sugar Cane.",
+"Tilsæt friskpresset limesaft.",
+"Ryst i 10 sekunder.",
+"Si over i et glas."
+]
+
+},
+
+darkAndStormy:{
+
+navn:"⛈️ Dark & Stormy",
+
+type:"Cocktail",
+
+smag:[
+"Syrlig",
+"Krydret"
+],
+
+ingredienser:[
+"5 cl Cucullo Reserva 12 Rom",
+"1 cl Friskpresset Limesaft",
+"10 cl Ginger Beer",
+"2 dråber Angostura Aromatic Bitter",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Cucullo Reserva 12 Rom",
+"Friskpresset Limesaft",
+"Ginger Beer",
+"Angostura Aromatic Bitter"
+],
+
+fremgangsmaade:[
+"Fyld glasset med isterninger.",
+"Tilsæt rom.",
+"Tilsæt friskpresset limesaft.",
+"Top med Ginger Beer.",
+"Tilsæt Angostura Aromatic Bitter."
+]
+
+},
+
+pineappleDarkAndStormy:{
+
+navn:"🍍⛈️ Pineapple Dark & Stormy",
+
+type:"Cocktail",
+
+smag:[
+"Sød"
+],
+
+ingredienser:[
+"4 cl Cucullo Platino Hvid Rom",
+"2 cl Shake-It Mixer Pineapple",
+"2 cl Friskpresset Limesaft",
+"8 cl Ginger Beer",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Cucullo Platino Hvid Rom",
+"Shake-It Mixer Pineapple",
+"Friskpresset Limesaft",
+"Ginger Beer"
+],
+
+fremgangsmaade:[
+"Tilsæt rom.",
+"Tilsæt Shake-It Mixer Pineapple.",
+"Tilsæt friskpresset limesaft.",
+"Top op med Ginger Beer.",
+"Rør rundt."
+]
+
+},
+
+passionFruitMojito:{
+
+navn:"🌴 Passion Fruit Mojito",
+
+type:"Cocktail",
+
+smag:[
+"Sød",
+"Frugtig"
+],
+
+ingredienser:[
+"4 cl Shake-It Mixer Passion Fruit",
+"4 cl Cucullo Platino Hvid Rom",
+"1 Lime i både",
+"5 Mynteblade",
+"8 cl Danskvand",
+"0,5 Passionfrugt",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Shake-It Mixer Passion Fruit",
+"Cucullo Platino Hvid Rom",
+"Lime",
+"Mynteblade",
+"Danskvand",
+"Passionfrugt"
+],
+
+fremgangsmaade:[
+"Kom lime og mynte i glasset.",
+"Mas dem let.",
+"Tilsæt Passion Fruit Mixer.",
+"Tilsæt rom.",
+"Fyld glasset med is.",
+"Top op med danskvand."
+]
+
+},
+
+strawberryMojito:{
+
+navn:"🍓 Strawberry Mojito",
+
+type:"Cocktail",
+
+smag:[
+"Sød",
+"Frugtig"
+],
+
+ingredienser:[
+"5 cl Cucullo Platino Hvid Rom",
+"2 cl Shake-It Mixer Strawberry",
+"3 cl Friskpresset Limesaft",
+"1 tsk Rørsukker",
+"8 cl Danskvand",
+"8 Mynteblade",
+"2 Jordbær",
+"Knust Is"
+],
+
+lagerIngredienser:[
+"Cucullo Platino Hvid Rom",
+"Shake-It Mixer Strawberry",
+"Friskpresset Limesaft",
+"Rørsukker",
+"Danskvand",
+"Mynteblade",
+"Jordbær"
+],
+
+fremgangsmaade:[
+"Nulr myntebladene mellem fingrene.",
+"Kom dem i glasset.",
+"Tilsæt rom.",
+"Tilsæt Shake-It Mixer Strawberry.",
+"Tilsæt friskpresset limesaft.",
+"Tilsæt rørsukker.",
+"Fyld glasset med knust is.",
+"Top med danskvand.",
+"Rør forsigtigt rundt."
+]
+
+},
+
+pinaColada:{
+
+navn:"🥥 Piña Colada",
+
+type:"Cocktail",
+
+smag:[
+"Sød"
+],
+
+ingredienser:[
+"4 cl Cucullo Platino Hvid Rom",
+"10 cl Ananasjuice",
+"3 cl Kokoscreme",
+"1,5 cl Friskpresset Limesaft",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Cucullo Platino Hvid Rom",
+"Ananasjuice",
+"Kokoscreme",
+"Friskpresset Limesaft"
+],
+
+fremgangsmaade:[
+"Fyld isterninger i shakeren.",
+"Tilsæt rom.",
+"Tilsæt ananasjuice.",
+"Tilsæt kokoscreme.",
+"Tilsæt friskpresset limesaft.",
+"Ryst i 10 sekunder.",
+"Si over i et glas."
+]
+
+},
+
+blueHawaiian:{
+
+navn:"🌊 Blue Hawaiian",
+
+type:"Cocktail",
+
+smag:[
+"Sød"
+],
+
+ingredienser:[
+"4 cl Hvid Rom",
+"1,5 cl Shake-It Mixer Sugar Cane",
+"1 cl Shake-It Mixer Blue Curacao",
+"1,5 cl Friskpresset Limesaft",
+"6 cl Ananasjuice",
+"2 tsk Kokoscreme",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Hvid Rom",
+"Shake-It Mixer Sugar Cane",
+"Shake-It Mixer Blue Curacao",
+"Friskpresset Limesaft",
+"Ananasjuice",
+"Kokoscreme"
+],
+
+fremgangsmaade:[
+"Fyld glasset med isterninger.",
+"Tilsæt rom.",
+"Tilsæt Sugar Cane Mixer.",
+"Tilsæt Blue Curacao Mixer.",
+"Tilsæt limesaft.",
+"Tilsæt ananasjuice.",
+"Tilsæt kokoscreme.",
+"Rør forsigtigt rundt."
+]
+
+},
+
+lemonBasilDaiquiri:{
+
+navn:"🍋🌿 Lemon Basil Daiquiri",
+
+type:"Cocktail",
+
+smag:[
+"Frisk",
+"Syrlig"
+],
+
+ingredienser:[
+"4 cl Cucullo Platino Hvid Rom",
+"1,5 cl Shake-It Mixer Sugar Cane",
+"5 cl Friskpresset Citronsaft",
+"40 Basilikumblade",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Cucullo Platino Hvid Rom",
+"Shake-It Mixer Sugar Cane",
+"Friskpresset Citronsaft",
+"Basilikumblade"
+],
+
+fremgangsmaade:[
+"Fyld isterninger i blenderen.",
+"Tilsæt rom.",
+"Tilsæt Shake-It Mixer Sugar Cane.",
+"Tilsæt friskpresset citronsaft.",
+"Tilsæt basilikumblade.",
+"Blend til en cremet konsistens.",
+"Hæld over i et glas."
+]
+
+},
+
+coconutMartini:{
+
+navn:"🥥 Coconut Martini",
+
+type:"Cocktail",
+
+smag:[
+"Sød",
+"Frisk"
+],
+
+ingredienser:[
+"3,5 cl Licor 43",
+"3 cl Cucullo Platino Hvid Rom",
+"1,5 cl Kokoscreme",
+"1 cl Ananasjuice",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Licor 43",
+"Cucullo Platino Hvid Rom",
+"Kokoscreme",
+"Ananasjuice"
+],
+
+fremgangsmaade:[
+"Fyld isterninger i shakeren.",
+"Tilsæt Licor 43.",
+"Tilsæt rom.",
+"Tilsæt kokoscreme.",
+"Tilsæt ananasjuice.",
+"Ryst godt.",
+"Si over i et glas."
+]
+
+},
+
+limoncelloSpritz:{
+
+navn:"🍋 Limoncello Spritz",
+
+type:"Cocktail",
+
+smag:[
+"Frisk",
+"Syrlig"
+],
+
+ingredienser:[
+"8 cl Cinzano Prosecco",
+"6 cl Villa Massa Limoncello Likør",
+"6 cl Danskvand",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Cinzano Prosecco",
+"Villa Massa Limoncello Likør",
+"Danskvand"
+],
+
+fremgangsmaade:[
+"Fyld isterninger i glasset.",
+"Tilsæt prosecco.",
+"Tilsæt limoncello.",
+"Top op med danskvand.",
+"Rør forsigtigt rundt."
+]
+
+},
+
+cloudyLemon:{
+
+navn:"☁️🍋 Cloudy Lemon",
+
+type:"Cocktail",
+
+smag:[
+"Sød",
+"Syrlig"
+],
+
+ingredienser:[
+"2 cl Licor 43",
+"4 cl Villa Massa Limoncello Likør",
+"2 cl Shake-It Mixer Sugar Cane",
+"3 cl Friskpresset Citronsaft",
+"3 cl Fløde",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Licor 43",
+"Villa Massa Limoncello Likør",
+"Shake-It Mixer Sugar Cane",
+"Friskpresset Citronsaft",
+"Fløde"
+],
+
+fremgangsmaade:[
+"Fyld isterninger i shakeren.",
+"Tilsæt Licor 43.",
+"Tilsæt Villa Massa Limoncello Likør.",
+"Tilsæt Shake-It Mixer Sugar Cane.",
+"Tilsæt friskpresset citronsaft.",
+"Tilsæt fløde.",
+"Ryst i 10 sekunder.",
+"Si over i et glas."
+]
+
+},
+
+koebenhavnerstang:{
+
+navn:"🍍 Københavnerstang",
+
+type:"Cocktail",
+
+smag:[
+"Sød"
+],
+
+ingredienser:[
+"4 cl Licor 43",
+"4 cl Shake-It Mixer Pineapple",
+"10 cl Sprite",
+"2 tsk Flødeskum",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Licor 43",
+"Shake-It Mixer Pineapple",
+"Sprite",
+"Flødeskum"
+],
+
+fremgangsmaade:[
+"Fyld isterninger i glasset.",
+"Tilsæt Licor 43.",
+"Tilsæt Shake-It Mixer Pineapple.",
+"Top op med Sprite.",
+"Rør rundt.",
+"Top med flødeskum."
+]
+
+},
+
+balon43:{
+
+navn:"🍊 Balon 43",
+
+type:"Cocktail",
+
+smag:[
+"Sød",
+"Syrlig"
+],
+
+ingredienser:[
+"3,5 cl Licor 43",
+"10 cl Danskvand",
+"1 cl Friskpresset Citronsaft",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Licor 43",
+"Danskvand",
+"Friskpresset Citronsaft"
+],
+
+fremgangsmaade:[
+"Fyld isterninger i glasset.",
+"Tilsæt danskvand.",
+"Tilsæt Licor 43.",
+"Tilsæt friskpresset citronsaft.",
+"Rør forsigtigt rundt."
+]
+
+},
+
+mangoMimosa:{
+
+navn:"🥭🥂 Mango Mimosa",
+
+type:"Cocktail",
+
+smag:[
+"Sød"
+],
+
+ingredienser:[
+"2 cl Shake-It Mixer Mango",
+"8 cl Cinzano Prosecco"
+],
+
+lagerIngredienser:[
+"Shake-It Mixer Mango",
+"Cinzano Prosecco"
+],
+
+fremgangsmaade:[
+"Tilsæt Shake-It Mixer Mango.",
+"Tilsæt Cinzano Prosecco.",
+"Rør forsigtigt rundt."
+]
+
+},
+
+bellini:{
+
+navn:"🍑🥂 Bellini",
+
+type:"Cocktail",
+
+smag:[
+"Sød",
+"Frisk"
+],
+
+ingredienser:[
+"10 cl Laurent-Perrier, La Cuvée Brut Champagne",
+"5 cl Ferskenpuré"
+],
+
+lagerIngredienser:[
+"Laurent-Perrier, La Cuvée Brut Champagne",
+"Ferskenpuré"
+],
+
+fremgangsmaade:[
+"Tilsæt ferskenpuré.",
+"Tilsæt champagne.",
+"Rør forsigtigt rundt."
+]
+
+},
+
+mangoHolidayMocktail:{
+
+navn:"🥭✨ Mango Holiday Mocktail",
+
+type:"Cocktail",
+
+smag:[
+"Sød"
+],
+
+ingredienser:[
+"3 cl Shake-It Mixer Mango",
+"5 cl Ananasjuice",
+"2 cl Coco Lopez",
+"2 cl Friskpresset Limesaft",
+"2 cl Danskvand",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Shake-It Mixer Mango",
+"Ananasjuice",
+"Coco Lopez",
+"Friskpresset Limesaft",
+"Danskvand"
+],
+
+fremgangsmaade:[
+"Fyld isterninger i shakeren.",
+"Tilsæt Shake-It Mixer Mango.",
+"Tilsæt ananasjuice.",
+"Tilsæt Coco Lopez.",
+"Tilsæt friskpresset limesaft.",
+"Ryst i 10 sekunder.",
+"Si over i et glas.",
+"Top op med danskvand."
+]
+
+},
+
+};
+
+function harIngrediens(navn){
+
+const varianter =
+ingrediensMatch[navn];
+
+if(!varianter){
+return false;
+}
+
+for(
+let i = 0;
+i < varianter.length;
+i++
+){
+
+const flaske =
+varianter[i];
+
+if(
+localStorage.getItem(
+"lager_" + flaske
+)
+=== "true"
+){
+return true;
+}
+
+}
+
+return false;
+
+}
+
+function hentData(id){
+
+const gemt =
+localStorage.getItem(
+"cocktail_" + id
+);
+
+if(!gemt){
+
+return {
+vilProeve:false,
+smagt:false,
+lavetSelv:false,
+favorit:false,
+kanIkkeLide:false
+};
+
+}
+
+try{
+return JSON.parse(gemt);
+}
+catch{
+
+return {
+vilProeve:false,
+smagt:false,
+lavetSelv:false,
+favorit:false,
+kanIkkeLide:false
+};
+
+}
+
+}
+
+function gemData(id,data){
+
+localStorage.setItem(
+"cocktail_" + id,
+JSON.stringify(data)
+);
+
+}
+
+function toggleStatus(id,type){
+
+const data =
+hentData(id);
+
+data[type] =
+!data[type];
+
+gemData(id,data);
+
+opdaterStatusVisning();
+opdaterTaellere();
+
+visOpskrift(id);
+
+}
+function statusKnapper(id){
+
+const data = hentData(id);
+
+return `
+
+<div class="statusknapper">
+
+<button onclick="toggleStatus('${id}','vilProeve')">
+⭐ Vil prøve
+</button>
+
+<button onclick="toggleStatus('${id}','smagt')">
+🍹 Smagt
+</button>
+
+<button onclick="toggleStatus('${id}','lavetSelv')">
+✅ Lavet selv
+</button>
+
+<button onclick="toggleStatus('${id}','favorit')">
+❤️ Favorit
+</button>
+
+<button onclick="toggleStatus('${id}','kanIkkeLide')">
+🚫 Kan ikke lide
+</button>
+
+</div>
+
+`;
+
+}
+
+function visOpskrift(id){
+
+const data = opskrifter[id];
+
+if(!data){
+    console.log("Mangler opskrift:", id);
+    return;
+}
+
+const statusData = hentData(id);
+
+let smagTekst = "";
+
+if(data.smag){
+
+smagTekst =
+data.smag.join(", ");
+
+}
+
+
+const mangler =
+tjekCocktailLager(
+
+data.lagerIngredienser
+? data.lagerIngredienser
+: data.ingredienser
+
+);
+
+let lagerStatus = "";
+
+if(mangler === 0){
+
+lagerStatus =
+"✔️ Kan laves nu";
+
+}
+else if(mangler === 1){
+
+lagerStatus =
+"🟡 Mangler 1 ingrediens";
+
+}
+else if(mangler === 2){
+
+lagerStatus =
+"🟠 Mangler 2 ingredienser";
+
+}
+else{
+
+lagerStatus =
+"🔴 Mangler " +
+mangler +
+" ingredienser";
+
+}
+
+document.getElementById("mainLayout").style.display = "none";
+document.getElementById("opskriftSide").style.display = "block";
+
+let ingrediensListe = "";
+
+if(data.lagerIngredienser){
+
+ingrediensListe =
+lavLagerListe(
+data.lagerIngredienser
+);
+
+}
+else{
+
+ingrediensListe =
+lavLagerListe(
+data.ingredienser
+);
+
+}
+let maengdeListe = "";
+let fremgangsListe = "";
+
+if(data.fremgangsmaade){
+
+data.fremgangsmaade.forEach(function(trin){
+
+fremgangsListe +=
+"<div>" +
+trin +
+"</div>";
+
+});
+
+}
+if(data.lagerIngredienser){
+
+data.ingredienser.forEach(function(item){
+
+maengdeListe +=
+"<div>• " +
+item +
+"</div>";
+
+});
+
+}
+let statusTekst = "";
+
+if(statusData.vilProeve) statusTekst += "⭐ ";
+if(statusData.smagt) statusTekst += "🍹 ";
+if(statusData.lavetSelv) statusTekst += "✅ ";
+if(statusData.favorit) statusTekst += "❤️ ";
+if(statusData.kanIkkeLide) statusTekst += "🚫 ";
+
+document.getElementById("opskriftIndhold").innerHTML =
+
+'<button class="tilbage" onclick="lukOpskrift()">← Tilbage</button>' +
+
+'<h2>' + data.navn + '</h2>' +
+
+(data.type ?
+'<p><strong>Type:</strong> ' +
+data.type +
+'</p>'
+: '') +
+
+(data.smag ?
+'<p><strong>Smag:</strong> ' +
+smagTekst +
+'</p>'
+: '') +
+
+'<p><strong>' +
+lagerStatus +
+'</strong></p>' +
+
+'<p><strong>Status:</strong> ' +
+(statusTekst || "Ingen") +
+'</p>' +
+
+'<h3>Lagerkontrol</h3>' +
+
+ingrediensListe +
+
+(maengdeListe ?
+
+'<h3>Ingredienser</h3>' +
+maengdeListe
+
+: '') +
+
+
+(maengdeListe ?
+
+'<h3>Fremgangsmåde</h3>' +
+fremgangsListe
+
+: '') +
+
+statusKnapper(id);
+window.scrollTo(0,0);
+
+}
+
+function lukOpskrift(){
+
+document.getElementById("opskriftSide").style.display = "none";
+document.getElementById("mainLayout").style.display = "flex";
+
+window.scrollTo(0,0);
+
+}
+
+function opdaterStatusVisning(){
+
+document
+.querySelectorAll(".kort")
+.forEach(function(kort){
+
+const id = kort.dataset.id;
+const data = hentData(id);
+
+let tekst = "";
+
+if(data.vilProeve) tekst += "⭐ ";
+if(data.smagt) tekst += "🍹 ";
+if(data.lavetSelv) tekst += "✅ ";
+if(data.favorit) tekst += "❤️ ";
+if(data.kanIkkeLide) tekst += "🚫 ";
+
+if(!opskrifter[id]){
+    return;
+}
+
+const mangler =
+tjekCocktailLager(
+opskrifter[id].ingredienser
+);
+
+if(mangler === 0){
+
+tekst += " ✔️";
+
+}
+else if(mangler === 1){
+
+tekst += " 🟡";
+
+}
+else if(mangler === 2){
+
+tekst += " 🟠";
+
+}
+else{
+
+tekst += " 🔴";
+
+}
+kort.querySelector(".statusVisning").innerHTML = tekst;
+
+});
+
+}
+
+function opdaterTaellere(){
+
+let vilProeve = 0;
+let smagt = 0;
+let lavetSelv = 0;
+let favorit = 0;
+let kanIkkeLide = 0;
+
+Object.keys(opskrifter)
+.forEach(function(id){
+
+const data = hentData(id);
+
+if(data.vilProeve) vilProeve++;
+if(data.smagt) smagt++;
+if(data.lavetSelv) lavetSelv++;
+if(data.favorit) favorit++;
+if(data.kanIkkeLide) kanIkkeLide++;
+
+});
+
+document.getElementById("countVilProeve").innerText = vilProeve;
+document.getElementById("countSmagt").innerText = smagt;
+document.getElementById("countLavetSelv").innerText = lavetSelv;
+document.getElementById("countFavorit").innerText = favorit;
+document.getElementById("countKanIkkeLide").innerText = kanIkkeLide;
+
+}
+
+function filterStatus(type){
+
+document.querySelectorAll(".kort")
+.forEach(function(kort){
+
+const data =
+hentData(kort.dataset.id);
+
+kort.style.display =
+data[type]
+? "block"
+: "none";
+
+});
+
+}
+function opdaterLagerTaellere(){
+
+let kanLaves = 0;
+let mangler1 = 0;
+let mangler2 = 0;
+let mangler3 = 0;
+
+Object.keys(opskrifter)
+.forEach(function(id){
+
+const mangler =
+tjekCocktailLager(
+opskrifter[id].ingredienser
+);
+
+if(mangler === 0){
+
+kanLaves++;
+
+}
+else if(mangler === 1){
+
+mangler1++;
+
+}
+else if(mangler === 2){
+
+mangler2++;
+
+}
+else{
+
+mangler3++;
+
+}
+
+});
+
+document.getElementById(
+"countKanLaves"
+).innerText = kanLaves;
+
+document.getElementById(
+"countMangler1"
+).innerText = mangler1;
+
+document.getElementById(
+"countMangler2"
+).innerText = mangler2;
+
+document.getElementById(
+"countMangler3"
+).innerText = mangler3;
+
+}
+function filterLager(antal){
+
+document
+.querySelectorAll(".kort")
+.forEach(function(kort){
+
+const id =
+kort.dataset.id;
+
+if(!opskrifter[id]){
+    return;
+}
+
+const mangler =
+tjekCocktailLager(
+opskrifter[id].ingredienser
+);
+
+let vis = false;
+
+if(
+antal === 0 &&
+mangler === 0
+){
+vis = true;
+}
+
+if(
+antal === 1 &&
+mangler === 1
+){
+vis = true;
+}
+
+if(
+antal === 2 &&
+mangler === 2
+){
+vis = true;
+}
+
+if(
+antal === 3 &&
+mangler >= 3
+){
+vis = true;
+}
+
+kort.style.display =
+vis
+? "block"
+: "none";
+
+});
+
+}
+function filterLager(antal){
+
+document
+.querySelectorAll(".kort")
+.forEach(function(kort){
+
+const id =
+kort.dataset.id;
+
+const mangler =
+tjekCocktailLager(
+opskrifter[id].ingredienser
+);
+
+let vis = false;
+
+if(
+antal === 0 &&
+mangler === 0
+){
+vis = true;
+}
+
+if(
+antal === 1 &&
+mangler === 1
+){
+vis = true;
+}
+
+if(
+antal === 2 &&
+mangler === 2
+){
+vis = true;
+}
+
+if(
+antal === 3 &&
+mangler >= 3
+){
+vis = true;
+}
+
+kort.style.display =
+vis
+? "block"
+: "none";
+
+});
+
+}
+function sorterEfterLager(){
+
+const container =
+document.getElementById("listeSide");
+
+const kort =
+Array.from(
+container.querySelectorAll(".kort")
+);
+
+kort.sort(function(a,b){
+
+const manglerA =
+tjekCocktailLager(
+opskrifter[a.dataset.id].ingredienser
+);
+
+const manglerB =
+tjekCocktailLager(
+opskrifter[b.dataset.id].ingredienser
+);
+
+return manglerA - manglerB;
+
+});
+
+kort.forEach(function(kort){
+
+container.appendChild(kort);
+
+});
+
+}
+function visAlleCocktails(){
+
+document.querySelectorAll(".kort")
+.forEach(function(kort){
+
+kort.style.display = "block";
+
+});
+
+}
+
+function anvendFiltre(){
+
+const soegning =
+document.getElementById("soegning")
+.value
+.toLowerCase();
+
+const aktiveTyper =
+Array.from(
+document.querySelectorAll(".typeFilter:checked")
+).map(cb => cb.value);
+
+const aktiveSmage =
+Array.from(
+document.querySelectorAll(".smagFilter:checked")
+).map(cb => cb.value);
+
+document.querySelectorAll(".kort")
+.forEach(function(kort){
+
+let vis = true;
+
+const navn =
+kort.innerText.toLowerCase();
+
+const type =
+kort.dataset.type;
+
+const smag =
+kort.dataset.smag;
+
+if(!navn.includes(soegning)){
+vis = false;
+}
+
+if(
+aktiveTyper.length > 0 &&
+!aktiveTyper.includes(type)
+){
+vis = false;
+}
+
+if(
+aktiveSmage.length > 0 &&
+!aktiveSmage.includes(smag)
+){
+vis = false;
+}
+
+kort.style.display =
+vis ? "block" : "none";
+
+});
+
+}
+
+document.querySelectorAll(".kort")
+.forEach(function(kort){
+
+kort.addEventListener(
+"click",
+function(){
+
+visOpskrift(
+this.dataset.id
+);
+
+}
+);
+
+});
+
+document
+.getElementById("soegning")
+.addEventListener(
+"input",
+anvendFiltre
+);
+
+document
+.querySelectorAll(".typeFilter")
+.forEach(function(cb){
+
+cb.addEventListener(
+"change",
+anvendFiltre
+);
+
+});
+
+document
+.querySelectorAll(".smagFilter")
+.forEach(function(cb){
+
+cb.addEventListener(
+"change",
+anvendFiltre
+);
+
+});
+
+opdaterStatusVisning();
+opdaterTaellere();
+opdaterLagerTaellere();
+
+</script>
+
+</body>
+</html>
