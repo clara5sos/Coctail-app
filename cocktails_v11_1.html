@@ -2643,6 +2643,18 @@ return `
 function visOpskrift(id){
 
 const data = opskrifter[id];
+function visOpskrift(id){
+
+const data = opskrifter[id];
+
+if(!data){
+    console.log("Mangler opskrift:", id);
+    return;
+}
+
+const statusData = hentData(id);
+
+let smagTekst = "";
 const statusData = hentData(id);
 
 
@@ -2825,6 +2837,10 @@ if(data.smagt) tekst += "🍹 ";
 if(data.lavetSelv) tekst += "✅ ";
 if(data.favorit) tekst += "❤️ ";
 if(data.kanIkkeLide) tekst += "🚫 ";
+
+if(!opskrifter[id]){
+    return;
+}
 
 const mangler =
 tjekCocktailLager(
