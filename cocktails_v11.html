@@ -447,7 +447,36 @@ data-smag="Sød">
 </div>
 </div>
 </div>
+<div class="kort"
+data-id="frozenCoconutPinaMargarita"
+data-type="Cocktail"
+data-smag="Frisk">
 
+<h3>🥥 Frozen Coconut Piña Margarita</h3>
+<p>Frisk • Syrlig</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+<!-- HER INDSÆTTER DU TEQUILA-KORTENE -->
+
+<div class="kort"
+data-id="mexicanMule"
+data-type="Cocktail"
+data-smag="Krydret">
+
+<h3>🌵 Mexican Mule</h3>
+<p>Krydret • Syrlig • Frisk</p>
+
+<div class="statusVisning"></div>
+
+</div>
+
+...
+
+<script>
+const ingrediensMatch = {
 <script>
 const ingrediensMatch = {
 
@@ -557,6 +586,236 @@ return html;
 }
 const opskrifter = {
 
+    mexicanMule:{
+
+navn:"🌵 Mexican Mule",
+
+type:"Cocktail",
+
+smag:[
+"Krydret",
+"Syrlig",
+"Frisk"
+],
+
+ingredienser:[
+"6 cl Tequila",
+"1 cl Sugar Cane Mixer",
+"1,5 cl Friskpresset Limesaft",
+"9 cl Ginger Beer",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Tequila",
+"Sugar Cane Mixer",
+"Friskpresset Limesaft",
+"Ginger Beer"
+],
+
+fremgangsmaade:[
+"Stil et glas på køl.",
+"Fyld glasset med isterninger.",
+"Tilsæt tequila.",
+"Tilsæt Sugar Cane Mixer.",
+"Tilsæt friskpresset limesaft.",
+"Top med Ginger Beer.",
+"Rør forsigtigt rundt."
+]
+
+},
+margarita:{
+
+navn:"🍸 Margarita",
+
+type:"Cocktail",
+
+smag:[
+"Syrlig",
+"Stærk",
+"Frisk"
+],
+
+ingredienser:[
+"4 cl Tequila",
+"2 cl Cointreau",
+"1 cl Sugar Cane Mixer",
+"1,5 cl Friskpresset Limesaft",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Tequila",
+"Cointreau",
+"Sugar Cane Mixer",
+"Friskpresset Limesaft"
+],
+
+fremgangsmaade:[
+"Fyld en shaker med isterninger.",
+"Tilsæt tequila.",
+"Tilsæt Cointreau.",
+"Tilsæt Sugar Cane Mixer.",
+"Tilsæt friskpresset limesaft.",
+"Ryst i 10 sekunder.",
+"Si over i et cocktailglas."
+]
+
+},
+
+paloma:{
+
+navn:"🍊 Paloma",
+
+type:"Cocktail",
+
+smag:[
+"Bitter",
+"Frisk"
+],
+
+ingredienser:[
+"4 cl Tequila",
+"2 cl Friskpresset Limesaft",
+"12 cl Pink Grapefrugt Sodavand",
+"1 cl Sugar Cane Mixer",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Tequila",
+"Friskpresset Limesaft",
+"Pink Grapefrugt Sodavand",
+"Sugar Cane Mixer"
+],
+
+fremgangsmaade:[
+"Fyld et højt glas med isterninger.",
+"Tilsæt tequila.",
+"Tilsæt limesaft.",
+"Top med pink grapefrugt sodavand.",
+"Tilsæt Sugar Cane Mixer.",
+"Rør forsigtigt rundt."
+]
+
+},
+
+rabarberMargarita:{
+
+navn:"🌸 Rabarber Margarita",
+
+type:"Cocktail",
+
+smag:[
+"Frisk",
+"Stærk"
+],
+
+ingredienser:[
+"2 cl Cointreau",
+"4 cl Tequila",
+"2 cl Rhubarb Mixer",
+"2 cl Friskpresset Limesaft",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Cointreau",
+"Tequila",
+"Rhubarb Mixer",
+"Friskpresset Limesaft"
+],
+
+fremgangsmaade:[
+"Fyld en shaker med isterninger.",
+"Tilsæt Cointreau.",
+"Tilsæt tequila.",
+"Tilsæt Rhubarb Mixer.",
+"Tilsæt friskpresset limesaft.",
+"Ryst i 10 sekunder.",
+"Si over i et glas med is."
+]
+
+},
+
+sparklingMargarita:{
+
+navn:"✨ Sparkling Margarita",
+
+type:"Cocktail",
+
+smag:[
+"Frisk",
+"Syrlig"
+],
+
+ingredienser:[
+"2 cl Cointreau",
+"4 cl Tequila",
+"1 cl Sugar Cane Mixer",
+"4 cl Prosecco",
+"1,5 cl Friskpresset Limesaft",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Cointreau",
+"Tequila",
+"Sugar Cane Mixer",
+"Prosecco",
+"Friskpresset Limesaft"
+],
+
+fremgangsmaade:[
+"Fyld en shaker med isterninger.",
+"Tilsæt Cointreau.",
+"Tilsæt tequila.",
+"Tilsæt Sugar Cane Mixer.",
+"Tilsæt friskpresset limesaft.",
+"Ryst i 15 sekunder.",
+"Si over i et glas.",
+"Top med prosecco."
+]
+
+},
+
+frozenCoconutPinaMargarita:{
+
+navn:"🥥 Frozen Coconut Piña Margarita",
+
+type:"Cocktail",
+
+smag:[
+"Frisk",
+"Syrlig"
+],
+
+ingredienser:[
+"2 cl Cointreau",
+"3 cl Tequila",
+"1 cl Sugar Cane Mixer",
+"3 cl Kokosmælk",
+"1,5 cl Friskpresset Limesaft",
+"100 g Frossen Ananas",
+"Isterninger"
+],
+
+lagerIngredienser:[
+"Cointreau",
+"Tequila",
+"Sugar Cane Mixer",
+"Kokosmælk",
+"Friskpresset Limesaft",
+"Frossen Ananas"
+],
+
+fremgangsmaade:[
+"Kom alle ingredienser i en blender.",
+"Blend til en slush ice-lignende konsistens.",
+"Hæld i et afkølet glas."
+]
+
+},
 aperol:{
 navn:"🍹 Aperol Spritz",
 ingredienser:["Aperol","Prosecco","Danskvand"]
