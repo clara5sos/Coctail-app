@@ -156,7 +156,7 @@ header{
 
 <header>
 
-<h1>🍹 Claras Cocktail App V11.2</h1>
+<h1>🍹 Claras Cocktail App V11.3</h1>
 
 <div class="menu">
 <a href="lager_v9.html">📦 Lager</a>
@@ -1086,7 +1086,20 @@ data.ingredienser
 
 }
 let maengdeListe = "";
+let fremgangsListe = "";
 
+if(data.fremgangsmaade){
+
+data.fremgangsmaade.forEach(function(trin){
+
+fremgangsListe +=
+"<div>" +
+trin +
+"</div>";
+
+});
+
+}
 if(data.lagerIngredienser){
 
 data.ingredienser.forEach(function(item){
@@ -1133,12 +1146,26 @@ lagerStatus +
 (statusTekst || "Ingen") +
 '</p>' +
 
-'<h3>Ingredienser</h3>' +
+'<h3>Lagerkontrol</h3>' +
 
 ingrediensListe +
 
-statusKnapper(id);
+(maengdeListe ?
 
+'<h3>Ingredienser</h3>' +
+maengdeListe
+
+: '') +
+
+statusKnapper(id);
+(maengdeListe ?
+
+'<h3>Fremgangsmåde</h3>' +
+fremgangsListe
+
+: '') +
+
+statusKnapper(id);
 window.scrollTo(0,0);
 
 }
