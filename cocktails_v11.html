@@ -1067,11 +1067,38 @@ mangler +
 document.getElementById("mainLayout").style.display = "none";
 document.getElementById("opskriftSide").style.display = "block";
 
-let ingrediensListe =
+let ingrediensListe = "";
+
+if(data.lagerIngredienser){
+
+ingrediensListe =
+lavLagerListe(
+data.lagerIngredienser
+);
+
+}
+else{
+
+ingrediensListe =
 lavLagerListe(
 data.ingredienser
 );
 
+}
+let maengdeListe = "";
+
+if(data.lagerIngredienser){
+
+data.ingredienser.forEach(function(item){
+
+maengdeListe +=
+"<div>• " +
+item +
+"</div>";
+
+});
+
+}
 let statusTekst = "";
 
 if(statusData.vilProeve) statusTekst += "⭐ ";
