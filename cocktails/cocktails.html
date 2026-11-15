@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Claras Cocktail App - Cocktails</title>
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    background:#f6f1ff;
+    margin:0;
+}
+
+header{
+    background:#7c3aed;
+    color:white;
+    padding:20px;
+}
+
+h1{
+    margin:0;
+}
+
+.menu{
+    margin-top:15px;
+}
+
+.menu a,
+.menu span{
+    display:inline-block;
+    text-decoration:none;
+    margin-right:10px;
+    padding:10px 14px;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+.menu a{
+    background:white;
+    color:#7c3aed;
+}
+
+.menu .aktiv{
+    background:#5b21b6;
+    color:white;
+}
+
+.container{
+    display:flex;
+    gap:20px;
+    padding:20px;
+}
+
+.filtre{
+    width:280px;
+    background:white;
+    padding:15px;
+    border-radius:12px;
+    height:fit-content;
+}
+
+.resultater{
+    flex:1;
+}
+
+.kort{
+    background:white;
+    border-radius:12px;
+    padding:15px;
+    margin-bottom:15px;
+    cursor:pointer;
+}
+
+.kort:hover{
+    background:#efe5ff;
+}
+
+.opskrift{
+    display:none;
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    margin-top:20px;
+}
+
+input[type="text"]{
+    width:100%;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    box-sizing:border-box;
+    margin-bottom:15px;
+}
+
+.statusknapper button{
+    margin:5px;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.gemt{
+    background:#7c3aed;
+    color:white;
+}
+
+.tilbage{
+    padding:10px;
+    background:#ddd;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    margin-bottom:15px;
+}
+
+</style>
+<body>
+
+<header>
+
+<h1>🍹 Claras Cocktail App</h1>
+
+<div class="menu">
+<a href="index.html">📦 Lager</a>
+<span class="aktiv">🍹 Cocktails</span>
+</div>
+
+</header>
+
+<div class="container">
+
+<div class="filtre">
+
+<input
+type="text"
+id="soegning"
+placeholder="Søg cocktail..."
+>
+
+</div>
+
+<div class="resultater">
+
+<div id="liste">
+
+<div class="kort" data-navn="aperol spritz" onclick="visOpskrift('aperol')">
+<h3>🍹 Aperol Spritz</h3>
+Frugtig cocktail
+</div>
+
+<div class="kort" data-navn="strawberry soda gin" onclick="visOpskrift('strawberry')">
+<h3>🍓 Strawberry Soda Gin</h3>
+Sød og frugtig cocktail
+</div>
+
+<div class="kort" data-navn="espresso martini" onclick="visOpskrift('espresso')">
+<h3>☕ Espresso Martini</h3>
+Kaffecocktail
+</div>
+
+<div class="kort" data-navn="ananas cooler" onclick="visOpskrift('cooler')">
+<h3>🍍 Ananas Cooler</h3>
+Mocktail
+</div>
+
+<div class="kort" data-navn="gin tonic" onclick="visOpskrift('gintonic')">
+<h3>🍸 Gin & Tonic</h3>
+Klassisk cocktail
+</div>
+
+<div class="kort" data-navn="pineapple daiquiri" onclick="visOpskrift('daiquiri')">
+<h3>🍍 Pineapple Daiquiri</h3>
+Sød romcocktail
+</div>
+
+</div>
+
+<div class="opskrift" id="opskrift"></div>
+
+</div>
+
+</div>
+<script>
+
+function gemStatus(cocktail,status){
+
+localStorage.setItem(
+"status_"+cocktail,
+status
+);
+
+alert("Gemt: " + status);
+
+}
+
+function statusKnapper(id){
+
+return `
+<div class="statusknapper">
+
+<button onclick="gemStatus('${id}','Vil prøve')">⭐ Vil prøve</button>
+
+<button onclick="gemStatus('${id}','Smagt')">🍹 Smagt</button>
+
+<button onclick="gemStatus('${id}','Lavet selv')">✅ Lavet selv</button>
+
+<button onclick="gemStatus('${id}','Favorit')">❤️ Favorit</button>
+
+<button onclick="gemStatus('${id}','Kan ikke lide')">🚫 Kan ikke lide</button>
+
+</div>
+`;
+
+}
+
+function visOpskrift(id){
+
+const boks = document.getElementById('opskrift');
+
+if(id==="aperol"){
+
+boks.innerHTML = `
+<button class="tilbage" onclick="lukOpskrift()">← Tilbage</button>
+
+<h2>🍹 Aperol Spritz</h2>
+
+<p>Aperol, Prosecco, Danskvand</p>
+
+${statusKnapper(id)}
+`;
+
+}
+
+if(id==="strawberry"){
+
+boks.innerHTML = `
+<button class="tilbage" onclick="lukOpskrift()">← Tilbage</button>
+
+<h2>🍓 Strawberry Soda Gin</h2>
+
+<p>Gin, Jordbærsodavand</p>
+
+${statusKnapper(id)}
+`;
+
+}
+
+if(id==="espresso"){
+
+boks.innerHTML = `
+<button class="tilbage" onclick="lukOpskrift()">← Tilbage</button>
+
+<h2>☕ Espresso Martini</h2>
+
+<p>Vodka, Kaffelikør, Espresso</p>
+
+${statusKnapper(id)}
+`;
+
+}
+
+if(id==="cooler"){
+
+boks.innerHTML = `
+<button class="tilbage" onclick="lukOpskrift()">← Tilbage</button>
+
+<h2>🍍 Ananas Cooler</h2>
+
+<p>Ananasjuice, Sprite</p>
+
+${statusKnapper(id)}
+`;
+
+}
+
+if(id==="gintonic"){
+
+boks.innerHTML = `
+<button class="tilbage" onclick="lukOpskrift()">← Tilbage</button>
+
+<h2>🍸 Gin & Tonic</h2>
+
+<p>Gin, Tonic</p>
+
+${statusKnapper(id)}
+`;
+
+}
+
+if(id==="daiquiri"){
+
+boks.innerHTML = `
+<button class="tilbage" onclick="lukOpskrift()">← Tilbage</button>
+
+<h2>🍍 Pineapple Daiquiri</h2>
+
+<p>Rom, ananasjuice, lime</p>
+
+${statusKnapper(id)}
+`;
+
+}
+
+boks.style.display="block";
+
+}
+
+function lukOpskrift(){
+
+document.getElementById("opskrift").style.display="none";
+
+}
+
+document
+.getElementById("soegning")
+.addEventListener("input",function(){
+
+const tekst = this.value.toLowerCase();
+
+document
+.querySelectorAll(".kort")
+.forEach(kort=>{
+
+const navn =
+kort.dataset.navn.toLowerCase();
+
+kort.style.display =
+navn.includes(tekst)
+? "block"
+: "none";
+
+});
+
+});
+
+</script>
+
+</body>
+</html>
