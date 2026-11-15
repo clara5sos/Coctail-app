@@ -1019,7 +1019,22 @@ function visOpskrift(id){
 
 const data = opskrifter[id];
 const statusData = hentData(id);
+const data = opskrifter[id];
+const statusData = hentData(id);
 
+let smagTekst = "";
+
+if(data.smag){
+
+smagTekst =
+data.smag.join(", ");
+
+}
+
+const mangler =
+tjekCocktailLager(
+data.ingredienser
+);
 const mangler =
 tjekCocktailLager(
 data.ingredienser
@@ -1075,6 +1090,18 @@ document.getElementById("opskriftIndhold").innerHTML =
 '<button class="tilbage" onclick="lukOpskrift()">← Tilbage</button>' +
 
 '<h2>' + data.navn + '</h2>' +
+
+(data.type ?
+'<p><strong>Type:</strong> ' +
+data.type +
+'</p>'
+: '') +
+
+(data.smag ?
+'<p><strong>Smag:</strong> ' +
+smagTekst +
+'</p>'
+: '') +
 
 '<p><strong>' +
 lagerStatus +
