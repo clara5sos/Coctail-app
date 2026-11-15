@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Claras Cocktail App V11_1</title>
+<title>Claras Cocktail App V11_2</title>
 
 <style>
 
@@ -156,7 +156,7 @@ header{
 
 <header>
 
-<h1>🍹 Claras Cocktail App V11_1</h1>
+<h1>🍹 Claras Cocktail App V11_2</h1>
 
 <div class="menu">
 <a href="lager_v9.html">📦 Lager</a>
