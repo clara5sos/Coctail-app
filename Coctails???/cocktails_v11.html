@@ -3021,6 +3021,10 @@ document
 const id =
 kort.dataset.id;
 
+if(!opskrifter[id]){
+    return;
+}
+
 const mangler =
 tjekCocktailLager(
 opskrifter[id].ingredienser
