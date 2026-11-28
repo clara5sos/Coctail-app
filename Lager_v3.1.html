@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Claras Cocktail App v4</title>
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    background:#f6f1ff;
+    max-width:1000px;
+    margin:auto;
+    padding:20px;
+}
+
+h1{
+    color:#7c3aed;
+}
+
+.menu{
+    background:white;
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:20px;
+}
+
+.menu a{
+    text-decoration:none;
+    font-weight:bold;
+    color:#7c3aed;
+    margin-right:20px;
+    font-size:18px;
+}
+
+.menu .aktiv{
+    background:#7c3aed;
+    color:white;
+    padding:8px 12px;
+    border-radius:8px;
+}
+
+#soegning{
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    border:1px solid #ccc;
+    margin-bottom:20px;
+    box-sizing:border-box;
+}
+
+details{
+    background:white;
+    border-radius:12px;
+    margin-bottom:15px;
+    padding:15px;
+}
+
+summary{
+    cursor:pointer;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.undergruppe{
+    background:#eef6f4;
+    border-radius:10px;
+    padding:12px;
+    margin-top:10px;
+}
+
+label{
+    display:block;
+    margin:6px 0;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>🍹 Claras Cocktail App</h1>
+
+<div class="menu">
+<span class="aktiv">📦 Lager</span>
+<a href="cocktails_v11_2.html">🍹 Cocktails</a>
+</div>
+
+<input
+id="soegning"
+type="text"
+placeholder="Søg i lager..."
+>
+<details open>
+<summary>🍾 Spiritus</summary>
+
+<div class="undergruppe">
+<strong>Gin</strong>
+
+<label><input type="checkbox"> Ginton Gin</label>
+<label><input type="checkbox"> Gordon's Tropical Passionfruit</label>
+<label><input type="checkbox"> June by G'Vine Peach Gin</label>
+<label><input type="checkbox"> June by G'Vine Pear Gin</label>
+<label><input type="checkbox"> Needle Blackforest Gin</label>
+<label><input type="checkbox"> Finsbury Blood Orange Gin</label>
+<label><input type="checkbox"> Finsbury Wild Strawberry Gin</label>
+<label><input type="checkbox"> Snowglobe Gin Liqueur Orange & Gingerbread</label>
+
+</div>
+
+<div class="undergruppe">
+<strong>Vodka</strong>
+
+<label><input type="checkbox"> Smirnoff Vodka</label>
+<label><input type="checkbox"> Stolichnaya Stoli Citros</label>
+<label><input type="checkbox"> Cuba Pure Vodka</label>
+
+</div>
+
+<div class="undergruppe">
+<strong>Rom</strong>
+
+<label><input type="checkbox"> Captain Morgan Spiced Gold</label>
+<label><input type="checkbox"> Captain Morgan White Rum</label>
+
+</div>
+
+<div class="undergruppe">
+<strong>Tequila</strong>
+
+<label><input type="checkbox"> Sierra Tequila</label>
+
+</div>
+
+<div class="undergruppe">
+<strong>Whisky</strong>
+
+</div>
+
+</details>
+
+<details>
+<summary>🍸 Likører</summary>
+
+<label><input type="checkbox"> Licor 43</label>
+<label><input type="checkbox"> Cointreau</label>
+<label><input type="checkbox"> Cointreau Triple Sec Likør</label>
+<label><input type="checkbox"> Villa Massa Amaretto</label>
+<label><input type="checkbox"> Villa Massa Limoncello Likør</label>
+<label><input type="checkbox"> Baileys</label>
+<label><input type="checkbox"> Sheridan's Coffee Layered Liqueur</label>
+
+</details>
+
+<details>
+<summary>🥃 Shots</summary>
+
+<label><input type="checkbox"> Pure Lakrids</label>
+
+</details>
+
+<details>
+<summary>🥂 Vin & Bobler</summary>
+
+<label><input type="checkbox"> Cinzano Prosecco</label>
+<label><input type="checkbox"> Laurent-Perrier Champagne</label>
+<label><input type="checkbox"> Laurent-Perrier, La Cuvée Brut Champagne</label>
+<label><input type="checkbox"> Diamond Hill Moscato</label>
+
+</details>
+
+<details>
+<summary>🥤 Sodavand & Tonic</summary>
+
+<label><input type="checkbox"> Sprite</label>
+<label><input type="checkbox"> Lemon Sodavand</label>
+<label><input type="checkbox"> Danskvand</label>
+<label><input type="checkbox"> Ginger Beer</label>
+<label><input type="checkbox"> Ginger Ale</label>
+<label><input type="checkbox"> Birdcage Rhubarb Tonic Zero Sugar</label>
+<label><input type="checkbox"> Pink Grapefrugt Sodavand</label>
+
+</details>
+
+<details>
+<summary>🧃 Juice & Citrus</summary>
+
+<label><input type="checkbox"> Ananasjuice</label>
+<label><input type="checkbox"> Friskpresset Appelsinsaft</label>
+<label><input type="checkbox"> Friskpresset Citronsaft</label>
+<label><input type="checkbox"> Friskpresset Limesaft</label>
+
+</details>
+
+<details>
+<summary>🍓 Mixere & Sirupper</summary>
+
+<label><input type="checkbox"> Barmix Sirup Sugar Cane</label>
+<label><input type="checkbox"> Barmix Sirup Grenadine</label>
+
+<label><input type="checkbox"> Shake-It Mixer Mango</label>
+<label><input type="checkbox"> Shake-It Mixer Lime</label>
+<label><input type="checkbox"> Shake-It Mixer Grenadine</label>
+<label><input type="checkbox"> Shake-It Mixer Passion Fruit</label>
+<label><input type="checkbox"> Shake-It Mixer Pineapple
+
+<script>
+
+// GEM CHECKBOXE
+
+const checkboxes =
+document.querySelectorAll(
+'input[type="checkbox"]'
+);
+
+checkboxes.forEach((checkbox,index)=>{
+
+const label =
+checkbox.parentElement
+.textContent
+.trim();
+
+const key =
+"lager_" + label;
+
+if(
+localStorage.getItem(key)
+=== "true"
+){
+checkbox.checked = true;
+}
+
+checkbox.addEventListener(
+"change",
+function(){
+
+localStorage.setItem(
+key,
+this.checked
+);
+
+}
+);
+
+});
+
+// GEM FOLD-UD KATEGORIER
+
+const detailsListe = document.querySelectorAll("details");
+
+detailsListe.forEach((item,index)=>{
+
+const key = "details_"+index;
+
+const gemt = localStorage.getItem(key);
+
+if(gemt==="lukket"){
+item.removeAttribute("open");
+}
+
+if(gemt==="aaben"){
+item.setAttribute("open","open");
+}
+
+item.addEventListener("toggle",()=>{
+
+if(item.open){
+localStorage.setItem(key,"aaben");
+}
+else{
+localStorage.setItem(key,"lukket");
+}
+
+});
+
+});
+
+// SØGNING
+
+document
+.getElementById("soegning")
+.addEventListener("input",function(){
+
+const tekst = this.value.toLowerCase();
+
+document.querySelectorAll("label").forEach(label=>{
+
+const navn = label.textContent.toLowerCase();
+
+if(navn.includes(tekst)){
+label.style.display="block";
+}
+else{
+label.style.display="none";
+}
+
+});
+
+});
+
+</script>
+
+</body>
+</html>
